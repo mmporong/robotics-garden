@@ -72,3 +72,61 @@ article h2 {
     font-size: 0.8em;
   }
 }
+
+// ── 목차(TOC): 위치 레일 + 현재 섹션 구분 ─────────────────────────
+.toc ul.toc-content {
+  li {
+    padding: 0.18rem 0 0.18rem 0.75rem;
+    line-height: 1.45;
+    border-left: 2px solid var(--lightgray); // 레일 — 목차 전체가 하나의 트랙으로 읽히게
+
+    a {
+      color: var(--gray); // 기본은 한 톤 눌러서
+      transition: color 0.2s ease;
+
+      &.in-view {
+        color: var(--secondary); // 지금 보고 있는 섹션 = 그린
+        font-weight: 600;
+      }
+
+      &:hover {
+        color: var(--tertiary);
+      }
+    }
+
+    // 현재 섹션은 레일도 함께 켜진다
+    &:has(a.in-view) {
+      border-left-color: var(--secondary);
+    }
+  }
+}
+
+// ── 탐색기(Explorer): 폴더 라벨 vs 파일, 현재 페이지 구분 ─────────
+.explorer {
+  // 폴더명 = 모노 라벨 (명판 eyebrow와 같은 문법) — 파일명과 즉시 구분
+  .folder-title {
+    font-family: var(--codeFont);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tertiary);
+  }
+
+  // 파일 항목: 호흡 + 현재 페이지 강조
+  .explorer-ul a {
+    display: inline-block;
+    padding: 0.12rem 0;
+    line-height: 1.45;
+    color: var(--darkgray);
+
+    &.active {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    &:hover {
+      color: var(--tertiary);
+    }
+  }
+}
