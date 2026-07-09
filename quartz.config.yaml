@@ -21,14 +21,14 @@ configuration:
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#f7f9f8"
-        lightgray: "#dee5e1"
-        gray: "#75827c"
-        darkgray: "#333f3a"
-        dark: "#141e19"
-        secondary: "#0b6b52"
+        light: "#f6f2e6"
+        lightgray: "#e4ddc9"
+        gray: "#82806f"
+        darkgray: "#3a4034"
+        dark: "#212617"
+        secondary: "#2f6b4f"
         tertiary: "#b26b36"
-        highlight: "rgba(11, 107, 82, 0.08)"
+        highlight: "rgba(47, 107, 79, 0.09)"
         textHighlight: "#ffe17a88"
       darkMode:
         light: "#0f1613"
@@ -127,8 +127,6 @@ plugins:
     enabled: true
   - source: github:quartz-community/explorer
     enabled: true
-    options:
-      folderDefaultState: open
     layout:
       position: left
       priority: 50
