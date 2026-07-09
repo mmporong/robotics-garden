@@ -75,6 +75,7 @@ plugins:
     layout:
       position: right
       priority: 30
+      condition: has-toc
   - source: github:quartz-community/crawl-links
     enabled: true
     options:
@@ -136,10 +137,7 @@ plugins:
       position: left
       priority: 50
   - source: github:quartz-community/graph
-    enabled: true
-    layout:
-      position: right
-      priority: 10
+    enabled: false
   - source: github:quartz-community/search
     enabled: true
     layout:
@@ -153,6 +151,7 @@ plugins:
     layout:
       position: right
       priority: 50
+      condition: has-backlinks
   - source: github:quartz-community/article-title
     enabled: true
     layout:
@@ -205,7 +204,15 @@ plugins:
       links:
         GitHub: https://github.com/mmporong
   - source: github:quartz-community/recent-notes
-    enabled: false
+    enabled: true
+    options:
+      title: 최근 글
+      limit: 3
+      linkToMore: false
+      showTags: false
+    layout:
+      position: afterBody
+      priority: 20
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
