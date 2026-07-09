@@ -19,26 +19,28 @@ configuration:
       header: IBM Plex Sans KR
       body: IBM Plex Sans KR
       code: IBM Plex Mono
+    # 2026 올해의 컬러 팔레트 — 배경: Pantone Cloud Dancer(#f0eee9) / 잉크: BM Silhouette(#57504c)
+    # 링크: Graham & Brown Divine Damson 계열(딥 플럼) / 호버: SW Universal Khaki 계열(브론즈)
     colors:
       lightMode:
-        light: "#f6f2e6"
-        lightgray: "#e4ddc9"
-        gray: "#82806f"
-        darkgray: "#3a4034"
-        dark: "#212617"
-        secondary: "#2f6b4f"
-        tertiary: "#b26b36"
-        highlight: "rgba(47, 107, 79, 0.09)"
-        textHighlight: "#ffe17a88"
+        light: "#f0eee9"
+        lightgray: "#dedad1"
+        gray: "#8a8379"
+        darkgray: "#57504c"
+        dark: "#35302c"
+        secondary: "#7b4058"
+        tertiary: "#7a684b"
+        highlight: "rgba(123, 64, 88, 0.07)"
+        textHighlight: "#f5d76e66"
       darkMode:
-        light: "#0f1613"
-        lightgray: "#232e28"
-        gray: "#5f6d66"
-        darkgray: "#c6d2cb"
-        dark: "#e7efea"
-        secondary: "#4ec79a"
-        tertiary: "#d89158"
-        highlight: "rgba(78, 199, 154, 0.10)"
+        light: "#211e1c"
+        lightgray: "#3a3531"
+        gray: "#7e766d"
+        darkgray: "#d8d3ca"
+        dark: "#f0eee9"
+        secondary: "#c88ba1"
+        tertiary: "#c2ac82"
+        highlight: "rgba(200, 139, 161, 0.10)"
         textHighlight: "#b3aa0288"
 plugins:
   - source: github:quartz-community/created-modified-date
