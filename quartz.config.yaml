@@ -127,6 +127,8 @@ plugins:
     enabled: true
   - source: github:quartz-community/explorer
     enabled: true
+    options:
+      folderDefaultState: open
     layout:
       position: left
       priority: 50
