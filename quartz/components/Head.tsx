@@ -45,6 +45,12 @@ export default (() => {
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
+        {/* 첫 방문 기본 테마 = 라이트 (다크모드 플러그인이 읽기 전에 심는다) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if(!localStorage.getItem("theme"))localStorage.setItem("theme","light")`,
+          }}
+        />
         {coreStylesheet && <link rel="preload" href={coreStylesheet} as="style" />}
         {coreScript && coreScript.contentType === "external" && (
           <link rel="preload" href={coreScript.src} as="script" />
