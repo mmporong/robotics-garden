@@ -61,17 +61,9 @@ article code {
   font-size: 0.85em;
 }
 
-// 제목 위계: h2에 모노 눈금 마커 (문서의 "측정 지점" 느낌, 과하지 않게)
+// 제목 위계
 article h2 {
   letter-spacing: -0.01em;
-
-  &::before {
-    content: "§ ";
-    font-family: var(--codeFont);
-    font-weight: 400;
-    color: var(--tertiary);
-    font-size: 0.8em;
-  }
 }
 
 // ── 목차(TOC): 위치 레일 + 현재 섹션 구분 ─────────────────────────
