@@ -19,29 +19,30 @@ configuration:
       header: IBM Plex Sans KR
       body: IBM Plex Sans KR
       code: IBM Plex Mono
-    # 2026 올해의 컬러 팔레트 — 배경: Pantone Cloud Dancer(#f0eee9) / 잉크: BM Silhouette(#57504c)
-    # 링크: Graham & Brown Divine Damson 계열(딥 플럼) / 호버: SW Universal Khaki 계열(브론즈)
+    # Stormy morning 팔레트 — 청회색(신뢰감). 폭풍우 아침 안개/습기의 블루그레이.
+    # #6A89A7(뮤트 블루그레이) · #BDDDFC(라이트) · #88BDF2(액센트 블루) · #384959(다크 슬레이트)
+    # 링크(secondary)는 라이트 배경 대비 4.5:1↑ 위해 계열에서 살짝 깊게.
     colors:
       lightMode:
-        light: "#f0eee9"
-        lightgray: "#dedad1"
-        gray: "#8a8379"
-        darkgray: "#57504c"
-        dark: "#35302c"
-        secondary: "#7b4058"
-        tertiary: "#7a684b"
-        highlight: "rgba(123, 64, 88, 0.07)"
-        textHighlight: "#f5d76e66"
+        light: "#f3f7fb"
+        lightgray: "#d3e0ec"
+        gray: "#6a89a7"
+        darkgray: "#3e5164"
+        dark: "#384959"
+        secondary: "#42627e"
+        tertiary: "#88bdf2"
+        highlight: "rgba(136, 189, 242, 0.14)"
+        textHighlight: "#88bdf288"
       darkMode:
-        light: "#211e1c"
-        lightgray: "#3a3531"
-        gray: "#7e766d"
-        darkgray: "#d8d3ca"
-        dark: "#f0eee9"
-        secondary: "#c88ba1"
-        tertiary: "#c2ac82"
-        highlight: "rgba(200, 139, 161, 0.10)"
-        textHighlight: "#b3aa0288"
+        light: "#202b36"
+        lightgray: "#384959"
+        gray: "#6a89a7"
+        darkgray: "#c3d3e2"
+        dark: "#e9f1f9"
+        secondary: "#88bdf2"
+        tertiary: "#bddffc"
+        highlight: "rgba(136, 189, 242, 0.15)"
+        textHighlight: "#88bdf299"
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
