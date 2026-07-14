@@ -166,10 +166,11 @@ plugins:
       priority: 20
       condition: not-index
   - source: github:quartz-community/tag-list
-    enabled: false
+    enabled: true
     layout:
-      position: beforeBody
+      position: afterBody
       priority: 30
+      condition: not-index
   - source: github:quartz-community/page-title
     enabled: true
     layout:
@@ -204,8 +205,7 @@ plugins:
   - source: github:quartz-community/footer
     enabled: true
     options:
-      links:
-        GitHub: https://github.com/mmporong
+      links: {}
   - source: github:quartz-community/recent-notes
     enabled: false
     options:
@@ -239,7 +239,7 @@ plugins:
         - description
         - tags
       excludedProperties: []
-      hidePropertiesView: false
+      hidePropertiesView: true
       delimiters: ---
       language: yaml
     order: 5
