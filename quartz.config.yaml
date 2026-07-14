@@ -158,6 +158,7 @@ plugins:
     layout:
       position: beforeBody
       priority: 10
+      condition: not-index
   - source: github:quartz-community/content-meta
     enabled: true
     layout:
@@ -181,7 +182,7 @@ plugins:
       priority: 30
       group: toolbar
   - source: github:quartz-community/reader-mode
-    enabled: true
+    enabled: false
     layout:
       position: left
       priority: 35
@@ -206,7 +207,7 @@ plugins:
       links:
         GitHub: https://github.com/mmporong
   - source: github:quartz-community/recent-notes
-    enabled: true
+    enabled: false
     options:
       title: 최근 글
       limit: 20
