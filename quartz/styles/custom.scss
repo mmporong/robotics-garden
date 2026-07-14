@@ -136,12 +136,3 @@ article h2 {
 li.recent-li:has(a[href$="/404"]) {
   display: none;
 }
-
-// ── 트랜스클루전 인용선 제거 ─────────────────────────────
-// 홈은 최신 글을 통째로 트랜스클루전(blockquote.transclude)한다.
-// blockquote 좌측 인용선·들여쓰기를 떼어 본문처럼 보이게 한다.
-.transclude {
-  border-left: none;
-  padding-left: 0;
-  margin-left: 0;
-}
