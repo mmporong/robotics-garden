@@ -163,6 +163,7 @@ plugins:
     layout:
       position: beforeBody
       priority: 20
+      condition: not-index
   - source: github:quartz-community/tag-list
     enabled: false
     layout:
@@ -208,12 +209,15 @@ plugins:
     enabled: true
     options:
       title: 최근 글
-      limit: 3
+      limit: 20
       linkToMore: false
       showTags: false
+      hideTagPages: true
+      hideFolderPages: true
     layout:
       position: afterBody
       priority: 20
+      condition: index
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
@@ -243,6 +247,7 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
+      condition: not-index
   - source: github:quartz-community/unlisted-pages
     enabled: true
     options: {}

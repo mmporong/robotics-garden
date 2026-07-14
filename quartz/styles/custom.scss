@@ -129,3 +129,10 @@ article h2 {
     }
   }
 }
+
+// ── 홈 '최근 글' 목록에서 404 항목 숨김 ──────────────────────
+// 404는 Quartz 코어가 생성하는 날짜 없는 페이지라 recent-notes 목록에 섞여 들어온다.
+// 목록 필터 옵션(filter 함수)은 yaml에서 못 넘기므로 해당 항목만 CSS로 숨긴다.
+li.recent-li:has(a[href$="/404"]) {
+  display: none;
+}
