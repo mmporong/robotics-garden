@@ -51,6 +51,12 @@ export default (() => {
             __html: `if(!localStorage.getItem("theme"))localStorage.setItem("theme","light")`,
           }}
         />
+        {/* 사이드바 프로필: 사이트 제목(.page-title) 밑에 이름 + Email/LinkedIn 배지 주입 (배포 안전 core) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){function badge(h,s,a,x){var e=document.createElement("a");e.href=h;e.setAttribute("aria-label",a);if(x){e.target="_blank";e.rel="noopener noreferrer";}var i=document.createElement("img");i.src=s;i.alt=a;i.loading="lazy";e.appendChild(i);return e;}function inject(){var pt=document.querySelector(".page-title");if(!pt||document.getElementById("profile-contact"))return;var w=document.createElement("div");w.id="profile-contact";var n=document.createElement("div");n.className="pc-name";n.textContent="임주영";var l=document.createElement("div");l.className="pc-links";l.appendChild(badge("mailto:mmporong@gmail.com","https://img.shields.io/badge/Email-mmporong%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white","Email mmporong@gmail.com",false));l.appendChild(badge("https://www.linkedin.com/in/mmporong","https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white","LinkedIn",true));w.appendChild(n);w.appendChild(l);pt.insertAdjacentElement("afterend",w);}if(document.readyState!=="loading")inject();else document.addEventListener("DOMContentLoaded",inject);document.addEventListener("nav",inject);})();`,
+          }}
+        />
         {coreStylesheet && <link rel="preload" href={coreStylesheet} as="style" />}
         {coreScript && coreScript.contentType === "external" && (
           <link rel="preload" href={coreScript.src} as="script" />

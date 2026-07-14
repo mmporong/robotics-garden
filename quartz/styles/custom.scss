@@ -136,3 +136,34 @@ article h2 {
 li.recent-li:has(a[href$="/404"]) {
   display: none;
 }
+
+// ── 사이드바 프로필(사이트 제목 밑, Head.tsx 스크립트가 주입) ──────────
+#profile-contact {
+  margin: 0.5rem 0 0.9rem;
+
+  .pc-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 0.45rem;
+  }
+
+  .pc-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+
+    a {
+      line-height: 0;
+      border: none;
+      background: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+  }
+}
