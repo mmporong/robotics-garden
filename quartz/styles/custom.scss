@@ -5,11 +5,10 @@
 // 팔레트: 2026 올해의 컬러 (Cloud Dancer 배경 · Silhouette 잉크 · Damson 링크 · Khaki 브론즈 호버)
 
 .page-title {
-  position: relative;
   font-family: var(--headerFont);
   font-weight: 700;
   letter-spacing: -0.01em;
-  padding-bottom: 0.6rem;
+  margin: 0 0 0.6rem; // 제목 → 이름. 하단 트레이스는 정체성 블록(#profile-contact) 바닥으로 이동
 
   &::before {
     content: "LAB NOTES · REC ●";
@@ -19,24 +18,7 @@
     font-weight: 400;
     letter-spacing: 0.14em;
     color: var(--tertiary);
-    margin-bottom: 0.25rem;
-  }
-
-  // 하단 트레이스: 왼쪽 짧은 구리선 + 나머지 희미한 선 (PCB 트레이스)
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(
-      to right,
-      var(--tertiary) 0,
-      var(--tertiary) 2rem,
-      var(--lightgray) 2rem,
-      var(--lightgray) 100%
-    );
+    margin-bottom: 0.3rem;
   }
 
   a {
@@ -138,14 +120,35 @@ li.recent-li:has(a[href$="/404"]) {
 }
 
 // ── 사이드바 프로필(사이트 제목 밑, Head.tsx 스크립트가 주입) ──────────
+// eyebrow + 제목 + 이름 + 배지를 하나의 "명판" 유닛으로 묶고, 그 바닥에 PCB 트레이스.
+// 아래 검색/탐색기와는 넉넉한 간격으로 분리.
 #profile-contact {
-  margin: 0.5rem 0 0.9rem;
+  position: relative;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.85rem;
+
+  // 정체성 블록의 바닥선 (PCB 트레이스: 왼쪽 짧은 구리선 + 희미한 나머지)
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      var(--tertiary) 0,
+      var(--tertiary) 2rem,
+      var(--lightgray) 2rem,
+      var(--lightgray) 100%
+    );
+  }
 
   .pc-name {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--dark);
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.5rem;
   }
 
   .pc-links {
