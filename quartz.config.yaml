@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 # Physical AI Lab 학습 가든 — 원본 노트는 private 리포(physical-ai-lab)에서 publish: true만 동기화됨
 configuration:
-  pageTitle: mmporong lab
+  pageTitle: "hello, robot"
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
