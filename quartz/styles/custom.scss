@@ -106,11 +106,19 @@ article h2 {
     color: var(--tertiary);
   }
 
-  // 파일 항목: 호흡 + 현재 페이지 강조
+  // 파일 항목: 항목 간 분리(근접성) + 현재 페이지 강조
+  // 긴 제목이 2~3줄로 줄바꿈될 때, 한 제목의 줄들은 촘촘히 묶고(line-height↓)
+  // 글과 글 사이는 넓게 벌려(padding↑) 각 항목이 한 덩어리로 보이게 한다.
+  .explorer-ul li {
+    margin: 0.15rem 0;
+  }
+
   .explorer-ul a {
-    display: inline-block;
-    padding: 0.12rem 0;
-    line-height: 1.45;
+    display: block;
+    padding: 0.28rem 0;
+    padding-left: 0.7rem;
+    text-indent: -0.7rem; // 줄바꿈된 둘째 줄부터 들여쓰기 → 각 글의 시작점이 뚜렷
+    line-height: 1.3;
     color: var(--darkgray);
 
     &.active {
