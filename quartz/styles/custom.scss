@@ -202,3 +202,17 @@ li.recent-li:has(a[href$="/404"]) {
     border-radius: 2px;
   }
 }
+
+// ── 이미지 캡션 ─────────────────────────────────────────────────────
+// 이미지 바로 다음 줄의 이탤릭(*…*)을 캡션으로: 작은 진한 회색, 가운데 정렬.
+// 출처 표기(저작권법 37조 출처명시)를 이미지 단위로 붙이는 용도.
+// 빈 줄 없이 이어 쓰면 같은 <p> 안에 img+em으로 렌더되므로 그 형태를 잡는다.
+article p > img + em {
+  display: block;
+  margin-top: 0.45rem;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--darkgray);
+  font-style: normal;
+}
