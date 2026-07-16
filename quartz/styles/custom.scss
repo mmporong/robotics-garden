@@ -182,3 +182,23 @@ li.recent-li:has(a[href$="/404"]) {
     }
   }
 }
+
+// ── 탐색기 폴더 목록 스크롤 ─────────────────────────────────────────
+// 학습 노트·리서치 글이 늘어도 사이드바가 밀려나지 않게, 폴더당 약 3.5개
+// 항목 높이에서 잘라 스크롤. 접기 애니메이션(grid-template-rows 트릭)과
+// 충돌하지 않도록 펼침(.open) 상태에서만 overflow를 auto로 바꾼다.
+.explorer-content .folder-outer.open > ul.content {
+  max-height: 7.1rem; // 항목 피치 실측 32.5px(마진 포함) × 3.5개 ≈ 113.6px
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--lightgray) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--lightgray);
+    border-radius: 2px;
+  }
+}
