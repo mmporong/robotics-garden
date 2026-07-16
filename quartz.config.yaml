@@ -274,15 +274,26 @@ layout:
         beforeBody: []
         left: []
         right: []
-    content: {}
+    # content/folder/tag = toss 프레임(상단 바 + 중앙 단일 컬럼, 사이드바 없음).
+    # 404/canvas/bases는 default 유지. TOC 복원은 content.positions.right에 table-of-contents 한 줄.
+    content:
+      template: toss
+      exclude:
+        - explorer
+      positions:
+        right: []
     folder:
+      template: toss
       exclude:
         - reader-mode
+        - explorer
       positions:
         right: []
     tag:
+      template: toss
       exclude:
         - reader-mode
+        - explorer
       positions:
         right: []
     canvas: {}

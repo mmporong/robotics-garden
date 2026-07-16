@@ -232,77 +232,97 @@ article p > img + em {
   }
 }
 
-// ── 홈 랜딩 피드 (content/index.md + Head.tsx 렌더러) ──────────────
-// 구조: 상단 바(워드마크+링크) → 피처드 히어로 → 카테고리 탭 → 리스트+우측 레일.
-// 홈에서만 쿼츠 사이드바를 숨기고 본문을 전폭으로 쓴다.
-body[data-slug="index"] {
-  .left.sidebar,
-  .right.sidebar {
-    display: none;
-  }
+// ── toss 프레임 (content/folder/tag — 상단 바 + 중앙 단일 컬럼) ────
+// base.scss의 #quartz-body named-grid를 collapse. custom.scss는 언레이어드라
+// @layer quartz-base 안의 base 규칙을 특이도와 무관하게 이긴다.
+.page[data-frame="toss"] {
+  max-width: 100%;
 
-  // 기본 3열 그리드(320px 750px 320px)를 홈에서만 단일 컬럼 전폭으로
-  #quartz-body {
-    display: block;
-    max-width: 1120px;
-    margin: 0 auto;
+  & > #quartz-body {
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    padding: 0;
   }
 
   .center {
     width: 100%;
-    max-width: 100%;
+    min-width: 0; // base의 min-width:100%가 max-width를 이기는 것 방지
+    max-width: 780px; // 글·태그·폴더 = 읽기 폭
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+  }
+}
+
+// 홈(피드)만 전폭
+body[data-slug="index"] .page[data-frame="toss"] .center {
+  max-width: 1120px;
+  padding-top: 1rem;
+}
+
+// ── 상단 바 (TossFrame이 left[] 컴포넌트를 가로 배치) ──────────────
+.toss-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  border-bottom: 1px solid var(--lightgray);
+
+  // 워드마크 = 기존 page-title 재사용 (eyebrow는 상단 바에서 숨김)
+  .page-title {
     margin: 0;
-    padding: 0 1.5rem 3rem;
+    font-size: 1.3rem;
+    white-space: nowrap;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  // Head.tsx가 .page-title 뒤에 주입하는 프로필: 배지만 남겨 우측으로
+  #profile-contact {
+    margin: 0 0 0 auto;
+    padding: 0;
+    order: 10;
+
+    &::after {
+      display: none;
+    }
+
+    .pc-name {
+      display: none;
+    }
+  }
+
+  // 검색: 인라인 폭 고정
+  .search {
+    max-width: 11rem;
+    flex-shrink: 0;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  @media all and (max-width: 800px) {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+
+    #profile-contact {
+      display: none;
+    }
+
+    .search {
+      max-width: 8rem;
+    }
   }
 }
 
 #home-feed {
-  .hf-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.4rem 0 1.2rem;
-    border-bottom: 1px solid var(--lightgray);
-    margin-bottom: 2.2rem;
-
-    .hf-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      background: none;
-    }
-
-    .hf-eyebrow {
-      font-family: var(--codeFont);
-      font-size: 0.62rem;
-      letter-spacing: 0.14em;
-      color: var(--tertiary);
-    }
-
-    .hf-wordmark {
-      font-family: var(--headerFont);
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--dark);
-      letter-spacing: -0.01em;
-    }
-
-    .hf-links {
-      display: flex;
-      gap: 1.1rem;
-
-      a {
-        font-size: 0.85rem;
-        color: var(--darkgray);
-        background: none;
-
-        &:hover {
-          color: var(--tertiary);
-        }
-      }
-    }
-  }
-
   .hf-meta {
     display: flex;
     align-items: center;
@@ -323,14 +343,13 @@ body[data-slug="index"] {
     color: var(--gray);
   }
 
-  // 피처드 히어로: 텍스트 좌 · 썸네일 우
+  // 피처드 히어로 캐러셀: 텍스트 좌 · 썸네일 우, 좌하단 ‹ › 순환 버튼
   .hf-hero {
     display: grid;
     grid-template-columns: 1.05fr 0.95fr;
     gap: 2.5rem;
     align-items: center;
-    margin-bottom: 2.8rem;
-    background: none;
+    margin: 1.6rem 0 2.8rem;
 
     .hf-hero-text {
       display: flex;
@@ -346,6 +365,11 @@ body[data-slug="index"] {
       line-height: 1.3;
       color: var(--dark);
       letter-spacing: -0.01em;
+      background: none;
+
+      &:hover {
+        color: var(--secondary);
+      }
     }
 
     .hf-hero-desc {
@@ -355,15 +379,49 @@ body[data-slug="index"] {
       color: var(--darkgray);
     }
 
-    .hf-hero-img img {
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid var(--lightgray);
-      display: block;
+    .hf-hero-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.6rem;
     }
 
-    &:hover .hf-hero-title {
-      color: var(--secondary);
+    .hf-hero-btn {
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 50%;
+      border: none;
+      background: var(--highlight);
+      color: var(--darkgray);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+
+      &:hover:not(:disabled) {
+        background: var(--secondary);
+        color: var(--light);
+      }
+    }
+
+    .hf-hero-ind {
+      font-family: var(--codeFont);
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    .hf-hero-img {
+      background: none;
+
+      img {
+        width: 100%;
+        border-radius: 16px;
+        border: 1px solid var(--lightgray);
+        display: block;
+      }
     }
   }
 
@@ -412,10 +470,7 @@ body[data-slug="index"] {
   }
 
   .hf-row {
-    display: grid;
-    grid-template-columns: 1fr 190px;
-    gap: 1.6rem;
-    align-items: center;
+    display: block;
     padding: 1.5rem 0;
     border-bottom: 1px solid var(--lightgray);
     background: none;
@@ -442,13 +497,6 @@ body[data-slug="index"] {
       color: var(--darkgray);
     }
 
-    .hf-thumb img {
-      width: 190px;
-      border-radius: 12px;
-      border: 1px solid var(--lightgray);
-      display: block;
-    }
-
     &:hover .hf-row-title {
       color: var(--secondary);
     }
@@ -457,6 +505,44 @@ body[data-slug="index"] {
   .hf-empty {
     color: var(--gray);
     padding: 1.5rem 0;
+  }
+
+  // 숫자 페이지네이션 (‹ 1 2 3 ›)
+  .hf-pager {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 1.8rem 0 0.5rem;
+
+    .hf-page {
+      min-width: 2.2rem;
+      height: 2.2rem;
+      padding: 0 0.5rem;
+      border: none;
+      border-radius: 8px;
+      background: none;
+      color: var(--darkgray);
+      font-family: var(--bodyFont);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover:not(:disabled):not(.active) {
+        background: var(--highlight);
+        color: var(--secondary);
+      }
+
+      &.active {
+        background: var(--lightgray);
+        color: var(--dark);
+        font-weight: 700;
+      }
+
+      &:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+    }
   }
 
   // 우측 레일: 최근 글 · 태그
@@ -543,16 +629,16 @@ body[data-slug="index"] {
 
   // 반응형: 800px 이하에서 단일 컬럼
   @media all and (max-width: 800px) {
-    .hf-bar .hf-links {
-      display: none;
-    }
-
     .hf-hero {
       grid-template-columns: 1fr;
       gap: 1.2rem;
 
       .hf-hero-title {
         font-size: 1.5rem;
+      }
+
+      .hf-hero-nav {
+        margin-top: 0.6rem;
       }
     }
 
@@ -563,19 +649,6 @@ body[data-slug="index"] {
 
     .hf-rail {
       position: static;
-    }
-
-    .hf-row {
-      grid-template-columns: 1fr 108px;
-      gap: 1rem;
-
-      .hf-thumb img {
-        width: 108px;
-      }
-
-      .hf-row-desc {
-        display: none;
-      }
     }
   }
 }
