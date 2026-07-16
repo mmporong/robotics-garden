@@ -132,8 +132,9 @@ plugins:
   - source: github:quartz-community/explorer
     enabled: true
     options:
-      # 파일은 날짜(파일명 프리픽스) 내림차순 = 최신 글 위, 폴더는 이름순
-      sortFn: "(a, b) => { if (a.isFolder && !b.isFolder) return -1; if (!a.isFolder && b.isFolder) return 1; if (a.isFolder && b.isFolder) return (a.displayName || '').localeCompare(b.displayName || ''); return (b.slugSegment || '').localeCompare(a.slugSegment || '', undefined, { numeric: true }); }"
+      title: physical-ai
+      # 파일은 날짜(파일명 프리픽스) 내림차순 = 최신 글 위, 폴더는 slug순(physical-ai=학습 노트가 research=리서치 위)
+      sortFn: "(a, b) => { if (a.isFolder && !b.isFolder) return -1; if (!a.isFolder && b.isFolder) return 1; if (a.isFolder && b.isFolder) return (a.slugSegment || '').localeCompare(b.slugSegment || ''); return (b.slugSegment || '').localeCompare(a.slugSegment || '', undefined, { numeric: true }); }"
     layout:
       position: left
       priority: 50
