@@ -247,6 +247,7 @@ article p > img + em {
 
   .center {
     width: 100%;
+    box-sizing: border-box;
     min-width: 0; // base의 min-width:100%가 max-width를 이기는 것 방지
     max-width: 780px; // 글·태그·폴더 = 읽기 폭
     margin: 0 auto;
@@ -267,6 +268,7 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
   gap: 1rem;
   max-width: 1120px;
   width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 0.9rem 1.5rem;
   border-bottom: 1px solid var(--lightgray);
@@ -350,6 +352,7 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
 // 푸터: toss 프레임에서 본문 폭에 맞춰 중앙 정렬 (좌측 밀착 방지)
 .page[data-frame="toss"] footer {
   width: 100%;
+  box-sizing: border-box;
   min-width: 0; // base의 min-width:100%가 max-width를 이기는 것 방지
   max-width: 1120px;
   margin: 0 auto;
