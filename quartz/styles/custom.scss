@@ -204,15 +204,30 @@ li.recent-li:has(a[href$="/404"]) {
 }
 
 // ── 이미지 캡션 ─────────────────────────────────────────────────────
-// 이미지 바로 다음 줄의 이탤릭(*…*)을 캡션으로: 작은 진한 회색, 가운데 정렬.
-// 출처 표기(저작권법 37조 출처명시)를 이미지 단위로 붙이는 용도.
-// 빈 줄 없이 이어 쓰면 같은 <p> 안에 img+em으로 렌더되므로 그 형태를 잡는다.
+// 이미지 바로 다음 줄의 <em>을 캡션으로: 작은 진한 회색, 가운데 정렬, 항상 한 줄.
+// 설명이 길면 말줄임(…)으로 잘리고, 출처(.cap-src)는 끝에 항상 남는다.
+// 마크다운 패턴(빈 줄 없이 이미지 바로 다음 줄):
+//   <em><span>긴 설명</span><span class="cap-src">(출처: 제작자)</span></em>
 article p > img + em {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.35rem;
   margin-top: 0.45rem;
-  text-align: center;
   font-size: 0.78rem;
   line-height: 1.5;
   color: var(--darkgray);
   font-style: normal;
+  white-space: nowrap;
+
+  > span:first-child {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  > .cap-src {
+    flex: none;
+  }
 }
