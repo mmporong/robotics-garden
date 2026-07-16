@@ -231,3 +231,351 @@ article p > img + em {
     flex: none;
   }
 }
+
+// ── 홈 랜딩 피드 (content/index.md + Head.tsx 렌더러) ──────────────
+// 구조: 상단 바(워드마크+링크) → 피처드 히어로 → 카테고리 탭 → 리스트+우측 레일.
+// 홈에서만 쿼츠 사이드바를 숨기고 본문을 전폭으로 쓴다.
+body[data-slug="index"] {
+  .left.sidebar,
+  .right.sidebar {
+    display: none;
+  }
+
+  // 기본 3열 그리드(320px 750px 320px)를 홈에서만 단일 컬럼 전폭으로
+  #quartz-body {
+    display: block;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .center {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 1.5rem 3rem;
+  }
+}
+
+#home-feed {
+  .hf-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 0 1.2rem;
+    border-bottom: 1px solid var(--lightgray);
+    margin-bottom: 2.2rem;
+
+    .hf-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      background: none;
+    }
+
+    .hf-eyebrow {
+      font-family: var(--codeFont);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      color: var(--tertiary);
+    }
+
+    .hf-wordmark {
+      font-family: var(--headerFont);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+
+    .hf-links {
+      display: flex;
+      gap: 1.1rem;
+
+      a {
+        font-size: 0.85rem;
+        color: var(--darkgray);
+        background: none;
+
+        &:hover {
+          color: var(--tertiary);
+        }
+      }
+    }
+  }
+
+  .hf-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .hf-chip {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--secondary);
+    background: var(--highlight);
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  .hf-date {
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+
+  // 피처드 히어로: 텍스트 좌 · 썸네일 우
+  .hf-hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 2.8rem;
+    background: none;
+
+    .hf-hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      align-items: flex-start;
+    }
+
+    .hf-hero-title {
+      font-family: var(--headerFont);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+
+    .hf-hero-desc {
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: var(--darkgray);
+    }
+
+    .hf-hero-img img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--lightgray);
+      display: block;
+    }
+
+    &:hover .hf-hero-title {
+      color: var(--secondary);
+    }
+  }
+
+  // 카테고리 탭
+  .hf-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    .hf-tab {
+      font-family: var(--bodyFont);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--darkgray);
+      background: none;
+      border: 1px solid var(--lightgray);
+      border-radius: 999px;
+      padding: 0.42rem 1.05rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        color: var(--secondary);
+        border-color: var(--secondary);
+      }
+
+      &.active {
+        color: var(--light);
+        background: var(--secondary);
+        border-color: var(--secondary);
+      }
+    }
+  }
+
+  .hf-sec {
+    font-size: 1.35rem;
+    margin: 1.6rem 0 0.4rem;
+  }
+
+  // 리스트 + 우측 레일
+  .hf-main {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .hf-row {
+    display: grid;
+    grid-template-columns: 1fr 190px;
+    gap: 1.6rem;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--lightgray);
+    background: none;
+
+    .hf-row-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      align-items: flex-start;
+    }
+
+    .hf-row-title {
+      font-family: var(--headerFont);
+      font-size: 1.18rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--dark);
+    }
+
+    .hf-row-desc {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--darkgray);
+    }
+
+    .hf-thumb img {
+      width: 190px;
+      border-radius: 12px;
+      border: 1px solid var(--lightgray);
+      display: block;
+    }
+
+    &:hover .hf-row-title {
+      color: var(--secondary);
+    }
+  }
+
+  .hf-empty {
+    color: var(--gray);
+    padding: 1.5rem 0;
+  }
+
+  // 우측 레일: 최근 글 · 태그
+  .hf-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    position: sticky;
+    top: 2rem;
+
+    .hf-box {
+      background: var(--highlight);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+
+      h3 {
+        font-size: 0.95rem;
+        margin: 0 0 0.7rem;
+      }
+    }
+
+    .hf-recent {
+      list-style: none;
+      counter-reset: rank;
+      margin: 0;
+      padding: 0;
+
+      li {
+        counter-increment: rank;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        padding: 0.45rem 0 0.45rem 1.7rem;
+        position: relative;
+
+        &::before {
+          content: counter(rank);
+          position: absolute;
+          left: 0;
+          top: 0.5rem;
+          width: 1.15rem;
+          height: 1.15rem;
+          border-radius: 6px;
+          background: var(--light);
+          color: var(--secondary);
+          font-size: 0.72rem;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        a {
+          font-size: 0.85rem;
+          line-height: 1.45;
+          color: var(--dark);
+          background: none;
+
+          &:hover {
+            color: var(--secondary);
+          }
+        }
+      }
+    }
+
+    .hf-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+
+      a {
+        font-size: 0.76rem;
+        color: var(--secondary);
+        background: var(--light);
+        border-radius: 8px;
+        padding: 0.2rem 0.5rem;
+
+        &:hover {
+          color: var(--tertiary);
+        }
+      }
+    }
+  }
+
+  // 반응형: 800px 이하에서 단일 컬럼
+  @media all and (max-width: 800px) {
+    .hf-bar .hf-links {
+      display: none;
+    }
+
+    .hf-hero {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+
+      .hf-hero-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    .hf-main {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .hf-rail {
+      position: static;
+    }
+
+    .hf-row {
+      grid-template-columns: 1fr 108px;
+      gap: 1rem;
+
+      .hf-thumb img {
+        width: 108px;
+      }
+
+      .hf-row-desc {
+        display: none;
+      }
+    }
+  }
+}
