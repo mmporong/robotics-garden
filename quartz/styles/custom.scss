@@ -375,6 +375,17 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
     border-radius: 999px;
   }
 
+  // 리서치는 팔레트 밖 웜톤으로 학습 노트(블루)와 구분
+  .hf-chip-research {
+    color: #9a5b12;
+    background: rgba(214, 149, 60, 0.16);
+  }
+
+  :root[saved-theme="dark"] & .hf-chip-research {
+    color: #e0a95e;
+    background: rgba(224, 169, 94, 0.16);
+  }
+
   .hf-date {
     font-size: 0.78rem;
     color: var(--gray);
