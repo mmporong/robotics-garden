@@ -208,7 +208,8 @@ li.recent-li:has(a[href$="/404"]) {
 // 설명이 길면 말줄임(…)으로 잘리고, 출처(.cap-src)는 끝에 항상 남는다.
 // 마크다운 패턴(빈 줄 없이 이미지 바로 다음 줄):
 //   <em><span>긴 설명</span><span class="cap-src">(출처: 제작자)</span></em>
-article p > img + em {
+article p > img + em,
+article p > video + em {
   display: flex;
   justify-content: center;
   align-items: baseline;
