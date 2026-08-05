@@ -665,21 +665,47 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
       }
     }
 
-    .hf-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
+    // 홈 사이드 레일의 분류 목록(인기 글 아래). 종전에는 세부 태그 12개를 #칩으로
+    // 뿌렸는데, 태그가 270종을 넘으면서 12개만 보여 주는 게 의미를 잃었다. 상위 분류와
+    // 편수로 바꾸고, 인기 글과 같은 행 형태를 쓰되 번호 대신 편수를 오른쪽에 정렬해
+    // 분류 간 비교가 눈으로 되게 한다.
+    .hf-cats {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.32rem 0;
+      }
 
       a {
-        font-size: 0.76rem;
-        color: var(--secondary);
-        background: var(--light);
-        border-radius: 8px;
-        padding: 0.2rem 0.5rem;
+        font-size: 0.84rem;
+        color: var(--darkgray);
 
         &:hover {
-          color: var(--tertiary);
+          color: var(--secondary);
         }
+      }
+
+      .hf-cat-n {
+        font-size: 0.74rem;
+        color: var(--gray);
+        font-variant-numeric: tabular-nums;
+      }
+    }
+
+    .hf-cat-more {
+      display: inline-block;
+      margin-top: 0.7rem;
+      font-size: 0.76rem;
+      color: var(--gray);
+
+      &:hover {
+        color: var(--secondary);
       }
     }
   }
