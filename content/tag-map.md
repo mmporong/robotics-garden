@@ -1,5 +1,7 @@
 ---
-title: 태그
+publish: true
+title: 태그 지도
+description: "글을 상위 분류로 묶어 본 색인. 분류별 편수와 세부 태그를 한자리에서 본다."
 ---
 
 <style>
