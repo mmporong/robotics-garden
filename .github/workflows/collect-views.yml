@@ -1,0 +1,52 @@
+name: 조회수 수집
+
+# 홈 피드가 브라우저에서 글 100편의 조회수를 직접 조회하면 카운터 API가
+# rate limit을 걸어 대부분 실패한다(2026-08-05 실측: 100편 중 70편 429).
+# 그래서 하루 한 번 여기서 백오프하며 모아 static/views.json에 넣고,
+# 프론트엔드는 그 파일 하나만 읽는다.
+
+on:
+  schedule:
+    - cron: "0 20 * * *" # 매일 05:00 KST
+  workflow_dispatch: # 수동 실행
+
+concurrency:
+  group: collect-views
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # contentIndex.json은 빌드 산출물이라 리포에 없다.
+      # 배포된 사이트에서 받아 쓴다 (수집 대상 목록으로만 씀).
+      - name: 글 목록 확보
+        run: |
+          mkdir -p public/static
+          curl -sfL "https://mmporong.github.io/robotics-garden/static/contentIndex.json" \
+            -o public/static/contentIndex.json
+          python3 -c "import json;print('글', len(json.load(open('public/static/contentIndex.json'))), '건')"
+
+      - name: 수집
+        run: python3 tools/collect_views.py
+
+      - name: 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add quartz/static/views.json data/views_history.jsonl
+          if git diff --cached --quiet; then
+            echo "변화 없음 — 커밋 생략"
+          else
+            TOTAL=$(python3 -c "import json;print(json.load(open('quartz/static/views.json'))['total'])")
+            git commit -m "chore(views): 조회수 수집 (누적 ${TOTAL}회)"
+            git push
+          fi
