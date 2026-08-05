@@ -376,7 +376,20 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
     border-radius: 999px;
   }
 
-  // 리서치는 팔레트 밖 웜톤으로 학습 노트(블루)와 구분
+  // 학습 기록은 기본 블루(위 .hf-chip)를 그대로 쓴다.
+  // 기술 노트는 퍼플 — 원래 한 분류였다가 갈라진 짝이라 블루와 가장 멀어야 한다.
+  // 웜(리서치)·그린(인사이트)과도 겹치지 않는 네 번째 색이다.
+  .hf-chip-tech {
+    color: #6b3fa0;
+    background: rgba(139, 92, 196, 0.16);
+  }
+
+  :root[saved-theme="dark"] & .hf-chip-tech {
+    color: #b794e6;
+    background: rgba(183, 148, 230, 0.16);
+  }
+
+  // 리서치는 팔레트 밖 웜톤으로 학습 기록(블루)과 구분
   .hf-chip-research {
     color: #9a5b12;
     background: rgba(214, 149, 60, 0.16);
@@ -387,7 +400,7 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
     background: rgba(224, 169, 94, 0.16);
   }
 
-  // 인사이트는 그린톤 — 학습 노트(블루)·리서치(웜)와 구분
+  // 인사이트는 그린톤 — 학습 기록(블루)·기술 노트(퍼플)·리서치(웜)와 구분
   .hf-chip-insights {
     color: #3d7a4f;
     background: rgba(94, 168, 120, 0.16);
