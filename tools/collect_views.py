@@ -36,7 +36,7 @@ HISTORY = ROOT / "data" / "views_history.jsonl"
 
 API = "https://abacus.jasoncameron.dev"
 NS = "mmporong-robotics-garden"
-CATS = ("physical-ai", "research", "insights")
+CATS = ("physical-ai", "tech", "research", "insights")
 KST = timezone(timedelta(hours=9))
 
 # 429가 잦아 넉넉히 잡는다. 100편 기준 정상 수집에 3~6분.
