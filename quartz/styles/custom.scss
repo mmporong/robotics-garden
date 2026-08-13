@@ -1,5 +1,13 @@
 @use "./variables.scss" as *;
 
+// ── 가로 넘침 없애기 (2026-08-13 사용자 지시: 가로 스크롤 지양) ──────
+// base가 html에 width:100vw를 준다. 100vw는 세로 스크롤바 폭까지 포함해서 실제
+// 표시 영역보다 15px 넓어지고, overflow-x:hidden이 그만큼 오른쪽을 잘라낸다.
+// 가운데 정렬도 그 넓은 폭 기준이라 본문 전체가 살짝 왼쪽으로 밀린다.
+html {
+  width: 100%;
+}
+
 // ── mmporong lab — "장비 명판(nameplate)" 시그니처 ─────────────────
 // 사이드바 사이트 제목을 계측 장비 명판처럼: 모노 eyebrow + 제목 + 하단 포인트 라인
 // 팔레트: 2026 올해의 컬러 (Cloud Dancer 배경 · Silhouette 잉크 · Damson 링크 · Khaki 브론즈 호버)
@@ -898,7 +906,21 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
 // 폭은 본문 전폭으로 — 표는 열끼리 비교하라고 있는 것이라 좁히면 값이 붙어 버린다.
 article table {
   font-variant-numeric: tabular-nums;
-  width: 100%;
+}
+
+// ✎ 2026-08-13: base가 `.table-container > table`에 좌우 1rem 마진과 1.5rem 패딩을
+//   준다. 여기에 width:100%를 얹으면 그 마진만큼 컨테이너를 넘겨 내용이 다 보이는데도
+//   가로 스크롤바가 생겼다. 폭을 컨테이너에 맞추고 좌우 마진을 0으로 둔다.
+article .table-container {
+  > table {
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0;
+  }
+
+  // 열이 정말 많아 넘칠 때만 스크롤이 뜨게. 평소에는 스크롤바가 없어야 한다.
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
 }
 
 // 관문 카드 — 진단이 여러 단계를 거쳤을 때 각 단계를 증상·근거·조치로 세운다.
