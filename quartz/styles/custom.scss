@@ -218,8 +218,7 @@ article p > video + em {
   justify-content: flex-start;
   align-items: baseline;
   gap: 0.35rem;
-  max-width: 46rem;
-  margin: 0.5rem auto 0 0; // 본문과 같은 왼쪽 기준선
+  margin: 0.5rem 0 0; // 본문과 같은 좌우 기준선
   font-size: 0.78rem;
   line-height: 1.55;
   color: var(--darkgray);
@@ -266,6 +265,9 @@ article p > video + em {
 // 정보인 요소만 전폭으로 내보낸다. 진단 아티팩트의 wrap/col 2단과 같은 원리다.
 // ✎ 본문은 <article> 바로 밑이 아니라 .markdown-rendered 한 겹 안에 있다.
 //   article > p 로 쓰면 하나도 안 걸린다(2026-08-13 실측).
+// ✎ 2026-08-13 사용자 지시: 산문에 읽기 폭(46rem)을 따로 주지 않는다. 그러면
+//   문단만 940px에서 끊기고 표·그림·카드는 1291px까지 가서 오른쪽 끝이 두 개가
+//   된다. 한 줄이 길어지더라도 좌우 끝을 하나로 맞추는 쪽을 택한다.
 .page[data-frame="toss"] article > .markdown-rendered {
   > p,
   > ul,
@@ -278,19 +280,9 @@ article p > video + em {
   > h4,
   > h5,
   > h6 {
-    // 종전 본문 폭(780px − 좌우 패딩)과 같은 값. 폭을 넓힌 것은 표·그림을 위한
-    // 것이고 산문의 한 줄 길이는 그대로 둔다.
-    max-width: 46rem;
-    // 가운데 정렬하면 제목·표·그림은 왼쪽 끝, 문단만 안쪽에서 시작해 왼쪽
-    // 정렬선이 두 개가 된다. 왼쪽을 공통 기준선으로 두고 오른쪽만 짧게 끝낸다.
-    margin-left: 0;
-    margin-right: auto;
-  }
-
-  // 그림·영상 문단은 전폭 (마크다운 이미지는 <p>로 감싸여 위 규칙에 걸린다)
-  > p:has(> img),
-  > p:has(> video) {
     max-width: none;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -970,6 +962,30 @@ article table {
 @media (max-width: 600px) {
   .gate { grid-template-columns: 2.2rem 1fr; }
   .gate .row { grid-template-columns: 1fr; }
+}
+
+// 전폭 그림 한 장. 마크다운 이미지는 원본 폭에서 멈춰(1024px면 오른쪽이 48px
+// 비어) 표·카드의 오른쪽 끝과 어긋난다. 여기에 담으면 본문 폭까지 늘어난다.
+// 전역으로 늘리지 않는 이유: 260~480px짜리 작은 GIF·도식이 4배로 뭉개진다.
+// 그래서 옮겨 적는 글에서 <figure class="fig">로 직접 감싸는 방식으로 둔다.
+.fig {
+  margin: 1.6rem 0;
+
+  img,
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--lightgray);
+    background: var(--light);
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: var(--darkgray);
+  }
 }
 
 // 그림 두 장을 가로로. 대조가 논지인 자리(성공/실패, 전/후)에서만 쓴다.
