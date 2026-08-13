@@ -747,3 +747,113 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
     }
   }
 }
+
+// ─────────────────────────────────────────────────────────────
+// 학습 기록 — 증거 중심 컴포넌트 (2026-08-13 신설)
+//
+// 측정값이 본문인 글에서 쓴다. 주장마다 숫자가 붙고, 기각한 가설이
+// 표로 남고, 과대해석을 막는 단서가 끝에 오는 구조를 받치는 조각들이다.
+// 색은 Quartz 팔레트 변수를 쓰고, 팔레트 밖 강조색만 다크 대응을 따로 준다.
+// ─────────────────────────────────────────────────────────────
+
+// 글 앞머리 핵심 수치. 본문을 읽기 전에 결과의 크기를 먼저 보여준다.
+.scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--lightgray);
+  border: 1px solid var(--lightgray);
+  margin: 1.6rem 0;
+
+  .s {
+    background: var(--light);
+    padding: 0.7rem 0.85rem;
+  }
+
+  .k {
+    font-family: var(--codeFont);
+    font-size: 0.66rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .v {
+    font-family: var(--codeFont);
+    font-size: 1.4rem;
+    font-weight: 640;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    margin-top: 0.15rem;
+    color: var(--dark);
+  }
+
+  .n {
+    font-size: 0.76rem;
+    color: var(--darkgray);
+    line-height: 1.45;
+    margin-top: 0.1rem;
+  }
+
+  .s.ok .v { color: #2e6b3e; }
+  .s.bad .v { color: #9c2b24; }
+  .s.mid .v { color: #9a5b12; }
+}
+
+:root[saved-theme="dark"] .scores {
+  .s.ok .v { color: #7fc490; }
+  .s.bad .v { color: #e88c85; }
+  .s.mid .v { color: #e0a95e; }
+}
+
+// 판정 태그. 기각/확정 표에서 결론을 한 눈에 가른다.
+.tag {
+  display: inline-block;
+  font-family: var(--codeFont);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  padding: 0.05rem 0.42rem;
+  border-radius: 3px;
+  white-space: nowrap;
+
+  &.ok { color: #2e6b3e; background: rgba(46, 107, 62, 0.13); }
+  &.no { color: #9c2b24; background: rgba(156, 43, 36, 0.12); }
+  &.mid { color: #9a5b12; background: rgba(214, 149, 60, 0.16); }
+}
+
+:root[saved-theme="dark"] .tag {
+  &.ok { color: #7fc490; background: rgba(127, 196, 144, 0.16); }
+  &.no { color: #e88c85; background: rgba(232, 140, 133, 0.16); }
+  &.mid { color: #e0a95e; background: rgba(224, 169, 94, 0.16); }
+}
+
+// 한계·주의 박스. 과대해석을 막는 단서를 본문과 구분해 둔다.
+.note {
+  border: 1px solid var(--lightgray);
+  border-left: 3px solid var(--secondary);
+  background: var(--light);
+  padding: 0.8rem 1rem;
+  margin: 1.4rem 0;
+  font-size: 0.94rem;
+
+  .h {
+    font-family: var(--codeFont);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.3rem;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  &.warn { border-left-color: #d6953c; }
+  &.bad { border-left-color: #9c2b24; }
+}
+
+:root[saved-theme="dark"] .note.bad { border-left-color: #e88c85; }
+
+// 측정표. 숫자가 자리를 맞춰 서야 비교가 눈으로 된다.
+article table {
+  font-variant-numeric: tabular-nums;
+}
