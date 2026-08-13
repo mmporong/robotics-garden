@@ -795,23 +795,27 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
 // ─────────────────────────────────────────────────────────────
 
 // 글 앞머리 핵심 수치. 본문을 읽기 전에 결과의 크기를 먼저 보여준다.
+// ✎ 2026-08-13 사용자 지시: 채움 배경을 쓰지 않는다. 칸 구분은 종전에 1px gap과
+//   배경색으로 그렸는데, 채움을 빼면 그 방식이 성립하지 않아 테두리로 바꾼다.
 .scores {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1px;
-  background: var(--lightgray);
   border: 1px solid var(--lightgray);
   margin: 1.6rem 0;
 
   .s {
-    background: var(--light);
     padding: 0.7rem 0.85rem;
+    border-left: 1px solid var(--lightgray);
+
+    &:first-child {
+      border-left: none;
+    }
   }
 
   .k {
     font-family: var(--codeFont);
     font-size: 0.66rem;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     color: var(--gray);
   }
@@ -854,22 +858,21 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
   border-radius: 3px;
   white-space: nowrap;
 
-  &.ok { color: #2e6b3e; background: rgba(46, 107, 62, 0.13); }
-  &.no { color: #9c2b24; background: rgba(156, 43, 36, 0.12); }
-  &.mid { color: #9a5b12; background: rgba(214, 149, 60, 0.16); }
+  &.ok { color: #2e6b3e; }
+  &.no { color: #9c2b24; }
+  &.mid { color: #9a5b12; }
 }
 
 :root[saved-theme="dark"] .tag {
-  &.ok { color: #7fc490; background: rgba(127, 196, 144, 0.16); }
-  &.no { color: #e88c85; background: rgba(232, 140, 133, 0.16); }
-  &.mid { color: #e0a95e; background: rgba(224, 169, 94, 0.16); }
+  &.ok { color: #7fc490; }
+  &.no { color: #e88c85; }
+  &.mid { color: #e0a95e; }
 }
 
 // 한계·주의 박스. 과대해석을 막는 단서를 본문과 구분해 둔다.
 .note {
   border: 1px solid var(--lightgray);
   border-left: 3px solid var(--secondary);
-  background: var(--light);
   padding: 0.8rem 1rem;
   margin: 1.4rem 0;
   font-size: 0.94rem;
@@ -877,7 +880,7 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
   .h {
     font-family: var(--codeFont);
     font-size: 0.66rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     color: var(--gray);
     margin-bottom: 0.3rem;
@@ -904,7 +907,6 @@ article table {
   display: grid;
   grid-template-columns: 3rem 1fr;
   border: 1px solid var(--lightgray);
-  background: var(--light);
   margin: 0 0 0.7rem;
 
   .idx {
@@ -912,7 +914,6 @@ article table {
     align-items: flex-start;
     justify-content: center;
     padding-top: 0.85rem;
-    background: var(--highlight);
     border-right: 1px solid var(--lightgray);
     font-family: var(--codeFont);
     font-size: 1.05rem;
@@ -939,7 +940,7 @@ article table {
   .lab {
     font-family: var(--codeFont);
     font-size: 0.63rem;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     color: var(--gray);
     padding-top: 0.22rem;
@@ -950,18 +951,47 @@ article table {
   // 진단의 분기점이 된 관문
   &.crit {
     border-left: 3px solid #9c2b24;
-    .idx { color: #9c2b24; background: rgba(156, 43, 36, 0.09); }
+    .idx { color: #9c2b24; }
   }
 }
 
 :root[saved-theme="dark"] .gate.crit {
   border-left-color: #e88c85;
-  .idx { color: #e88c85; background: rgba(232, 140, 133, 0.13); }
+  .idx { color: #e88c85; }
 }
 
 @media (max-width: 600px) {
   .gate { grid-template-columns: 2.2rem 1fr; }
   .gate .row { grid-template-columns: 1fr; }
+}
+
+// 코드블록 — 아티팩트대로 어둡게, 줄번호 없이 (2026-08-13 사용자 지시).
+// 카드·박스의 채움 배경을 걷어낸 것과 어긋나 보이지만 성격이 다르다. 저쪽은 색으로
+// 의미를 칠한 것이고, 이쪽은 코드 영역을 본문과 가르는 표준 처리다.
+// mermaid 블록은 제외 — 다이어그램은 자기 배경을 쓴다.
+article pre:not(:has(> code.mermaid)) {
+  background: #1b1f24;
+  border: 1px solid #2a2f36;
+  border-radius: 0;
+  padding: 0.2rem 0.7rem;
+
+  // 라이트 모드에서도 다크 토큰을 쓴다. shiki가 span마다 두 색을 인라인 변수로
+  // 넣어 두므로 --shiki-dark 쪽을 고르기만 하면 된다.
+  code[data-theme*=" "],
+  code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+    background: none;
+  }
+
+  // 줄번호 제거. 아티팩트에 없고, 옮겨 적으면서 줄 수가 달라져 가리킬 것도 못 된다.
+  > code > [data-line]::before {
+    content: none;
+  }
+
+  > code > [data-line] {
+    border-left: none;
+    padding-left: 0;
+  }
 }
 
 // 전폭 그림 한 장. 마크다운 이미지는 원본 폭에서 멈춰(1024px면 오른쪽이 48px
@@ -977,7 +1007,6 @@ article table {
     width: 100%;
     height: auto;
     border: 1px solid var(--lightgray);
-    background: var(--light);
   }
 
   figcaption {
@@ -1011,7 +1040,6 @@ article table {
     max-height: 26rem;
     object-fit: contain;
     border: 1px solid var(--lightgray);
-    background: var(--light);
   }
 
   figcaption {
@@ -1052,7 +1080,6 @@ article table {
   --sv-mid: #9a5b12;
 
   border: 1px solid var(--lightgray);
-  background: var(--light);
   padding: 1rem;
   margin: 1.4rem 0;
   overflow-x: auto;
