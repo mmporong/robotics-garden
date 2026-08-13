@@ -914,8 +914,9 @@ article table {
     align-items: flex-start;
     justify-content: center;
     padding-top: 0.85rem;
-    // 번호 칸만 옅게 채운다. 테두리만으로는 관문 순번이 본문에 묻힌다.
-    background: var(--light);
+    // 번호 칸만 옅게 채운다. 🔴 var(--light)(#f3f7fb)는 페이지 배경과 같은 값이라
+    //    칠해도 안 보인다. 배경과 대비되는 값을 직접 쓴다.
+    background: rgba(106, 137, 167, 0.12);
     border-right: 1px solid var(--lightgray);
     font-family: var(--codeFont);
     font-size: 1.05rem;
@@ -953,13 +954,13 @@ article table {
   // 진단의 분기점이 된 관문
   &.crit {
     border-left: 3px solid #9c2b24;
-    .idx { color: #9c2b24; }
+    .idx { color: #9c2b24; background: rgba(156, 43, 36, 0.09); }
   }
 }
 
 :root[saved-theme="dark"] .gate.crit {
   border-left-color: #e88c85;
-  .idx { color: #e88c85; }
+  .idx { color: #e88c85; background: rgba(232, 140, 133, 0.13); }
 }
 
 @media (max-width: 600px) {
@@ -1033,6 +1034,13 @@ article pre:not(:has(> code.mermaid)) {
     font-size: 0.78rem;
     line-height: 1.55;
     color: var(--darkgray);
+
+    // 출처는 설명 끝에 이어 흐른다. 재배포 요건이라 지워지면 안 되므로
+    // 색만 한 톤 눌러 두고 숨기지는 않는다.
+    .cap-src {
+      color: var(--gray);
+      white-space: nowrap;
+    }
   }
 }
 
