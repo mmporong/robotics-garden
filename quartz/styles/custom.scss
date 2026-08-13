@@ -857,3 +857,69 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
 article table {
   font-variant-numeric: tabular-nums;
 }
+
+// 관문 카드 — 진단이 여러 단계를 거쳤을 때 각 단계를 증상·근거·조치로 세운다.
+// 번호는 장식이 아니라 의존 순서다(앞을 풀어야 다음이 보인 경우에만 쓴다).
+.gate {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  margin: 0 0 0.7rem;
+
+  .idx {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 0.85rem;
+    background: var(--highlight);
+    border-right: 1px solid var(--lightgray);
+    font-family: var(--codeFont);
+    font-size: 1.05rem;
+    font-weight: 660;
+    color: var(--secondary);
+  }
+
+  .body { padding: 0.75rem 1rem 0.85rem; }
+
+  h4 {
+    margin: 0 0 0.45rem;
+    font-size: 1rem;
+    font-weight: 680;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 3.6rem 1fr;
+    gap: 0.1rem 0.7rem;
+    font-size: 0.88rem;
+    margin-top: 0.3rem;
+  }
+
+  .lab {
+    font-family: var(--codeFont);
+    font-size: 0.63rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gray);
+    padding-top: 0.22rem;
+  }
+
+  .val { color: var(--darkgray); }
+
+  // 진단의 분기점이 된 관문
+  &.crit {
+    border-left: 3px solid #9c2b24;
+    .idx { color: #9c2b24; background: rgba(156, 43, 36, 0.09); }
+  }
+}
+
+:root[saved-theme="dark"] .gate.crit {
+  border-left-color: #e88c85;
+  .idx { color: #e88c85; background: rgba(232, 140, 133, 0.13); }
+}
+
+@media (max-width: 600px) {
+  .gate { grid-template-columns: 2.2rem 1fr; }
+  .gate .row { grid-template-columns: 1fr; }
+}
