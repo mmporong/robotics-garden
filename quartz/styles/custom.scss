@@ -914,6 +914,8 @@ article table {
     align-items: flex-start;
     justify-content: center;
     padding-top: 0.85rem;
+    // 번호 칸만 옅게 채운다. 테두리만으로는 관문 순번이 본문에 묻힌다.
+    background: var(--light);
     border-right: 1px solid var(--lightgray);
     font-family: var(--codeFont);
     font-size: 1.05rem;
@@ -975,6 +977,12 @@ article pre:not(:has(> code.mermaid)) {
   border-radius: 0;
   padding: 0.2rem 0.7rem;
 
+  // 🔴 기본 글자색을 여기서 밝게 못 박는다. 언어를 안 적은 블록(```만 쓴 로그·
+  //    콘솔 출력)은 shiki 가 토큰화를 안 해 아래 [data-theme] 규칙이 안 걸리고,
+  //    라이트 모드의 어두운 본문 글자색이 그대로 어두운 배경에 얹혀 안 읽힌다.
+  color: #d8dce2;
+  code { color: inherit; }
+
   // 라이트 모드에서도 다크 토큰을 쓴다. shiki가 span마다 두 색을 인라인 변수로
   // 넣어 두므로 --shiki-dark 쪽을 고르기만 하면 된다.
   code[data-theme*=" "],
@@ -1007,6 +1015,17 @@ article pre:not(:has(> code.mermaid)) {
     width: 100%;
     height: auto;
     border: 1px solid var(--lightgray);
+  }
+
+  // 세로로 큰 그림은 전폭으로 늘리면 화면을 통째로 먹는다. width:100% 는
+  // 원본보다 크게 '확대'까지 하므로(756px 원본이 1291px 로) 높이로 잘라 둔다.
+  // 가로로 긴 배너는 이 상한에 안 걸려 종전대로 전폭을 쓴다.
+  &.tall img,
+  &.tall video {
+    width: auto;
+    max-width: 100%;
+    max-height: 30rem;
+    margin: 0 auto;
   }
 
   figcaption {
