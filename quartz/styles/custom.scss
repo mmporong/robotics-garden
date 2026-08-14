@@ -921,6 +921,21 @@ article .table-container {
   // 열이 정말 많아 넘칠 때만 스크롤이 뜨게. 평소에는 스크롤바가 없어야 한다.
   overflow-x: auto;
   overscroll-behavior-x: contain;
+
+  // ✎ 2026-08-14: 4열 표가 390px 화면에서 65px 넘쳤다(본문 폭 327px). 범인은 base의
+  //   `th, td { min-width: 75px }`다 — 값이 "79.8%"뿐인 열도 75px을 차지해 4열이면
+  //   최소 300px을 먹는다. 폰트만 줄이면 열 폭이 그대로라 거의 안 줄어든다.
+  //   좁은 화면에서는 최소폭을 풀어 열이 내용만큼만 차지하게 한다.
+  @media (max-width: 480px) {
+    > table {
+      font-size: 0.82rem;
+
+      :is(th, td) {
+        min-width: 0;
+        padding: 0.3rem 0.4rem;
+      }
+    }
+  }
 }
 
 // 관문 카드 — 진단이 여러 단계를 거쳤을 때 각 단계를 증상·근거·조치로 세운다.
