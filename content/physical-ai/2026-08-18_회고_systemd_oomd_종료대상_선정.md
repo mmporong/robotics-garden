@@ -1,6 +1,6 @@
 ---
 publish: true
-title: "systemd-oomd 사살 대상 선정 — 압박도 사용량도 1위가 아니었다"
+title: "systemd-oomd 종료 대상 선정 — 압박도 사용량도 1위가 아니었다"
 date: 2026-08-18T09:45:00+09:00
 tags: [systemd-oomd, PSI, cgroup, 리눅스메모리, 로그분석]
 description: "메모리가 고갈됐을 때 죽은 것은 25.6GB를 쥔 프로세스가 아니라 150MB짜리 데스크톱 셸이었어요. 로그를 세 지표로 정렬해 보니 그마저도 어느 축으로도 1위가 아니었고, 선정을 정하는 값은 기록에 남지 않았어요."
@@ -25,11 +25,11 @@ GNOME은 셸(gnome-shell — 창과 패널을 그리는 주체)이 죽으면 데
 
 gnome-shell을 죽인 것은 `systemd-oomd`예요. 커널 OOM 킬러와 달리 사용자 공간에서 PSI(Pressure Stall Information — 태스크가 메모리를 기다리며 멈춘 시간의 비율)를 폴링해 cgroup 단위로 SIGKILL을 보내요.
 
-사살 순간 로그가 후보 80개와 각각의 지표를 남겨 뒀어요. 상위권을 세 축으로 정렬하면 이렇게 나와요.
+개입 시점에 로그가 후보 80개와 각각의 지표를 남겨 뒀어요. 상위권을 세 축으로 정렬하면 이렇게 나와요.
 
-<figure class="fig"><img src="../assets/oomd_victim_ranks.png" alt="Pgscan·압박·메모리 세 지표로 정렬한 systemd-oomd 후보 목록. 사살된 gnome-shell이 세 축 모두에서 하위권에 있다"><figcaption>2026-08-13 17:09:56 실측. 빨강이 실제로 사살된 cgroup이에요.</figcaption></figure>
+<figure class="fig"><img src="../assets/oomd_victim_ranks.png" alt="Pgscan·압박·메모리 세 지표로 정렬한 systemd-oomd 후보 목록. 종료된 gnome-shell이 세 축 모두에서 하위권에 있다"><figcaption>2026-08-13 17:09:56 실측. 빨강이 실제로 강제 종료된 cgroup이에요.</figcaption></figure>
 
-사살된 gnome-shell은 회수 스캔 7위, 압박 8위, 메모리 6위예요. 어느 축으로도 1위가 아니에요. 압박 93.45에 4.1GB를 쥔 cgroup은 그대로 살아남았고, 같은 시각 25.6GB까지 자란 파이썬 프로세스는 후보 목록에 이름조차 없었어요. 그 프로세스는 4시간 37분을 더 살다 두 번째 사고 때 죽었어요.
+종료된 gnome-shell은 회수 스캔 7위, 압박 8위, 메모리 6위예요. 어느 축으로도 1위가 아니에요. 압박 93.45에 4.1GB를 쥔 cgroup은 그대로 살아남았고, 같은 시각 25.6GB까지 자란 파이썬 프로세스는 후보 목록에 이름조차 없었어요. 그 프로세스는 4시간 37분을 더 살다 두 번째 사고 때 죽었어요.
 
 ## PSI는 발동 조건이지 선정 기준이 아니에요
 
