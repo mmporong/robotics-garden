@@ -257,3 +257,82 @@ cd "$HOME\IsaacLab"
 - [GIF·스크린샷·원본 영상 해시](https://github.com/mmporong/isaac-walk-rl/blob/61bba4bed386aacc21a7742382fa9c36cb6a0fd8/docs/G006_VISUAL_EVIDENCE.md)
 
 이 결과는 simulation에서 상태 관측을 사용하는 정책에 한정돼요. 카메라 기반 perception, 실제 Go2 하드웨어, actuator 지연, 통신 지연, 배터리와 열 특성은 다루지 않았어요. variant당 training seed도 3개라 작은 차이를 가르는 통계 검정에는 한계가 있어요. 이번 산출물은 sim-to-real 완료가 아니라, 비교 조건을 통제한 rough-terrain PPO 학습과 외란 회복 평가 파이프라인이에요.
+
+## 다음에 진행할 실험
+
+다음 실험 묶음은 G008이에요. G006에서 만든 rough-terrain 정책을 출발점으로 삼고, 방향 명령, 발바닥 마찰, 다리 링크 질량을 서로 다른 파트로 나눠요. 세 변수를 한 환경에 한꺼번에 넣으면 성능 변화가 명령 분포 때문인지 접촉 조건 때문인지 구분하기 어려워요. 한 파트의 기준을 통과한 뒤 다음 파트로 넘어갈 계획이에요.
+
+### 1. 전진·후진·좌회전·우회전을 따로 검증해요
+
+기존 uniform velocity sampler는 음의 전진 속도와 양·음 yaw rate를 만들 수 있어요. 하지만 순수 후진 `[-v_x, 0, 0]`이나 제자리 회전 `[0, 0, ±ω_z]`은 연속분포에서 정확히 뽑힐 확률이 거의 없어요. 범위에 들어 있다는 사실만으로 네 동작을 충분히 연습했다고 볼 수 없는 이유예요.
+
+새 command sampler는 표본의 80%를 다섯 개 exact primitive에 배정해요.
+
+| primitive | body-frame 명령 `[v_x, v_y, ω_z]` | 전체 표본에서의 목표 비중 |
+| --- | --- | ---: |
+| 전진 | `[+0.60, 0, 0]` | `18%` |
+| 후진 | `[-0.40, 0, 0]` | `18%` |
+| 좌회전 | `[0, 0, +0.50]` | `18%` |
+| 우회전 | `[0, 0, -0.50]` | `18%` |
+| 정지 | `[0, 0, 0]` | `8%` |
+
+나머지 20%는 `v_x`, `v_y`, `ω_z`를 연속으로 뽑아 옆걸음과 곡선 보행을 남겨요. 명령은 4~6초 동안 유지하고, 절대 heading target이 아니라 yaw-rate를 직접 입력해요. `+ω_z`는 위에서 봤을 때 반시계 방향인 좌회전, `-ω_z`는 우회전이에요.
+
+평가는 64개 환경을 방향당 16개씩 나눠 5초 동안 고정 명령을 줘요. 처음 1초는 가속 구간으로 제외하고 다음 수치를 기록해요.
+
+- 선속도 vector RMSE와 yaw-rate RMSE
+- 평균 `v_x`, `v_y`, `ω_z`의 부호가 명령과 같은지
+- base contact 없이 끝까지 생존했는지
+- roll과 pitch 절댓값의 최댓값
+- applied torque의 L2 norm
+- `Σ|τ_j q̇_j|`로 계산한 기계적 파워 proxy
+
+방향 기능의 gate는 생존률 100%, 선속도 RMSE `0.25 m/s` 이하, yaw RMSE `0.25 rad/s` 이하, roll과 pitch `0.35 rad` 이하예요. 평면에서 command 자체를 먼저 판정하고, 같은 checkpoint를 rough terrain에 넣어 경사와 요철이 더해졌을 때의 변화를 따로 봐요.
+
+처음부터 `1,024 env × 300 iterations`를 학습하는 실행과 G006의 `model_1499.pt`에서 300 iterations를 미세조정하는 실행을 구분해요. 전자는 새 분포가 짧은 budget에서 지역해로 가는지 확인하는 진단이고, 후자는 이미 확보한 rough 보행 능력을 유지하면서 네 방향 빈도를 늘리는 경로예요. 두 checkpoint를 같은 평가기에 넣어 초기화 효과도 기록할 예정이에요.
+
+### 2. 발바닥 마찰은 세 단계로 넓혀요
+
+마찰 실험에서는 terrain 전체를 다시 만드는 대신 환경별 foot collision material을 바꿔요. terrain coefficient가 1.0이고 combine mode가 multiply인 현재 조건에서는 접촉쌍의 유효 계수가 sampled foot 계수와 같아요. 환경과 foot shape마다 64개 material bucket 중 하나를 배정하고 restitution은 0으로 고정해요.
+
+| stage | static friction | dynamic friction | 목적 |
+| --- | --- | --- | --- |
+| S1 | `0.72~0.88` | `0.52~0.68` | nominal `0.8/0.6` 주변에서 학습 경로 확인 |
+| S2 | `0.62~1.00` | `0.42~0.78` | 미끄럼 차이가 커진 조건 비교 |
+| S3 | `0.50~1.25` | `0.30~1.00` | 논문에서 사용한 범위에 닿는 stress 평가 |
+
+접선력은 `sqrt(Fx²+Fy²) ≤ μFz`를 넘을 수 없어요. 마찰이 낮아지면 전진 가속뿐 아니라 `Σ(r_xF_y-r_yF_x)`로 만드는 yaw moment도 줄어요. 그래서 마찰 stage마다 전진 속도만 보지 않고 좌우 회전, 미끄럼, roll/pitch, torque와 power proxy를 같이 확인해요.
+
+S1은 `1,024 env × 300 iterations × seed 42`, S2는 `2,048 × 600 × seeds 42/43`, S3는 `4,096 × 1,500 × seeds 42/43/44`를 후보 budget으로 두고 있어요. 앞 단계가 randomized friction과 nominal friction에서 모두 gate를 통과해야 다음 범위를 열어요.
+
+### 3. 다리 링크 질량도 별도 세 단계로 진행해요
+
+질량 실험은 base payload가 아니라 네 다리의 hip, thigh, calf, foot 16개 body를 대상으로 해요. 현재 Go2 asset에서 네 다리 링크의 nominal 합계는 `8.096 kg`이에요. 각 환경과 각 body가 독립적으로 uniform scale을 뽑기 때문에 왼쪽 calf만 조금 무거운 비대칭 조건도 나타날 수 있어요.
+
+| stage | body별 mass scale | 16개 링크가 모두 경계값일 때의 합계 |
+| --- | --- | --- |
+| S1 | `0.95~1.05` | `7.6912~8.5008 kg` |
+| S2 | `0.90~1.10` | `7.2864~8.9056 kg` |
+| S3 | `0.80~1.20` | `6.4768~9.7152 kg` |
+
+링크 질량을 바꾸면 `M(q)q̈ + C(q,q̇)q̇ + g(q) = Sᵀτ + Jᵀλ`의 관성항과 중력항이 달라져요. 발처럼 관절축에서 먼 링크는 같은 질량 증가라도 swing inertia를 더 크게 바꿀 수 있어요. 질량만 바꾸고 inertia tensor를 그대로 두지 않도록 nominal inertia를 mass ratio로 다시 계산해요. 다만 COM 위치와 collision geometry는 고정되므로 실제 센서나 보호대를 발끝에 부착한 상황을 완전히 재현하는 것은 아니에요.
+
+질량 stage도 마찰과 같은 budget ladder를 사용해요. 마찰과 질량을 동시에 randomize하지 않고, 각 축의 S1·S2·S3 결과가 나온 뒤에만 상호작용 실험을 별도로 열어요.
+
+### 4. sim-to-real에 필요한 실물 측정을 붙여요
+
+시뮬레이션 범위를 넓히는 것만으로 실물 전이가 끝나지는 않아요. 다음 계측값을 확보해야 randomization 범위를 실제 장비와 연결할 수 있어요.
+
+- 발 패드와 타일·매트·먼지 표면의 static/dynamic friction 반복 측정
+- 케이블, 보호대, 센서를 장착한 상태의 링크별 질량과 COM 위치
+- 관절별 current/torque와 swing 가속 응답
+- actuator strength, control latency, IMU bias, battery voltage의 실측 분포
+- 시뮬레이션과 실물의 명령 step response, slip 시작 시점, yaw 응답 비교
+
+마찰이나 질량 결과가 좋아도 actuator delay와 센서 오차까지 해결됐다고 해석하지 않을 거예요. 각 오차 원인을 측정한 뒤 별도 randomization 축으로 추가해요.
+
+### 5. 공개 증거와 중단 기준을 함께 남겨요
+
+각 stage는 설정 diff, seed, checkpoint SHA-256, TensorBoard, runtime 물성 probe와 고정 평가 JSON을 남겨요. 영상은 동작을 확인하는 보조 자료로만 사용해요. 공개 저장소에는 전진·후진·좌우 회전을 묶은 작은 GIF를 올리고, 원본 MP4는 로컬에 보관해 경로와 해시만 기록해요.
+
+다음 단계로 넘어가는 기준은 성능이 좋아 보인다는 인상이 아니에요. 네 방향 생존·추적·자세 gate와 nominal guardrail을 모두 통과해야 해요. randomization 환경에서 점수가 올라도 nominal 성능이 나빠지면 범위를 넓히지 않고 그 stage에서 원인을 분석해요. S3까지 끝난 뒤에는 seed별 편차와 torque·power 비용을 같이 보고, sim-to-real 적용 후보와 시뮬레이션 안에서만 유효한 결과를 나눠 기록할 계획이에요.
