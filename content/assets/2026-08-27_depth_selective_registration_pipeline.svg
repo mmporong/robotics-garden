@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">선택적 깊이 등록 실패 예측의 평가 구조</title>
+  <desc id="desc">RGB-D 입력에서 등록 신호를 만들고 실패 확률을 보정한 뒤 업데이트 수용 또는 보류를 결정하며 risk-coverage와 보정 오차로 평가하는 계획 구조</desc>
+  <style>
+    .title{font:700 34px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#16324a}
+    .sub{font:400 17px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#5f7284}
+    .head{font:700 21px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#17324d}
+    .body{font:400 17px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#334d62}
+    .small{font:400 15px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#526b7d}
+    .box{fill:#ffffff;stroke:#b8d2e1;stroke-width:2}
+    .blue{fill:#eef7ff;stroke:#5d9dd4;stroke-width:2}
+    .amber{fill:#fff7eb;stroke:#dc9640;stroke-width:2}
+    .green{fill:#effaf6;stroke:#4f9f80;stroke-width:2}
+    .arrow{stroke:#55758d;stroke-width:4;fill:none;marker-end:url(#arrow)}
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#55758d"/></marker>
+  </defs>
+  <rect width="1600" height="760" fill="#f8fbfd"/>
+  <text x="80" y="72" class="title">선택적 RGB-D 등록: 실패를 예측하고 업데이트를 보류하는 구조</text>
+  <text x="80" y="108" class="sub">아래 흐름은 후속 평가 계약이며, 현재 성능 결과를 나타내지 않아요.</text>
+
+  <rect x="70" y="185" width="270" height="250" rx="18" class="blue"/>
+  <text x="100" y="230" class="head">1. 입력</text>
+  <text x="100" y="278" class="body">raw depth</text>
+  <text x="100" y="314" class="body">registered RGB</text>
+  <text x="100" y="350" class="body">temporal warp</text>
+  <text x="100" y="386" class="body">fixed distance prior</text>
+
+  <path d="M340 310H405" class="arrow"/>
+  <rect x="410" y="160" width="330" height="300" rx="18" class="box"/>
+  <text x="440" y="205" class="head">2. 등록 상태 신호</text>
+  <text x="440" y="253" class="body">residual</text>
+  <text x="440" y="289" class="body">inlier ratio</text>
+  <text x="440" y="325" class="body">Hessian spectrum</text>
+  <text x="440" y="361" class="body">uncertainty proxy</text>
+  <text x="440" y="397" class="body">overlap</text>
+
+  <path d="M740 310H805" class="arrow"/>
+  <rect x="810" y="205" width="250" height="210" rx="18" class="green"/>
+  <text x="840" y="250" class="head">3. 실패 점수</text>
+  <text x="840" y="302" class="body">calibrated</text>
+  <text x="840" y="338" class="body">failure probability</text>
+  <text x="840" y="376" class="small">held-out GT 입력 금지</text>
+
+  <path d="M1060 310H1125" class="arrow"/>
+  <rect x="1130" y="135" width="390" height="175" rx="18" class="blue"/>
+  <text x="1160" y="180" class="head">4A. 업데이트 수용</text>
+  <text x="1160" y="230" class="body">pose update 적용</text>
+  <text x="1160" y="266" class="small">잠근 coverage floor 안에서만</text>
+  <rect x="1130" y="350" width="390" height="175" rx="18" class="amber"/>
+  <text x="1160" y="395" class="head">4B. 보류 또는 fallback</text>
+  <text x="1160" y="445" class="body">abstain · hold · 대체 관측</text>
+  <text x="1160" y="481" class="small">오답을 낼 대신 관측을 쓰지 않음</text>
+
+  <path d="M935 415V600H1170" class="arrow"/>
+  <rect x="190" y="590" width="1140" height="110" rx="18" class="box"/>
+  <text x="230" y="635" class="head">평가: failure AUROC 하나로 끝내지 않아요</text>
+  <text x="230" y="675" class="body">risk-coverage · calibration error · coverage floor · runtime cap · scene-disjoint held-out</text>
+</svg>

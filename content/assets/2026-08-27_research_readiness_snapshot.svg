@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Depth, PID, IMU 연구선의 현재 자격 비교</title>
+  <desc id="desc">2026년 8월 27일 현재 Depth는 active gate이고 PID와 IMU는 preflight only인 근거를 비교한 그림</desc>
+  <style>
+    .title{font:700 34px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#17324d}
+    .sub{font:400 17px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#5c7183}
+    .lane{font:700 29px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#17324d}
+    .status{font:700 17px "Noto Sans KR","Malgun Gothic",sans-serif}
+    .head{font:700 19px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#29475f}
+    .body{font:400 16px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#405b70}
+    .foot{font:700 18px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#8b5d22}
+    .card{fill:#fff;stroke:#bfd4df;stroke-width:2}
+  </style>
+  <rect width="1600" height="900" fill="#f8fbfd"/>
+  <text x="70" y="70" class="title">세 연구선의 hard eligibility 스냅샷</text>
+  <text x="70" y="106" class="sub">2026-08-27 기준. 중요도 순위가 아니라, 지금 PASS 또는 STOP 증거를 만들 수 있는 순서예요.</text>
+
+  <rect x="65" y="160" width="470" height="610" rx="20" class="card"/>
+  <rect x="65" y="160" width="470" height="92" rx="20" fill="#e9f6ff"/>
+  <text x="100" y="216" class="lane">Depth failure prediction</text>
+  <rect x="100" y="282" width="168" height="38" rx="19" fill="#dff5ea"/>
+  <text x="184" y="307" text-anchor="middle" class="status" fill="#267358">ACTIVE_GATE</text>
+  <text x="100" y="370" class="head">현재 확보</text>
+  <text x="100" y="410" class="body">• 공개 TUM RGB-D 데이터 경로</text>
+  <text x="100" y="444" class="body">• 고정 CPython 3.14.0 환경</text>
+  <text x="100" y="478" class="body">• 기준선 복원으로 자격 판정 가능</text>
+  <text x="100" y="538" class="head">현재 제한</text>
+  <text x="100" y="578" class="body">• 기존 translation 우월성 가설 기각</text>
+  <text x="100" y="612" class="body">• failure prediction 신규성 미검증</text>
+  <text x="100" y="672" class="head">유일한 NEXT</text>
+  <text x="100" y="712" class="body">D0 기준선 복원</text>
+
+  <rect x="565" y="160" width="470" height="610" rx="20" class="card"/>
+  <rect x="565" y="160" width="470" height="92" rx="20" fill="#fff5e8"/>
+  <text x="600" y="216" class="lane">PID control</text>
+  <rect x="600" y="282" width="190" height="38" rx="19" fill="#fff0d9"/>
+  <text x="695" y="307" text-anchor="middle" class="status" fill="#9b641f">PREFLIGHT_ONLY</text>
+  <text x="600" y="370" class="head">현재 확보</text>
+  <text x="600" y="410" class="body">• 재현 가능한 합성 benchmark 코드</text>
+  <text x="600" y="444" class="body">• 실패를 포함한 결과 원장</text>
+  <text x="600" y="504" class="head">막힌 증거</text>
+  <text x="600" y="544" class="body">• 서로 다른 물리 구동기 2대</text>
+  <text x="600" y="578" class="body">• command issue/arrival/applied 시각</text>
+  <text x="600" y="612" class="body">• 전원·부하·포화·안전 계측</text>
+  <text x="600" y="646" class="body">• 날짜·부하가 다른 held-out session</text>
+
+  <rect x="1065" y="160" width="470" height="610" rx="20" class="card"/>
+  <rect x="1065" y="160" width="470" height="92" rx="20" fill="#f1efff"/>
+  <text x="1100" y="216" class="lane">IMU / stereo VIO</text>
+  <rect x="1100" y="282" width="190" height="38" rx="19" fill="#eeeaff"/>
+  <text x="1195" y="307" text-anchor="middle" class="status" fill="#6550a7">PREFLIGHT_ONLY</text>
+  <text x="1100" y="370" class="head">현재 확보</text>
+  <text x="1100" y="410" class="body">• 합성 오차 전파와 로그 감사</text>
+  <text x="1100" y="444" class="body">• EuRoC 실행 계약 초안</text>
+  <text x="1100" y="504" class="head">막힌 증거</text>
+  <text x="1100" y="544" class="body">• schema precedence 승인</text>
+  <text x="1100" y="578" class="body">• ROS 2 / OpenVINS 실행 host</text>
+  <text x="1100" y="612" class="body">• 고정 source·compiler·library pin</text>
+  <text x="1100" y="646" class="body">• 실제 stereo VIO outcome</text>
+
+  <rect x="210" y="810" width="1180" height="58" rx="16" fill="#fff7eb" stroke="#e6b56f"/>
+  <text x="800" y="848" text-anchor="middle" class="foot">테스트 개수, 문서 분량, 투입 시간은 막힌 hard eligibility를 상쇄하지 않아요.</text>
+</svg>

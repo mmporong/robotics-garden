@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="880" viewBox="0 0 1600 880" role="img" aria-labelledby="title desc">
+  <title id="title">로보틱스 연구의 G0부터 G7까지 증거 관문</title>
+  <desc id="desc">계획 잠금에서 신규성, 재현 기준선, 사전등록, 개발 동결, confirmatory 평가, 원고 패키지, 포트폴리오 증거로 이어지는 순차 관문</desc>
+  <style>
+    .title{font:700 34px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#17324d}
+    .sub{font:400 17px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#5c7183}
+    .g{font:700 19px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#ffffff}
+    .head{font:700 20px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#203d54}
+    .body{font:400 15px "Noto Sans KR","Malgun Gothic",sans-serif;fill:#4b6374}
+    .card{fill:#fff;stroke:#bfd4df;stroke-width:2}
+    .arrow{stroke:#6b879b;stroke-width:4;fill:none;marker-end:url(#arrow)}
+  </style>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6b879b"/></marker></defs>
+  <rect width="1600" height="880" fill="#f8fbfd"/>
+  <text x="70" y="70" class="title">한 번에 한 연구선만 여는 G0–G7 증거 관문</text>
+  <text x="70" y="106" class="sub">앞 관문이 닫히지 않으면 뒤 관문의 코드·held-out·원고를 열지 않아요.</text>
+
+  <g transform="translate(70 165)">
+    <rect width="330" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#4f86b7"/><text x="48" y="55" text-anchor="middle" class="g">G0</text><text x="92" y="48" class="head">계획 잠금</text><text x="28" y="104" class="body">실행 순서·누수 방지·중단 기준</text><text x="28" y="138" class="body">독립 검토와 같은 commit</text><text x="28" y="172" class="body">NEXT는 하나</text>
+  </g>
+  <path d="M400 270H445" class="arrow"/>
+  <g transform="translate(450 165)">
+    <rect width="330" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#4f86b7"/><text x="48" y="55" text-anchor="middle" class="g">G1</text><text x="92" y="48" class="head">신규성 경계</text><text x="28" y="104" class="body">직접 원문 10편 이상</text><text x="28" y="138" class="body">closest prior 3편 이상</text><text x="28" y="172" class="body">측정 가능한 차이 한 문장</text>
+  </g>
+  <path d="M780 270H825" class="arrow"/>
+  <g transform="translate(830 165)">
+    <rect width="330" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#4f86b7"/><text x="48" y="55" text-anchor="middle" class="g">G2</text><text x="92" y="48" class="head">재현 기준선</text><text x="28" y="104" class="body">데이터·GT·장비·라이선스</text><text x="28" y="138" class="body">source와 archive hash</text><text x="28" y="172" class="body">development / held-out 분리</text>
+  </g>
+  <path d="M1160 270H1205" class="arrow"/>
+  <g transform="translate(1210 165)">
+    <rect width="320" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#4f86b7"/><text x="48" y="55" text-anchor="middle" class="g">G3</text><text x="92" y="48" class="head">사전등록·봉인</text><text x="28" y="104" class="body">primary endpoint 하나</text><text x="28" y="138" class="body">실패·coverage·runtime 판정식</text><text x="28" y="172" class="body">confirmatory seal</text>
+  </g>
+
+  <path d="M1370 375V455H1360" class="arrow"/>
+  <g transform="translate(1210 500)">
+    <rect width="320" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#4f9f80"/><text x="48" y="55" text-anchor="middle" class="g">G4</text><text x="92" y="48" class="head">Development 동결</text><text x="28" y="104" class="body">최소 baseline·ablation</text><text x="28" y="138" class="body">같은 입력·예산·종료 조건</text><text x="28" y="172" class="body">실패를 제외하지 않음</text>
+  </g>
+  <path d="M1210 605H1165" class="arrow"/>
+  <g transform="translate(830 500)">
+    <rect width="330" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#d98b36"/><text x="48" y="55" text-anchor="middle" class="g">G5</text><text x="92" y="48" class="head">Confirmatory 1회</text><text x="28" y="104" class="body">잠근 효과와 모든 제약 동시 통과</text><text x="28" y="138" class="body">FAIL도 보존</text><text x="28" y="172" class="body">재질문은 새 split·revision으로</text>
+  </g>
+  <path d="M830 605H785" class="arrow"/>
+  <g transform="translate(450 500)">
+    <rect width="330" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#715da9"/><text x="48" y="55" text-anchor="middle" class="g">G6</text><text x="92" y="48" class="head">원고·재현 패키지</text><text x="28" y="104" class="body">claim traceability</text><text x="28" y="138" class="body">깨끗한 환경에서 PDF 재생성</text><text x="28" y="172" class="body">placeholder·누락 출처 0건</text>
+  </g>
+  <path d="M450 605H405" class="arrow"/>
+  <g transform="translate(70 500)">
+    <rect width="330" height="210" rx="18" class="card"/><circle cx="48" cy="48" r="30" fill="#715da9"/><text x="48" y="55" text-anchor="middle" class="g">G7</text><text x="92" y="48" class="head">포트폴리오 증거</text><text x="28" y="104" class="body">실제 trace·영상·계측 지점</text><text x="28" y="138" class="body">한 명령 재현 절차</text><text x="28" y="172" class="body">성공과 실패를 같은 기준으로</text>
+  </g>
+
+  <rect x="250" y="770" width="1100" height="58" rx="16" fill="#fff7eb" stroke="#e5b873"/>
+  <text x="800" y="807" text-anchor="middle" class="head">G5의 FAIL은 삭제 대상이 아니라 우월성 주장 중단과 새 질문의 근거예요.</text>
+</svg>
