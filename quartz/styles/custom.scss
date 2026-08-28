@@ -51,6 +51,87 @@ article code {
   font-size: 0.85em;
 }
 
+// 어려운 용어: 브라우저 기본 title 말풍선 대신 용어 바로 아래에 설명을 표시한다.
+// 스크립트가 title을 data-tooltip로 옮기므로 기본 말풍선과 겹치지 않고,
+// 키보드 포커스와 터치 포커스에서도 같은 설명을 볼 수 있다.
+article abbr[data-tooltip] {
+  position: relative;
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  cursor: help;
+  outline-offset: 3px;
+
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    z-index: 100;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: min(22rem, calc(100vw - 2rem));
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--gray);
+    border-radius: 0.45rem;
+    background: var(--dark);
+    box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.2);
+    color: var(--light);
+    font-family: var(--bodyFont);
+    font-size: 0.82rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, -0.2rem);
+    transition:
+      opacity 0.14s ease,
+      transform 0.14s ease,
+      visibility 0.14s ease;
+  }
+
+  &[data-tooltip-align="start"]::after {
+    left: 0;
+    transform: translate(0, -0.2rem);
+  }
+
+  &[data-tooltip-align="end"]::after {
+    right: 0;
+    left: auto;
+    transform: translate(0, -0.2rem);
+  }
+
+  &:is(:hover, :focus)::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  &[data-tooltip-align="start"]:is(:hover, :focus)::after,
+  &[data-tooltip-align="end"]:is(:hover, :focus)::after {
+    transform: translate(0, 0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--secondary);
+    border-radius: 0.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  article abbr[data-tooltip]::after {
+    transition: none;
+  }
+}
+
 // 제목 위계
 article h2 {
   letter-spacing: -0.01em;
