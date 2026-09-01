@@ -1,0 +1,16 @@
+@media (max-width: 600px) {
+  article abbr[data-tooltip]::after {
+    box-sizing: border-box;
+    display: none;
+    position: fixed;
+    inset: auto 1.5rem 1.5rem !important;
+    width: auto;
+    max-width: none;
+    transform: none !important;
+  }
+
+  article abbr[data-tooltip]:is(:hover, :focus)::after {
+    display: block;
+    transform: none !important;
+  }
+}
