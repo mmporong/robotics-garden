@@ -8,6 +8,8 @@ import spaRouterScript from "../../components/scripts/spa.inline"
 import popoverScript from "../../components/scripts/popover.inline"
 // @ts-ignore
 import termTooltipScript from "../../components/scripts/term-tooltip.inline"
+// @ts-ignore
+import referenceLibraryScript from "../../components/scripts/reference-library.inline"
 import baseStyles from "../../styles/base.scss"
 import customStyles from "../../styles/custom.scss"
 import popoverStyle from "../../components/styles/popover.scss"
@@ -87,6 +89,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   const cfg = ctx.cfg.configuration
 
   componentResources.afterDOMLoaded.push(termTooltipScript)
+  componentResources.afterDOMLoaded.push(referenceLibraryScript)
 
   // popovers
   if (cfg.enablePopovers) {

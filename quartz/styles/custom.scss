@@ -875,6 +875,23 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
   }
 }
 
+.home-reference-link {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.8rem 0 0;
+
+  a {
+    color: var(--secondary);
+    font-family: var(--codeFont);
+    font-size: 0.78rem;
+    letter-spacing: 0.01em;
+
+    span {
+      margin-left: 0.25rem;
+    }
+  }
+}
+
 // ─────────────────────────────────────────────────────────────
 // 학습 기록 — 증거 중심 컴포넌트 (2026-08-13 신설)
 //
@@ -1257,4 +1274,193 @@ article pre:not(:has(> code.mermaid)) {
   --sv-ok: #7fc490;
   --sv-bad: #e88c85;
   --sv-mid: #e0a95e;
+}
+
+// 리서치 폴더의 원문 색인. 각 글 하단 출처 블록에서 빌드 시 자동 생성한다.
+#reference-library {
+  margin: 1.8rem 0 2.6rem;
+
+  .rl-controls {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .rl-search {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--lightgray);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--dark);
+    font-family: var(--bodyFont);
+    font-size: 0.95rem;
+    padding: 0.75rem 0.9rem;
+
+    &:focus {
+      border-color: var(--secondary);
+      outline: 2px solid var(--highlight);
+      outline-offset: 1px;
+    }
+  }
+
+  .rl-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .rl-filter,
+  .rl-more {
+    border: 1px solid var(--lightgray);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--darkgray);
+    cursor: pointer;
+    font-family: var(--bodyFont);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+  }
+
+  .rl-filter.active {
+    border-color: var(--secondary);
+    background: var(--secondary);
+    color: var(--light);
+  }
+
+  .rl-count {
+    color: var(--gray);
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .rl-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.5rem;
+    border-top: 1px solid var(--lightgray);
+  }
+
+  .rl-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--lightgray);
+  }
+
+  .rl-meta,
+  .rl-tags,
+  .rl-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .rl-kind,
+  .rl-tag {
+    border-radius: 999px;
+    font-size: 0.7rem;
+    padding: 0.16rem 0.48rem;
+  }
+
+  .rl-kind-paper {
+    background: rgba(214, 149, 60, 0.16);
+    color: #9a5b12;
+  }
+
+  .rl-kind-resource {
+    background: var(--highlight);
+    color: var(--secondary);
+  }
+
+  .rl-date,
+  .rl-tag {
+    color: var(--gray);
+  }
+
+  .rl-date {
+    font-family: var(--codeFont);
+    font-size: 0.72rem;
+  }
+
+  .rl-tag {
+    border: 1px solid var(--lightgray);
+  }
+
+  .rl-title {
+    color: var(--dark);
+    font-family: var(--headerFont);
+    font-size: 1.02rem;
+    font-weight: 650;
+    line-height: 1.45;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+
+  .rl-links {
+    margin-top: auto;
+    font-size: 0.78rem;
+  }
+
+  .rl-source,
+  .rl-summary {
+    overflow-wrap: anywhere;
+  }
+
+  .rl-source {
+    color: var(--secondary);
+  }
+
+  .rl-summary {
+    color: var(--gray);
+  }
+
+  .rl-more {
+    display: block;
+    margin: 1.3rem auto 0;
+  }
+
+  .rl-more[hidden] {
+    display: none;
+  }
+
+  .rl-error {
+    border-left: 3px solid #9c2b24;
+    color: var(--darkgray);
+    padding-left: 0.8rem;
+  }
+
+  .rl-empty {
+    color: var(--gray);
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 1.2rem 0;
+  }
+
+  @media all and (max-width: 700px) {
+    .rl-list {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+:root[saved-theme="dark"] #reference-library .rl-kind-paper {
+  background: rgba(224, 169, 94, 0.16);
+  color: #e0a95e;
+}
+
+body[data-slug="research/index"] .content-meta {
+  display: none;
 }
