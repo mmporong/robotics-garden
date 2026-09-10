@@ -117,9 +117,16 @@ function wrapRepeatedTerms(article: HTMLElement, definitions: TermDefinition[]) 
   }
 }
 
+// 2026-09-10 사용자 지시: 한 번 설명한 용어는 다시 보여 주지 않는다.
+// 반복 등장 자동 감싸기(wrapRepeatedTerms)를 끈다. 글에 직접 쓴 첫 <abbr>만 툴팁을 갖는다.
+// 되살리려면 아래 상수를 true 로 바꾼다.
+const WRAP_REPEATED_TERMS = false
+
 function prepareTermTooltips() {
-  for (const article of document.querySelectorAll<HTMLElement>("article")) {
-    wrapRepeatedTerms(article, collectTermDefinitions(article))
+  if (WRAP_REPEATED_TERMS) {
+    for (const article of document.querySelectorAll<HTMLElement>("article")) {
+      wrapRepeatedTerms(article, collectTermDefinitions(article))
+    }
   }
 
   const terms = document.querySelectorAll<HTMLElement>(

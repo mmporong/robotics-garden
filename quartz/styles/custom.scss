@@ -1464,3 +1464,18 @@ article pre:not(:has(> code.mermaid)) {
 body[data-slug="research/index"] .content-meta {
   display: none;
 }
+
+// 2026-09-10: 좁은 화면 두 가지 (실측 390px)
+//  - .table-container 는 overflow auto 인데 base 가 table 에 위아래 1rem 마진을 줘서
+//    컨테이너보다 표가 커지고 세로 스크롤바가 떴다. 마진을 컨테이너로 옮기고 세로는 잠근다.
+//  - .pair 캡션의 출처 표시(.cap-src, nowrap)가 좁은 열에서 못 접혀 문서가 가로로 135px
+//    넘쳤다. 600px 이하에서는 한 열로 쌓고 출처 표시를 접히게 둔다.
+article .table-container {
+  overflow-y: hidden;
+  margin-block: 1rem;
+  > table { margin-block: 0; }
+}
+@media (max-width: 600px) {
+  .pair { grid-template-columns: 1fr; gap: 1rem; }
+  .fig figcaption .cap-src, .pair figcaption .cap-src { white-space: normal; }
+}
