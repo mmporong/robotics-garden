@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">STAR가 촉각 희소성을 다루는 흐름</title>
+  <desc id="desc">카메라와 촉각 입력에서 접촉한 촉각만 남기고 전체 요약 정보를 더한 뒤, 미래 접촉을 예측하며 행동을 만드는 흐름</desc>
+  <style>text{font-family:system-ui,sans-serif;fill:#24303a}.box{fill:#f7f9fb;stroke:#637b8c;stroke-width:2}.accent{fill:#e8f3f5;stroke:#28727b;stroke-width:2}.arrow{stroke:#526b7a;stroke-width:3;fill:none;marker-end:url(#a)}.label{font-size:27px;font-weight:700}.body{font-size:21px}.small{font-size:18px;fill:#53616a}</style>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526b7a"/></marker></defs>
+  <rect x="50" y="55" width="240" height="130" rx="18" class="box"/><text x="170" y="105" text-anchor="middle" class="label">카메라·촉각</text><text x="170" y="142" text-anchor="middle" class="body">시각, 손끝 변화,</text><text x="170" y="170" text-anchor="middle" class="body">행동을 같은 시각에 기록</text>
+  <path d="M290 120H400" class="arrow"/>
+  <rect x="405" y="55" width="300" height="130" rx="18" class="accent"/><text x="555" y="98" text-anchor="middle" class="label">희소 촉각 표현</text><text x="555" y="135" text-anchor="middle" class="body">접촉한 위치는 남기고</text><text x="555" y="164" text-anchor="middle" class="body">손 전체 요약은 항상 유지</text>
+  <path d="M705 120H810" class="arrow"/>
+  <rect x="815" y="55" width="330" height="130" rx="18" class="box"/><text x="980" y="98" text-anchor="middle" class="label">행동과 미래 접촉</text><text x="980" y="135" text-anchor="middle" class="body">행동을 만들면서 여러 시점의</text><text x="980" y="164" text-anchor="middle" class="body">접촉 변화를 함께 예측</text>
+  <path d="M980 185V290" class="arrow"/>
+  <rect x="470" y="295" width="510" height="150" rx="18" class="accent"/><text x="725" y="345" text-anchor="middle" class="label">판단할 때 분리해 볼 항목</text><text x="725" y="382" text-anchor="middle" class="body">접촉이 없던 구간 · 접촉이 생긴 구간 · 접촉 뒤 자세 변화</text><text x="725" y="420" text-anchor="middle" class="small">원문 방법을 바탕으로 만든 설명 도식</text>
+</svg>
