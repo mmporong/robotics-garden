@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Touch2Trace의 관절 상태 단독과 촉각 추가 성능 비교</title>
+  <desc id="desc">원문 표 1에서 TF-GMM을 60헤르츠로 평가한 평균 케이블 추적 거리와 10센티미터 성공률 비교 차트</desc>
+  <style>
+    text { font-family: 'Noto Sans CJK KR', 'Noto Sans KR', sans-serif; fill: #253044; }
+    .title { font-size: 31px; font-weight: 700; }
+    .sub { font-size: 18px; fill: #667085; }
+    .panel { fill: #f8fafc; stroke: #d0d5dd; stroke-width: 2; }
+    .axis { stroke: #98a2b3; stroke-width: 2; }
+    .grid { stroke: #e4e7ec; stroke-width: 1.5; }
+    .label { font-size: 18px; }
+    .value { font-size: 22px; font-weight: 700; }
+    .note { font-size: 16px; fill: #667085; }
+  </style>
+  <rect width="1200" height="520" fill="#ffffff"/>
+  <text x="60" y="56" class="title">Touch2Trace: 촉각이 케이블 추적 성능에 준 차이</text>
+  <text x="60" y="88" class="sub">TF-GMM · 60 Hz · Ethernet 직선 케이블 · 원문 표 1 수치</text>
+  <rect x="60" y="126" width="510" height="320" rx="16" class="panel"/>
+  <rect x="630" y="126" width="510" height="320" rx="16" class="panel"/>
+  <text x="92" y="168" class="label">평균 추적 거리 (cm)</text>
+  <text x="662" y="168" class="label">10 cm 이상 성공률 (%)</text>
+  <line x1="118" y1="392" x2="520" y2="392" class="axis"/>
+  <line x1="688" y1="392" x2="1090" y2="392" class="axis"/>
+  <line x1="118" y1="301" x2="520" y2="301" class="grid"/>
+  <line x1="118" y1="210" x2="520" y2="210" class="grid"/>
+  <line x1="688" y1="301" x2="1090" y2="301" class="grid"/>
+  <line x1="688" y1="210" x2="1090" y2="210" class="grid"/>
+  <text x="78" y="398" class="note">0</text><text x="65" y="307" class="note">10</text><text x="65" y="216" class="note">20</text>
+  <text x="646" y="398" class="note">0</text><text x="632" y="307" class="note">50</text><text x="620" y="216" class="note">100</text>
+  <rect x="186" y="390" width="104" height="2" rx="4" fill="#98a2b3"/>
+  <rect x="350" y="208" width="104" height="184" rx="6" fill="#1570ef"/>
+  <rect x="756" y="390" width="104" height="2" rx="4" fill="#98a2b3"/>
+  <rect x="920" y="223" width="104" height="169" rx="6" fill="#1570ef"/>
+  <text x="208" y="374" class="value">0.2</text><text x="371" y="192" class="value">20.1</text>
+  <text x="786" y="374" class="value">0%</text><text x="946" y="207" class="value">93%</text>
+  <text x="167" y="426" class="label">관절 상태만</text><text x="328" y="426" class="label">관절 상태+촉각</text>
+  <text x="737" y="426" class="label">관절 상태만</text><text x="898" y="426" class="label">관절 상태+촉각</text>
+  <text x="60" y="486" class="note">수치는 Grimaldi et al., Touch2Trace (arXiv:2609.15921) 표 1에서 재표현했습니다. 원문 그림은 사용하지 않았습니다.</text>
+</svg>
