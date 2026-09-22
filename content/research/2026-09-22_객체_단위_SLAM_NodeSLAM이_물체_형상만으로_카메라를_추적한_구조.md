@@ -14,7 +14,7 @@ referenceKind: paper
 
 로봇이 방 안을 돌아다니며 지도를 만들 때, 그 지도를 무엇으로 채울지가 뒤따르는 계산을 거의 다 결정합니다. 흔한 선택은 점이나 표면 조각이고, 이 경우 지도는 관측한 부분만 담습니다. <abbr title="지도를 만들면서 자기 위치도 함께 찾는 기술을 SLAM이라고 하는데, 그 지도의 최소 단위를 점이나 표면이 아니라 물체 하나로 올린 방식">객체 단위 SLAM</abbr>은 지도의 단위를 물체 하나로 올리고, 관측하지 못한 뒷면까지 포함한 전체 형상을 지도에 넣습니다. <abbr title="물체의 전체 형상과 위치, 카메라 경로를 한꺼번에 맞춰 나가는 2020년 객체 단위 SLAM 시스템">NodeSLAM</abbr>은 그 물체 형상을 카메라 궤적과 같은 최적화 문제 안에 넣은 2020년 시스템입니다.
 
-<figure class="fig"><iframe src="../static/diagrams/2026-09-22_nodeslam_흐름도.htm" title="NodeSLAM이 물체 형상과 카메라 궤적을 함께 푸는 흐름도. 확대와 이동, 경로 추적을 할 수 있습니다" loading="lazy" style="width:100%;height:780px;border:1px solid rgba(0,0,0,.12);border-radius:10px;background:#fff"></iframe><figcaption>원문 3~6절 설명을 바탕으로 새로 구성한 처리 흐름입니다. 그림 위에서 확대·이동할 수 있고, 노드를 누르면 연결된 경로만 남습니다. <a href="../static/diagrams/2026-09-22_nodeslam_흐름도.htm" target="_blank" rel="noopener">새 탭에서 크게 보기</a></figcaption></figure>
+<figure class="fig" style="width:min(1320px,94vw);margin-left:calc(50% - min(660px,47vw))"><div style="height:505px;overflow:hidden;border:1px solid rgba(0,0,0,.12);border-radius:10px;background:#fff"><iframe src="../static/diagrams/2026-09-22_nodeslam_흐름도.htm" scrolling="no" title="NodeSLAM이 물체 형상과 카메라 궤적을 함께 푸는 흐름도. 확대와 이동, 경로 추적을 할 수 있습니다" loading="lazy" style="display:block;width:100%;height:700px;border:0"></iframe></div><figcaption>원문 3~6절 설명을 바탕으로 새로 구성한 최적화 루프입니다. 그림 위에서 확대·이동할 수 있고, 노드를 누르면 연결된 경로만 남습니다. <a href="../static/diagrams/2026-09-22_nodeslam_흐름도.htm" target="_blank" rel="noopener">새 탭에서 크게 보기</a></figcaption></figure>
 
 ## 형상을 16차원 코드 하나로 줄여요
 
