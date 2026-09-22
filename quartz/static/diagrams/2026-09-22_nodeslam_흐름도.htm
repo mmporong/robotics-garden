@@ -4973,6 +4973,51 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   </style>
+
+<style data-garden-embed="1">
+  /* 본문에서는 바깥 div가 아래를 잘라 넣으므로, 열리는 패널이 그 높이를 넘지 않게 한다. */
+  .focus-chip { max-height: 660px !important; overflow-y: auto !important; }
+</style>
+<script data-garden-embed="1">
+  (function () {
+    var box = null;
+    try { box = window.frameElement && window.frameElement.parentElement; } catch (e) { return; }
+    if (!box) return;
+
+    var collapsed = '430px';
+    var expanded = '700px';
+    box.style.transition = 'height .18s ease';
+
+    function visible(el) {
+      if (!el || el.hasAttribute('hidden')) return false;
+      var cs = getComputedStyle(el);
+      return cs.display !== 'none' && cs.visibility !== 'hidden';
+    }
+
+    function sync() {
+      var open = false;
+      var chips = document.querySelectorAll('.focus-chip');
+      for (var i = 0; i < chips.length; i++) { if (visible(chips[i])) { open = true; break; } }
+      var want = open ? expanded : collapsed;
+      if (box.style.height !== want) box.style.height = want;
+    }
+
+    var queued = false;
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      setTimeout(function () { queued = false; sync(); }, 60);
+    }
+
+    new MutationObserver(schedule).observe(document.documentElement, {
+      childList: true, subtree: true, attributes: true, attributeFilter: ['hidden', 'style', 'class']
+    });
+    ['click', 'keyup', 'pointerup'].forEach(function (name) {
+      document.addEventListener(name, schedule, true);
+    });
+    sync();
+  })();
+</script>
 </head>
 <body>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
