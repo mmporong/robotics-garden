@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="620" viewBox="0 0 1280 620" role="img" aria-labelledby="title desc">
+  <title id="title">ForeTac-VLA와 Self-Adaptive VLA의 보정 시간 범위와 원문 평가 수치</title>
+  <desc id="desc">왼쪽은 ForeTac-VLA의 네 접촉 조작 과제 성공 수, 오른쪽은 Self-Adaptive VLA의 한 번 및 최대 여섯 번 시도 뒤 기준 성능 회복 범위다. 두 패널의 지표는 서로 비교하지 않는다.</desc>
+  <rect width="1280" height="620" fill="#f8fafc"/>
+  <text x="64" y="68" font-family="Noto Sans CJK KR, sans-serif" font-size="30" font-weight="700" fill="#0f172a">보정이 쓰이는 시간이 다르면 평가값도 같은 축에 놓지 않아요</text>
+  <text x="64" y="104" font-family="Noto Sans CJK KR, sans-serif" font-size="18" fill="#475569">왼쪽은 한 번의 접촉 조작 안에서 미래 촉각을 쓰는 평가, 오른쪽은 실패한 시도 뒤 성능 회복을 읽는 평가입니다.</text>
+  <rect x="64" y="146" width="555" height="390" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="96" y="192" font-family="Noto Sans CJK KR, sans-serif" font-size="24" font-weight="700" fill="#0f766e">실행 안 보정: ForeTac-VLA</text>
+  <text x="96" y="222" font-family="Noto Sans CJK KR, sans-serif" font-size="16" fill="#475569">네 과제, 과제별 20회 성공 수</text>
+  <g font-family="Noto Sans CJK KR, sans-serif" font-size="17" fill="#334155"><text x="96" y="278">삽입</text><text x="96" y="338">얇은 물체</text><text x="96" y="398">병뚜껑</text><text x="96" y="458">표면 닦기</text></g>
+  <g fill="#e2e8f0"><rect x="220" y="254" width="310" height="24" rx="12"/><rect x="220" y="314" width="310" height="24" rx="12"/><rect x="220" y="374" width="310" height="24" rx="12"/><rect x="220" y="434" width="310" height="24" rx="12"/></g>
+  <g fill="#0d9488"><rect x="220" y="254" width="310" height="24" rx="12"/><rect x="220" y="314" width="294.5" height="24" rx="12"/><rect x="220" y="374" width="294.5" height="24" rx="12"/><rect x="220" y="434" width="279" height="24" rx="12"/></g>
+  <g font-family="Noto Sans CJK KR, sans-serif" font-size="17" font-weight="700" fill="#0f172a"><text x="545" y="273">20 / 20</text><text x="545" y="333">19 / 20</text><text x="545" y="393">19 / 20</text><text x="545" y="453">18 / 20</text></g>
+  <text x="96" y="504" font-family="Noto Sans CJK KR, sans-serif" font-size="16" fill="#475569">평균 95.00% · 미세조정 VLA 평균 58.75%</text>
+  <rect x="661" y="146" width="555" height="390" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="693" y="192" font-family="Noto Sans CJK KR, sans-serif" font-size="24" font-weight="700" fill="#7c3aed">시도 사이 보정: Self-Adaptive VLA</text>
+  <text x="693" y="222" font-family="Noto Sans CJK KR, sans-serif" font-size="16" fill="#475569">하드웨어 편향 아래 기준 성능 회복 범위</text>
+  <g font-family="Noto Sans CJK KR, sans-serif" font-size="17" fill="#334155"><text x="693" y="306">한 번의 시도 뒤</text><text x="693" y="390">최대 여섯 번 문맥</text></g>
+  <g fill="#e2e8f0"><rect x="878" y="282" width="250" height="30" rx="15"/><rect x="878" y="366" width="250" height="30" rx="15"/></g>
+  <g fill="#8b5cf6"><rect x="878" y="282" width="122.5" height="30" rx="15"/><rect x="878" y="366" width="210" height="30" rx="15"/></g>
+  <g font-family="Noto Sans CJK KR, sans-serif" font-size="18" font-weight="700" fill="#0f172a"><text x="1018" y="304">46~49%</text><text x="1102" y="388">80~84%</text></g>
+  <text x="693" y="450" font-family="Noto Sans CJK KR, sans-serif" font-size="16" fill="#475569">에피소드마다 최대 6회 허용, 한 번이라도 성공하면 성공으로 계산</text>
+  <text x="64" y="584" font-family="Noto Sans CJK KR, sans-serif" font-size="15" fill="#64748b">출처: ForeTac-VLA (arXiv:2609.20980), Self-Adaptive VLA (arXiv:2609.30092). 두 지표는 실험 설계가 달라 막대 길이를 서로 비교하지 않습니다.</text>
+</svg>
