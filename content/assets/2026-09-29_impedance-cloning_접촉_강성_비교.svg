@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">컵 옮기기 100회에서 보고된 성공 횟수</title>
+  <desc id="desc">제안 방법은 84회, 고정 강성 기준 방법은 74회, 가변 강성 기준 방법은 82회 성공했다.</desc>
+  <rect width="1120" height="560" fill="#f8fafc"/>
+  <rect x="52" y="42" width="1016" height="466" rx="22" fill="#ffffff" stroke="#d9e2ec"/>
+  <text x="94" y="104" fill="#1b2a41" font-family="system-ui, sans-serif" font-size="29" font-weight="700">컵 옮기기 100회에서 보고된 성공 횟수</text>
+  <text x="94" y="139" fill="#5c6b7a" font-family="system-ui, sans-serif" font-size="18">원문 실험 수치로 다시 그린 비교 · 막대 하나는 성공한 횟수</text>
+  <g stroke="#d9e2ec" stroke-width="1">
+    <line x1="300" y1="196" x2="980" y2="196"/><line x1="300" y1="272" x2="980" y2="272"/><line x1="300" y1="348" x2="980" y2="348"/><line x1="300" y1="424" x2="980" y2="424"/>
+  </g>
+  <g fill="#5c6b7a" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle"><text x="300" y="456">0</text><text x="470" y="456">25</text><text x="640" y="456">50</text><text x="810" y="456">75</text><text x="980" y="456">100</text></g>
+  <g fill="#26394d" font-family="system-ui, sans-serif" font-size="21" font-weight="600"><text x="94" y="238">제안 방법</text><text x="94" y="314">고정 강성</text><text x="94" y="390">가변 강성</text></g>
+  <rect x="300" y="208" width="571.2" height="42" rx="8" fill="#13795b"/><rect x="300" y="284" width="503.2" height="42" rx="8" fill="#5b7cfa"/><rect x="300" y="360" width="557.6" height="42" rx="8" fill="#5b7cfa"/>
+  <g fill="#1b2a41" font-family="system-ui, sans-serif" font-size="21" font-weight="700"><text x="888" y="237">84 / 100</text><text x="820" y="313">74 / 100</text><text x="874" y="389">82 / 100</text></g>
+  <text x="94" y="490" fill="#5c6b7a" font-family="system-ui, sans-serif" font-size="16">출처 데이터: Takahashi et al., arXiv:2609.30842v1. 원문 그림은 재사용하지 않았습니다.</text>
+</svg>
