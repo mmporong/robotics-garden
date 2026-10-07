@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">AgenticTactileVLA 완료율 비교</title>
+  <desc id="desc">기준 VLA 61.3퍼센트, 매번 끝까지 닫는 방법 72.0퍼센트, 감독기 84.0퍼센트의 완료율 비교</desc>
+  <rect width="960" height="520" fill="#fff"/>
+  <text x="80" y="55" fill="#172033" font-family="Pretendard, sans-serif" font-size="26" font-weight="700">고정 예산에서의 과제 완료율</text>
+  <text x="80" y="84" fill="#5d6678" font-family="Pretendard, sans-serif" font-size="16">학습에 쓰지 않은 다섯 물체, 물체·조건마다 15회</text>
+  <g stroke="#dce2eb" stroke-width="1">
+    <line x1="190" y1="130" x2="880" y2="130"/><line x1="190" y1="205" x2="880" y2="205"/><line x1="190" y1="280" x2="880" y2="280"/><line x1="190" y1="355" x2="880" y2="355"/><line x1="190" y1="430" x2="880" y2="430"/>
+  </g>
+  <g fill="#697386" font-family="Pretendard, sans-serif" font-size="14" text-anchor="end"><text x="175" y="435">0%</text><text x="175" y="360">25%</text><text x="175" y="285">50%</text><text x="175" y="210">75%</text><text x="175" y="135">100%</text></g>
+  <rect x="260" y="246.1" width="130" height="183.9" rx="10" fill="#8aa4c8"/>
+  <rect x="470" y="214" width="130" height="216" rx="10" fill="#6393c6"/>
+  <rect x="680" y="178" width="130" height="252" rx="10" fill="#1677c8"/>
+  <g fill="#172033" font-family="Pretendard, sans-serif" text-anchor="middle"><text x="325" y="228" font-size="25" font-weight="700">61.3%</text><text x="535" y="196" font-size="25" font-weight="700">72.0%</text><text x="745" y="160" font-size="25" font-weight="700">84.0%</text><text x="325" y="465" font-size="17">기준 VLA</text><text x="535" y="465" font-size="17">매번 더 닫기</text><text x="745" y="465" font-size="17">감독기</text></g>
+  <text x="880" y="490" fill="#697386" font-family="Pretendard, sans-serif" font-size="13" text-anchor="end">출처 데이터: Semenyakina et al., arXiv:2610.04391v1</text>
+</svg>
