@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="610" viewBox="0 0 1080 610" role="img" aria-labelledby="title desc">
+  <title id="title">TACROSS 수집 장비 비용, 수집 속도, 과제 성공률 비교</title>
+  <desc id="desc">로봇 원격 조작, 움직임 추적 장갑, 카메라 역기구학 장갑 조건을 비용, 수집 속도, 네 과제 평균 성공률로 비교한 차트</desc>
+  <rect width="1080" height="610" fill="#fff"/>
+  <text x="70" y="58" fill="#172033" font-family="Pretendard, sans-serif" font-size="28" font-weight="700">촉각 장갑 조건의 수집 비용과 속도, 과제 성공률</text>
+  <text x="70" y="88" fill="#5d6678" font-family="Pretendard, sans-serif" font-size="16">TACROSS 표 II, 네 접촉 조작 과제의 평균값</text>
+  <g font-family="Pretendard, sans-serif">
+    <text x="70" y="138" fill="#172033" font-size="20" font-weight="700">장비 투자비 (USD)</text>
+    <line x1="300" y1="132" x2="960" y2="132" stroke="#e4e9f0" stroke-width="1"/>
+    <text x="70" y="181" fill="#596579" font-size="16">로봇 원격 조작</text><rect x="300" y="158" width="600" height="26" rx="7" fill="#8aa4c8"/><text x="915" y="180" fill="#172033" font-size="17" font-weight="700">12,000</text>
+    <text x="70" y="226" fill="#596579" font-size="16">움직임 추적 장갑</text><rect x="300" y="203" width="107.5" height="26" rx="7" fill="#6393c6"/><text x="422" y="225" fill="#172033" font-size="17" font-weight="700">2,150</text>
+    <text x="70" y="271" fill="#596579" font-size="16">카메라 역기구학 장갑</text><rect x="300" y="248" width="26" height="26" rx="7" fill="#1677c8"/><text x="341" y="270" fill="#172033" font-size="17" font-weight="700">520</text>
+    <text x="70" y="337" fill="#172033" font-size="20" font-weight="700">수집 속도 (로봇 원격 조작=1.00배)</text>
+    <line x1="300" y1="331" x2="960" y2="331" stroke="#e4e9f0" stroke-width="1"/>
+    <text x="70" y="380" fill="#596579" font-size="16">로봇 원격 조작</text><rect x="300" y="357" width="170" height="26" rx="7" fill="#8aa4c8"/><text x="485" y="379" fill="#172033" font-size="17" font-weight="700">1.00×</text>
+    <text x="70" y="425" fill="#596579" font-size="16">움직임 추적 장갑</text><rect x="300" y="402" width="476" height="26" rx="7" fill="#6393c6"/><text x="791" y="424" fill="#172033" font-size="17" font-weight="700">2.80×</text>
+    <text x="70" y="470" fill="#596579" font-size="16">카메라 역기구학 장갑</text><rect x="300" y="447" width="595" height="26" rx="7" fill="#1677c8"/><text x="910" y="469" fill="#172033" font-size="17" font-weight="700">3.50×</text>
+    <text x="70" y="533" fill="#172033" font-size="20" font-weight="700">네 과제 평균 성공률</text>
+    <text x="458" y="533" fill="#8aa4c8" font-size="20" font-weight="700">92.2%</text><text x="618" y="533" fill="#6393c6" font-size="20" font-weight="700">93.5%</text><text x="778" y="533" fill="#1677c8" font-size="20" font-weight="700">91.5%</text>
+    <text x="458" y="560" fill="#596579" font-size="14">로봇 원격 조작</text><text x="618" y="560" fill="#596579" font-size="14">움직임 추적 장갑</text><text x="778" y="560" fill="#596579" font-size="14">카메라 역기구학 장갑</text>
+  </g>
+  <text x="1010" y="590" fill="#697386" font-family="Pretendard, sans-serif" font-size="13" text-anchor="end">출처 데이터: Chen et al., TACROSS, Table II</text>
+</svg>
