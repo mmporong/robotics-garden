@@ -17,12 +17,16 @@
     python3 tools/collect_views.py            # 수집 후 두 파일 갱신
     python3 tools/collect_views.py --dry-run  # 파일을 쓰지 않고 결과만 출력
     python3 tools/collect_views.py --report   # 저장된 시계열을 표로 출력
+    python3 tools/collect_views.py --rebuild  # API 호출 없이 저장된 월별 집계 재계산
 """
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import re
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -59,7 +63,10 @@ def fetch(slug: str) -> tuple[int, str]:
     for attempt in range(MAX_RETRY):
         try:
             with urllib.request.urlopen(url, timeout=15) as r:
-                return int(json.loads(r.read()).get("value") or 0), "ok"
+                value = json.loads(r.read()).get("value")
+                if type(value) is not int or value < 0:
+                    raise ValueError("유효한 조회수가 아니다")
+                return value, "ok"
         except urllib.error.HTTPError as e:
             if e.code == 404:
                 return 0, "new"
@@ -89,20 +96,26 @@ def last_snapshot() -> dict[str, int]:
     if not SNAPSHOT.exists():
         return {}
     try:
-        return json.loads(SNAPSHOT.read_text(encoding="utf-8")).get("views", {})
-    except Exception:
-        return {}
+        payload = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
+        views = payload["views"]
+        if not isinstance(views, dict) or any(type(n) is not int or n < 0 for n in views.values()):
+            raise ValueError("조회수 객체가 유효하지 않다")
+        return views
+    except (OSError, UnicodeError, ValueError, KeyError, TypeError) as exc:
+        raise RuntimeError("기존 스냅샷을 읽을 수 없어 수집을 중단한다.") from exc
 
 
 def collect() -> tuple[dict[str, int], dict[str, int]]:
     slugs = load_slugs()
+    if not slugs:
+        raise RuntimeError("수집 대상이 비어 있어 기존 조회수를 유지한다.")
     prev = last_snapshot()
     views: dict[str, int] = {}
     stats = {"ok": 0, "new": 0, "ratelimited": 0, "kept": 0}
     print(f"글 {len(slugs)}편 수집 시작 (429 백오프 포함, 몇 분 걸린다)")
     for i, slug in enumerate(slugs, 1):
         n, status = fetch(slug)
-        if status == "ratelimited" and slug in prev:
+        if (status not in ("ok", "new") or (status == "new" and prev.get(slug, 0) > 0)) and slug in prev:
             # 실패를 0으로 덮으면 순위가 무너진다. 직전 값을 유지한다.
             n, status = prev[slug], "kept"
         views[slug] = n
@@ -110,20 +123,84 @@ def collect() -> tuple[dict[str, int], dict[str, int]]:
         if i % 20 == 0 or i == len(slugs):
             print(f"  {i}/{len(slugs)}  누적 {sum(views.values())}회")
         time.sleep(BASE_DELAY)
+    if not stats["ok"] and not stats["new"]:
+        raise RuntimeError("유효한 수집 결과가 없어 기존 스냅샷과 갱신 시각을 유지한다.")
     return views, stats
+
+
+def monthly(views: dict[str, int], at: datetime, rows: list[dict]) -> dict:
+    """KST 월별 양의 증가분. 일간 관측 사이의 방문 시각은 추정하지 않는다."""
+    at = at.astimezone(KST)
+    start = at.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    samples = []
+    for row in rows:
+        stamp = datetime.fromisoformat(row["at"]).astimezone(KST)
+        if stamp <= at:
+            samples.append((stamp, row["views"]))
+    samples.append((at, views))
+    samples.sort(key=lambda sample: sample[0])
+    previous: dict[str, int] = {}
+    gains = dict.fromkeys(views, 0)
+    baseline_at = None
+    for stamp, counts in samples:
+        if stamp < start:
+            baseline_at = stamp.isoformat(timespec="seconds")
+        for slug, count in counts.items():
+            if type(count) is not int or count < 0:
+                raise ValueError(f"수집 기록의 조회수가 유효하지 않다: {slug}")
+            if stamp >= start and slug in gains:
+                if slug in previous:
+                    # 카운터 감소는 방문 취소로 계산하지 않는다. 이후 증가는 새 기준에서 잰다.
+                    gains[slug] += max(0, count - previous[slug])
+                else:
+                    published = re.search(r"/(\d{4}-\d{2}-\d{2})", slug)
+                    if published and start.date().isoformat() <= published[1] <= at.date().isoformat():
+                        gains[slug] += count
+            previous[slug] = count
+    return {
+        "period": at.strftime("%Y-%m"),
+        "timezone": "Asia/Seoul",
+        "baseline_at": baseline_at,
+        "total": sum(gains.values()),
+        "views": gains,
+    }
+
+
+def history_rows() -> list[dict]:
+    if not HISTORY.exists():
+        return []
+    return [json.loads(line) for line in HISTORY.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def save_snapshot(payload: dict) -> None:
+    SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=SNAPSHOT.parent,
+                                         prefix=f".{SNAPSHOT.name}.", delete=False) as f:
+            temporary = Path(f.name)
+            json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(temporary, SNAPSHOT)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def rebuild(dry_run: bool = False) -> None:
+    payload = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
+    payload["monthly"] = monthly(payload["views"], datetime.fromisoformat(payload["updated"]), history_rows())
+    if not dry_run:
+        save_snapshot(payload)
+    print(f"월별 집계 {payload['monthly']['period']}: {payload['monthly']['total']}회 (수집 시각·이력 보존)")
 
 
 def write(views: dict[str, int], stats: dict[str, int]) -> None:
     now = datetime.now(KST)
-    SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
-    SNAPSHOT.write_text(
-        json.dumps(
-            {"updated": now.isoformat(timespec="seconds"), "total": sum(views.values()), "views": views},
-            ensure_ascii=False,
-            separators=(",", ":"),
-        ),
-        encoding="utf-8",
-    )
+    payload = {"updated": now.isoformat(timespec="seconds"), "total": sum(views.values()),
+               "views": views, "stats": stats, "monthly": monthly(views, now, history_rows())}
+    save_snapshot(payload)
     HISTORY.parent.mkdir(parents=True, exist_ok=True)
     with HISTORY.open("a", encoding="utf-8") as f:
         f.write(json.dumps(
@@ -165,9 +242,12 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="파일을 쓰지 않고 결과만 출력")
     ap.add_argument("--report", action="store_true", help="저장된 시계열을 표로 출력")
+    ap.add_argument("--rebuild", action="store_true", help="API 호출 없이 저장된 월별 집계 재계산")
     a = ap.parse_args()
     if a.report:
         return report()
+    if a.rebuild:
+        return rebuild(a.dry_run)
     views, stats = collect()
     ranked = sorted(views.items(), key=lambda kv: -kv[1])
     print(f"\n합계 {sum(views.values())}회 · "

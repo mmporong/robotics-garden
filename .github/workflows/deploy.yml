@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  workflow_run:
+    workflows: ["조회수 수집"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
@@ -16,11 +20,18 @@ concurrency:
 
 jobs:
   build:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
         with:
+          # 수집 시작 SHA에는 조회수 커밋이 없다. 완료 후의 main을 배포한다.
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
           fetch-depth: 0 # Fetch all history for git info
+      - name: 빌드 대상 커밋
+        run: git rev-parse HEAD
       - uses: actions/setup-node@v6
         with:
           node-version: 24

@@ -4,7 +4,7 @@
 
 - 사이트: https://mmporong.github.io/robotics-garden/
 - 기반: [Quartz v5](https://quartz.jzhao.xyz/) 포크 (커뮤니티 플러그인을 `quartz.config.yaml`로 구성)
-- 배포: `main` 푸시 → GitHub Actions가 빌드해 GitHub Pages로 자동 배포
+- 배포: `main` 푸시 또는 조회수 수집 성공 → GitHub Actions가 빌드해 GitHub Pages로 자동 배포
 
 ## 콘텐츠 구조
 
@@ -17,7 +17,13 @@
 
 ## 홈 랜딩 피드
 
-홈(`/`)은 카드형 피드 페이지예요. `Head.tsx`의 스크립트가 `static/contentIndex.json`을 읽어 피처드 히어로, 카테고리 탭(전체·학습 노트·리서치), 아티클 리스트, 최근 글·태그 레일을 클라이언트에서 렌더해요. 썸네일은 각 글의 자동 생성 OG 이미지(`<슬러그>-og-image.webp`)를 그대로 써요. 새 글은 발행만 하면 피드에 자동으로 나타나요.
+홈(`/`)은 카드형 피드 페이지예요. `Head.tsx`의 스크립트가 `static/contentIndex.json`을 읽어 피처드 히어로, 카테고리 탭, 아티클 리스트, 이달의 인기 글·태그 목록을 보여 줘요. 새 글은 발행하면 피드에 나타나요.
+
+인기순은 한국 시간 기준 이번 달 조회수 증가분으로 정해요. 누적 카운터와 `data/views_history.jsonl` 이력은 보존하고, `quartz/static/views.json`의 `monthly` 집계만 월마다 새로 계산해요. 같은 조회수면 최근 글이 먼저 나와요. 집계 시각과 각 글의 이번 달 조회수도 함께 표시해요. 이번 달 자료가 없거나 불러오기에 실패하면 최근 글과 그 이유를 보여 줘요.
+
+조회수는 매일 05:00 KST 예약 작업으로 수집해요. GitHub 실행 지연과 일간 관측 간격 때문에 자정 기준의 정확한 방문 시각까지 나누지는 못해요. 기존 글은 이전 관측값과의 양의 차이를 더하고, 이번 달 발행된 새 글은 첫 관측값부터 포함해요. 관측 이력이 없는 과거 글은 첫 값을 기준으로 삼아요. API 오류가 난 글은 이전 값을 유지하며, 전체 수집 실패나 빈 글 목록은 갱신·배포하지 않아요.
+
+로컬 검증은 `python3 -m unittest discover -s tools -p 'test_*.py'`로 실행해요. API 호출 없이 기존 스냅샷의 월별 집계를 다시 만들려면 `python3 tools/collect_views.py --rebuild`를 사용해요. 이 명령은 수집 시각과 이력을 바꾸지 않아요.
 
 ## 글쓰기 규칙
 

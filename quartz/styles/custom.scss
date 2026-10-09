@@ -666,6 +666,10 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
     align-items: start;
   }
 
+  .hf-list-col {
+    min-width: 0;
+  }
+
   .hf-row {
     display: block;
     padding: 1.5rem 0;
@@ -707,6 +711,7 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
   // 숫자 페이지네이션 (‹ 1 2 3 ›)
   .hf-pager {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 0.35rem;
     padding: 1.8rem 0 0.5rem;
@@ -742,7 +747,7 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
     }
   }
 
-  // 우측 레일: 최근 글 · 태그
+  // 우측 레일: 이달의 인기 글 · 태그
   .hf-rail {
     display: flex;
     flex-direction: column;
@@ -758,6 +763,13 @@ body[data-slug="index"] .page[data-frame="toss"] .center {
       h3 {
         font-size: 0.95rem;
         margin: 0 0 0.7rem;
+      }
+
+      .hf-view-status {
+        margin: 0 0 0.7rem;
+        color: var(--darkgray);
+        font-size: 0.75rem;
+        line-height: 1.5;
       }
     }
 

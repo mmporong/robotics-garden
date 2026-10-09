@@ -1,6 +1,6 @@
 name: 조회수 수집
 
-# 홈 피드가 브라우저에서 글 100편의 조회수를 직접 조회하면 카운터 API가
+# 홈 피드가 브라우저에서 글 100편의 조회수를 한꺼번에 조회하면 카운터 API가
 # rate limit을 걸어 대부분 실패한다(2026-08-05 실측: 100편 중 70편 429).
 # 그래서 하루 한 번 여기서 백오프하며 모아 static/views.json에 넣고,
 # 프론트엔드는 그 파일 하나만 읽는다.
@@ -48,5 +48,5 @@ jobs:
           else
             TOTAL=$(python3 -c "import json;print(json.load(open('quartz/static/views.json'))['total'])")
             git commit -m "chore(views): 조회수 수집 (누적 ${TOTAL}회)"
-            git push
+            git push origin HEAD:main
           fi
