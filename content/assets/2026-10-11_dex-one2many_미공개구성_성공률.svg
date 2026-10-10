@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 610" role="img" aria-labelledby="title desc">
+  <title id="title">Dex-One2Many와 최고 기준 방법의 실물 미공개 구성 성공률</title>
+  <desc id="desc">Doll, Can, Stamp, Hammer, Sweep 다섯 과제에서 Dex-One2Many와 원문이 제시한 최고 기준 방법의 성공률을 비교한 막대그래프다.</desc>
+  <style>
+    text{font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;fill:#1f2937}.small{font-size:21px;fill:#526070}.label{font-size:25px;font-weight:700}.value{font-size:20px;font-weight:700}.ours{fill:#2d6a9f}.base{fill:#b8c3ce}.grid{stroke:#d9e1e8;stroke-width:2}.axis{stroke:#8c99a8;stroke-width:2}
+  </style>
+  <rect width="1120" height="610" fill="#fff"/>
+  <text x="80" y="58" font-size="30" font-weight="700">사람 영상에 없던 실물 구성의 성공률</text>
+  <text x="80" y="90" class="small">원문 Figure 1의 다섯 과제 값 · 막대는 새로 그렸음</text>
+  <rect x="730" y="38" width="20" height="20" class="ours"/><text x="760" y="55" class="small">Dex-One2Many</text>
+  <rect x="925" y="38" width="20" height="20" class="base"/><text x="955" y="55" class="small">최고 기준 방법</text>
+  <line x1="150" y1="510" x2="1060" y2="510" class="axis"/>
+  <line x1="150" y1="330" x2="1060" y2="330" class="grid"/><line x1="150" y1="150" x2="1060" y2="150" class="grid"/>
+  <text x="105" y="516" class="small">0%</text><text x="91" y="336" class="small">50%</text><text x="77" y="156" class="small">100%</text>
+  <g><rect x="205" y="222" width="52" height="288" class="ours"/><rect x="267" y="510" width="52" height="0" class="base"/><text x="212" y="208" class="value">80%</text><text x="280" y="496" class="value">0%</text><text x="210" y="552" class="label">Doll</text></g>
+  <g><rect x="375" y="240" width="52" height="270" class="ours"/><rect x="437" y="510" width="52" height="0" class="base"/><text x="382" y="226" class="value">75%</text><text x="450" y="496" class="value">0%</text><text x="382" y="552" class="label">Can</text></g>
+  <g><rect x="545" y="204" width="52" height="306" class="ours"/><rect x="607" y="474" width="52" height="36" class="base"/><text x="552" y="190" class="value">85%</text><text x="614" y="460" class="value">10%</text><text x="538" y="552" class="label">Stamp</text></g>
+  <g><rect x="715" y="294" width="52" height="216" class="ours"/><rect x="777" y="492" width="52" height="18" class="base"/><text x="722" y="280" class="value">60%</text><text x="784" y="478" class="value">5%</text><text x="705" y="552" class="label">Hammer</text></g>
+  <g><rect x="885" y="240" width="52" height="270" class="ours"/><rect x="947" y="492" width="52" height="18" class="base"/><text x="892" y="226" class="value">75%</text><text x="954" y="478" class="value">5%</text><text x="886" y="552" class="label">Sweep</text></g>
+  <text x="80" y="594" class="small">평균 75% 대 4% · 차이 71%포인트. 평가 구성과 과제별 기준 방법은 원문을 함께 확인해야 한다.</text>
+</svg>
