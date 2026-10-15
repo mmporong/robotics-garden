@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 480" role="img" aria-labelledby="title desc">
+  <title id="title">FOMI와 비교 인터페이스의 시연 수집 효율</title>
+  <desc id="desc">로봇 없이 수집할 때 FOMI 17.8건과 UMI 13.8건, 원격조작 때 FOMI 8.4건과 GELLO 7.1건의 10분당 성공 시연 수를 비교한다.</desc>
+  <style>text{font-family:system-ui,-apple-system,'Noto Sans KR',sans-serif;fill:#172033}.axis{stroke:#aab5c5;stroke-width:2}.grid{stroke:#dce3ed;stroke-width:1}.fomi{fill:#2772d6}.base{fill:#9aabc0}.value{font-size:26px;font-weight:700}.label{font-size:22px;font-weight:650}.sub{font-size:18px;fill:#536174}.tick{font-size:16px;fill:#69778a}</style>
+  <text x="60" y="48" font-size="28" font-weight="700">성공 시연 수집 효율</text>
+  <text x="60" y="78" class="sub">성공 시연 수 / 10분, 원문 표 2의 네 과제 평균</text>
+  <line x1="105" y1="390" x2="980" y2="390" class="axis"/>
+  <g>
+    <line x1="105" y1="320" x2="980" y2="320" class="grid"/><text x="74" y="326" class="tick">5</text>
+    <line x1="105" y1="250" x2="980" y2="250" class="grid"/><text x="66" y="256" class="tick">10</text>
+    <line x1="105" y1="180" x2="980" y2="180" class="grid"/><text x="66" y="186" class="tick">15</text>
+    <line x1="105" y1="110" x2="980" y2="110" class="grid"/><text x="66" y="116" class="tick">20</text>
+  </g>
+  <rect x="245" y="141" width="150" height="249" rx="7" class="fomi"/><rect x="430" y="197" width="150" height="193" rx="7" class="base"/>
+  <rect x="680" y="272" width="150" height="118" rx="7" class="fomi"/><rect x="865" y="291" width="115" height="99" rx="7" class="base"/>
+  <text x="320" y="130" text-anchor="middle" class="value">17.8</text><text x="505" y="186" text-anchor="middle" class="value">13.8</text>
+  <text x="755" y="261" text-anchor="middle" class="value">8.4</text><text x="922" y="280" text-anchor="middle" class="value">7.1</text>
+  <text x="320" y="425" text-anchor="middle" class="label">FOMI</text><text x="505" y="425" text-anchor="middle" class="label">UMI</text>
+  <text x="755" y="425" text-anchor="middle" class="label">FOMI</text><text x="922" y="425" text-anchor="middle" class="label">GELLO</text>
+  <text x="412" y="464" text-anchor="middle" class="sub">로봇 없이 수집: FOMI가 UMI보다 29.0% 높음</text>
+  <text x="817" y="464" text-anchor="middle" class="sub">원격조작: FOMI가 GELLO보다 18.3% 높음</text>
+</svg>
