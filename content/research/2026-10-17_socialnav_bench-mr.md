@@ -8,7 +8,8 @@ tags:
   - wheeled-robots
   - reproducibility
 description: "Bench-MR이 바퀴 로봇의 계획기·연결 함수·후처리·목적 함수를 같은 환경과 지표로 비교하는 구조, 재현 가능한 실험 설계, 사회적 내비게이션에 적용할 때의 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

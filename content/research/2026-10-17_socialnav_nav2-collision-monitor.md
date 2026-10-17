@@ -9,6 +9,7 @@ tags:
   - 안전계층
   - 로봇제어
 description: "Nav2 Collision Monitor의 공식 시연을 바탕으로 정지·감속 영역과 속도 명령 연결을 읽고, 지연·제동·센서 공백을 별도로 검증하는 방법을 설명합니다."
+draft: false
 referenceKind: resource
 ---
 
@@ -104,7 +105,7 @@ referenceKind: resource
 
 이 자료를 구현 근거로 쓸 때의 최소 기록은 보호 영역의 기준 좌표, 관측 유효 시간, 최종 명령 발행 경로, 개입 사유, 몸체 응답입니다. 여기에 사람의 회피량과 불편 평가를 더하면 물리적 보호와 사회적 행동 품질을 서로 다른 열에서 볼 수 있어요. 경로의 사회성을 설명하는 연구와 충돌 감시 자료를 함께 읽어야 하는 이유가 이 구분에 있습니다. 하나의 기능이 맡은 일을 선명하게 적을수록 아직 시험하지 않은 부분도 찾기 쉬워집니다.
 
-이 보호 계층에 들어가는 주행 명령은 [[2026-10-17_socialnav_nav2-mppi|Nav2 MPPI 제어기가 후보 궤적의 비용으로 명령을 고르는 방식]]에서 설명한 후보 궤적과 비용 비교로 만들어질 수 있어요. 두 단계의 입력과 출력 명령을 함께 기록하면 계획의 선택과 보호 개입을 구분할 수 있습니다.
+이 보호 계층에 들어가는 주행 명령은 [Nav2 MPPI 제어기가 후보 궤적의 비용으로 명령을 고르는 방식](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/)에서 설명한 후보 궤적과 비용 비교로 만들어질 수 있어요. 두 단계의 입력과 출력 명령을 함께 기록하면 계획의 선택과 보호 개입을 구분할 수 있습니다.
 
 ---
 

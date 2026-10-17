@@ -8,7 +8,8 @@ tags:
   - social-norms
   - robot-navigation
 description: "SA-CADRL이 통행 규범의 정확한 궤적을 복제하지 않고 위반 상태에 작은 벌점을 주어 우측 통행과 좌측 추월을 학습한 구조, 실물 주행 증거와 문화·센서 일반화 한계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

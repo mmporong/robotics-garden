@@ -8,7 +8,8 @@ tags:
   - personal-space
   - cultural-context
 description: "에드워드 홀의 근접학을 로봇 개인공간 비용으로 옮길 때 거리표보다 관계·방향·문화·상황을 먼저 모델링해야 하는 이유를 살펴본다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

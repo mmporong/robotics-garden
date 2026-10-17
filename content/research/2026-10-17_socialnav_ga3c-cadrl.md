@@ -8,7 +8,8 @@ tags:
   - LSTM
   - crowd-navigation
 description: "GA3C-CADRL이 임의 수의 사람 상태를 LSTM으로 압축하고 정책을 바로 출력해, 인원이 늘 때 기존 SA-CADRL의 입력 한계와 정지 실패를 줄인 방법을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - inverse-learning
   - pedestrian-motion
 description: "특징 기반 최대 엔트로피 모델이 여러 사람의 전체 궤적과 통과 방향 확률을 학습하는 과정, 실물 검증 범위와 현장 입력에서 깨지는 가정을 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

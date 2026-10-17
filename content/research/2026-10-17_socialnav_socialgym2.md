@@ -8,7 +8,8 @@ tags:
   - pettingzoo
   - simulation
 description: "SocialGym 2.0이 여러 로봇, 실제 동역학 제약, 지역 경로 계획기와 다섯 사회적 미니게임을 묶어 협력·순서·일반화를 평가하는 방법과 Docker·GPU 배포 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

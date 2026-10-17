@@ -8,7 +8,8 @@ tags:
   - multi-agent
   - evaluation
 description: "Stanford Drone Dataset의 여덟 장면과 여섯 이동체 범주가 궤적 예측 질문을 넓힌 방식을 살피고, 항공 영상 라벨을 로봇 주행에 옮길 때의 기하·표본·평가 경계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

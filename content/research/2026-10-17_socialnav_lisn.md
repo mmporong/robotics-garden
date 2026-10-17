@@ -8,7 +8,8 @@ tags:
   - costmap
   - robot-navigation
 description: "LISN-Bench와 Social-Nav-Modulator가 느린 시각언어 모델 판단으로 비용지도·제어기를 조절하고 빠른 반응 제어를 유지한 구조와 시뮬레이션 근거의 범위를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - multimodal-sensing
   - real-world-robotics
 description: "SCAND가 Jackal과 Spot의 원격조종·센서·상황 태그를 어떻게 묶었는지, 사람 추적 라벨이 없는 실물 시연 자료를 학습과 평가에 쓸 때의 범위를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

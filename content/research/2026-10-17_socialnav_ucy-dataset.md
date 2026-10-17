@@ -8,7 +8,8 @@ tags:
   - motion-prediction
   - evaluation
 description: "UCY 원본 영상·주석의 장면과 배포 구조를 살피고, 군중 상호작용 좌표를 로봇 예측과 계획에 쓸 때 생기는 시점·분할·가림·평가 문제를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

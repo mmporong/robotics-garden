@@ -8,7 +8,8 @@ tags:
   - guidance
   - robot-navigation
 description: "COLSON이 확산 기반 강화학습으로 다봉 행동 분포를 만들고, 재학습 없이 정적 장애물 회피와 동행 목적을 생성 유도로 더한 원리와 실물 계산 조건을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

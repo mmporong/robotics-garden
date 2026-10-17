@@ -8,7 +8,8 @@ tags:
   - multi-agent
   - motion-planning
 description: "RVO가 두 이동체의 회피 책임을 나누어 정면 조우의 좌우 흔들림을 줄이는 기하와, 그 상호성 가정이 사람 앞에서 깨지는 조건을 계산으로 살핀다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

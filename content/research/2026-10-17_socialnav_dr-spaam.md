@@ -8,7 +8,8 @@ tags:
   - person-detection
   - deployment-latency
 description: "DR-SPAAM의 공간 유사도와 재귀적 특징 누적을 설명하고, 논문·공개 코드 성능 차이와 검출·추적·실시간 센서 계약의 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

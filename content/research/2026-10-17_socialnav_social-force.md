@@ -8,7 +8,8 @@ tags:
   - pedestrian-dynamics
   - emergent-behavior
 description: "Helbing과 Molnár의 사회력 모델이 희망 속도와 거리 유지 반응으로 차선·문 통과 교대를 만드는 원리, 실험 조건, 로봇 적용 한계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

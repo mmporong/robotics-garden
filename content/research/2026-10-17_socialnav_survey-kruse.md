@@ -1,7 +1,7 @@
 ---
 title: "Kruse 서베이가 사람을 고려한 로봇 내비게이션을 모듈로 나눈 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 인간로봇상호작용
@@ -9,6 +9,7 @@ tags:
   - 경로계획
   - 로봇인지
 description: "Kruse 등의 2013년 서베이는 사람을 고려한 로봇 내비게이션을 편안함·자연스러움·사회성이라는 목표와 감지·숙고·반응 모듈로 나눠, 사람을 고려하는 기능을 어디에 넣어야 하는지 설명했습니다."
+draft: true
 referenceKind: paper
 ---
 

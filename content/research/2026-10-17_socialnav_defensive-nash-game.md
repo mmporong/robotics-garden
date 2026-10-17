@@ -8,7 +8,8 @@ tags:
   - robust-control
   - motion-planning
 description: "동적 내시 게임이 다른 운전자의 짧은 비협조 구간을 비용에 넣어 방어적 주행을 만든 원리, 계산 조건과 실내 사회적 주행으로 옮길 때의 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

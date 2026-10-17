@@ -15,6 +15,8 @@
 | `content/assets/` | 글에 임베드하는 이미지·GIF | 동기화가 건드리지 않는 공용 폴더. 글에서 `../assets/파일명`으로 참조 |
 | `content/index.md` | 홈 랜딩 피드의 마운트 지점 (`#home-feed`) | 실제 렌더는 `quartz/components/Head.tsx`의 스크립트가 담당 |
 
+소셜 내비게이션 글은 `publication/socialnav_queue.json`의 편집 대기열로 관리해요. 핵심 개념·평가·실물 근거를 기준으로 선별한 글만 매일 08:00 KST에 하루 두 편씩 공개하며, 보류 글은 자동 발행하지 않아요. 대기·보류 원고는 `publish: false`와 `draft: true`로 보존해 사이트·검색·자료 색인에서 제외해요. 원고 파일명을 유지해도 자료실에는 실제 발행일을 표시해요.
+
 ## 홈 랜딩 피드
 
 홈(`/`)은 카드형 피드 페이지예요. `Head.tsx`의 스크립트가 `static/contentIndex.json`을 읽어 피처드 히어로, 카테고리 탭, 아티클 리스트, 이달의 인기 글·태그 목록을 보여 줘요. 새 글은 발행하면 피드에 나타나요.

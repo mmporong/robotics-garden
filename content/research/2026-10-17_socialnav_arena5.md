@@ -8,7 +8,8 @@ tags:
   - benchmarking
   - world-generation
 description: "Arena 5.0이 ROS 2와 Isaac Sim을 묶어 광사실 환경·사람 반응·여러 경로 계획기를 시험하는 구조, 평가 지표, 세계 생성의 가정과 실제 이전 한계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

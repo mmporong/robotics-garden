@@ -1,7 +1,7 @@
 ---
 title: "Francis 평가 지침이 사회적 주행을 여덟 원칙으로 측정한 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 로봇평가
@@ -9,6 +9,7 @@ tags:
   - 벤치마크
   - 실험설계
 description: "Francis 등의 평가 지침은 사회적 주행을 안전·편안함·읽기 쉬움·예의·사회적 역량·행위자 이해·선제성·문맥 적합성으로 정의하고 지표와 시나리오의 보고 기준을 제안했습니다."
+draft: true
 referenceKind: paper
 ---
 

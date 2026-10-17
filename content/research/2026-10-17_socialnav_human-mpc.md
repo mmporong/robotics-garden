@@ -8,7 +8,8 @@ tags:
   - optimization
   - robot-navigation
 description: "HuMAN-MPC가 사람 궤적과 정적 장애물을 예측 제어에 넣고, 빠른 최적화와 실행 가능성 감시를 결합한 방법과 보장 범위를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

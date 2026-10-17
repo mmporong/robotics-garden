@@ -83,6 +83,17 @@ function dateFromSlug(slug: string): string {
   return slug.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? ""
 }
 
+export function referenceDate(value: unknown, slug: string): string {
+  const date = value instanceof Date ? value : typeof value === "string" ? new Date(value) : null
+  if (!date || !Number.isFinite(date.getTime())) return dateFromSlug(slug)
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date)
+}
+
 function normalizeTags(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((tag): tag is string => typeof tag === "string") : []
 }
@@ -103,7 +114,7 @@ export function collectReferenceRecords(content: ProcessedContent[]): ReferenceR
     references.push({
       slug,
       title: typeof frontmatter.title === "string" ? frontmatter.title : slug.split("/").at(-1)!,
-      date: dateFromSlug(slug),
+      date: referenceDate(frontmatter.date, slug),
       tags: normalizeTags(frontmatter.tags),
       sourceUrl,
       sourceHost: sourceHost(sourceUrl),

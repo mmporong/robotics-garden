@@ -1,7 +1,7 @@
 ---
 title: "ROS 사람 메시지 people_msgs의 좌표와 신뢰도 계약"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 사람추적
@@ -9,6 +9,7 @@ tags:
   - 센서융합
   - 데이터계약
 description: "people_msgs의 실제 메시지 정의에서 위치·속도·신뢰도가 무엇을 담고 무엇을 보장하지 않는지 읽고, 추적 결과를 계획기에 넘기는 검증 방법을 설명합니다."
+draft: true
 referenceKind: resource
 ---
 

@@ -8,7 +8,8 @@ tags:
   - social-cost
   - human-aware-navigation
 description: "SocNav1의 정적 배치 점수와 관계 표현을 살펴보고, 반복 라벨·좌표 규약·평정 지침을 보존하면서 경로 비용으로 옮기는 방법을 설명해요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

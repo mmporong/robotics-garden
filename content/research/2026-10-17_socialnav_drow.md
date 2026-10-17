@@ -8,7 +8,8 @@ tags:
   - perception
   - dataset-shift
 description: "DROW의 거리 정규화와 중심 투표를 살펴보고, 초기 보조기 검출·후속 사람 검출의 차이와 센서 높이·분할·위치 오차가 만드는 적용 한계를 설명해요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

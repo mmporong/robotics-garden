@@ -8,7 +8,8 @@ tags:
   - benchmark
   - scene-understanding
 description: "SocialNav-SUB가 SCAND 실물 영상과 사람 추적·위에서 본 좌표 그림을 이용해 공간·시공간·사회 추론을 질문하고, 사람 응답 분포로 시각언어 모델을 평가한 방법과 장면 평가와 주행 제어의 차이를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

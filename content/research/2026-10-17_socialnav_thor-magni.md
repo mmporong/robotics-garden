@@ -8,7 +8,8 @@ tags:
   - motion-capture
   - multimodal-sensing
 description: "THÖR-MAGNI가 궤적, 시선, 로봇 센서를 같은 시간축에 묶는 방법과 그 정밀도가 실제 로봇 센서 검증을 대신하지 못하는 이유를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

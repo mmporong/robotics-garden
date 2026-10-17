@@ -8,7 +8,8 @@ tags:
   - pedestrian-tracking
   - evaluation
 description: "JRDB의 이동로봇 센서·2D/3D 사람 주석·가림 장면을 살피고, 검출·추적 벤치마크를 사회적 주행 정책 검증으로 확대할 때 생기는 좌표·시간·누수 경계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

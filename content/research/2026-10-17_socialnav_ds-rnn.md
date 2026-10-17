@@ -8,7 +8,8 @@ tags:
   - partial-observation
   - robot-navigation
 description: "DS-RNN이 사람과 로봇의 공간 관계와 시간에 따른 로봇 상태를 분리해 학습한 구조, 부분 관측의 범위, 실물 적용에서 남은 검출 가정을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

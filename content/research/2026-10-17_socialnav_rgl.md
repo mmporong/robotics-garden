@@ -8,7 +8,8 @@ tags:
   - model-based-RL
   - crowd-navigation
 description: "RGL이 사람-로봇과 사람-사람 관계를 동적 그래프로 추론하고 사람 움직임 예측과 여러 단계 탐색을 결합한 방법, 실물 데모와 추적 오류 전파 위험을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - topological-planning
   - robot-learning
 description: "ReViND가 기존 실물 주행 자료를 보상별로 다시 표기하고 IQL 가치함수와 위상 그래프를 결합해 장거리 목표와 경로 선호를 함께 다룬 방법과 사회적 주행으로의 적용 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

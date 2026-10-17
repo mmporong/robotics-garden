@@ -8,7 +8,8 @@ tags:
   - human-aware-navigation
   - robot-safety
 description: "Watch out! 논문이 2차원 지도 윤곽의 틈에서 보이지 않는 사람을 가정하고, 코너 안전과 좁은 통로 통과를 함께 다룬 방법과 실패 조건을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

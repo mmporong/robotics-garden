@@ -8,7 +8,8 @@ tags:
   - explainable-robotics
   - visual-question-answering
 description: "SNEI가 SCAND의 2천 장면을 4만 건 넘는 사회 주행 질의응답으로 바꾼 방식과 Social-LLaVA의 사람 채점·실물 개념 증명이 실제 정책 검증과 어떻게 다른지 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

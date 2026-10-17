@@ -8,7 +8,8 @@ tags:
   - behavior-cloning
   - robot-evaluation
 description: "Ratatouille이 같은 실물 시연 데이터에서 증강·행동 표현·정규화 선택을 바꾸고, 시뮬레이션과 통제된 실물 주행, 식당 정성 사례를 어떻게 나눠 검증했는지 살펴본다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - human-robot-interaction
   - motion-planning
 description: "Social Momentum이 사람과 로봇의 좌우 통과 의도를 각운동량 부호로 표현하는 원리와 180명 영상 연구·105명 실물 연구의 결과와 한계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

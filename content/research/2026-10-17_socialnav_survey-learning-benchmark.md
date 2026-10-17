@@ -1,7 +1,7 @@
 ---
 title: "Alyassi 벤치마크가 학습 사회적 주행의 입력 차이를 드러낸 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 강화학습
@@ -9,6 +9,7 @@ tags:
   - 군중주행
   - 로봇평가
 description: "Alyassi 등의 리뷰와 벤치마크를 입력 구조 중심으로 읽고, 학습 정책의 성능표를 센서 계약·사람 반응·안전 계층까지 이어서 검증하는 방법을 설명합니다."
+draft: true
 referenceKind: paper
 ---
 

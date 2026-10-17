@@ -8,7 +8,8 @@ tags:
   - social-force-model
   - benchmarking
 description: "HuNavSim 2.0이 사회적 힘 모형, 집단, 행동 트리, 여섯 로봇 반응을 시뮬레이터 독립형 ROS 2 서비스로 제공하는 구조와 정답 상태·Humble 검증 범위를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

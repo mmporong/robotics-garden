@@ -1,7 +1,7 @@
 ---
 title: "시공간 복셀 계층 STVL이 오래된 장애물을 지우는 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 장애물지도
@@ -9,6 +9,7 @@ tags:
   - Nav2
   - 시간감쇠
 description: "STVL의 원래 공간 표현과 시간 감쇠 시연을 읽고, 사람의 과거 점유를 지우는 일과 미래 행동을 예측하는 일을 구분합니다."
+draft: true
 referenceKind: resource
 ---
 

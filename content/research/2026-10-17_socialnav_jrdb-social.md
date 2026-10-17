@@ -8,7 +8,8 @@ tags:
   - multimodal-dataset
   - evaluation
 description: "JRDB-Social의 개인 속성·집단 내 상호작용·집단 문맥 주석을 나눠 읽고, 민감 속성·텍스트 평가·시간 누수와 사회적 주행 적용의 경계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Singamaneni 서베이가 사회적 주행을 네 관점으로 분류한 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 로봇분류
@@ -9,6 +9,7 @@ tags:
   - 경로계획
   - 연구방법론
 description: "Singamaneni 등의 서베이는 사회적 주행 연구 193편을 로봇 종류, 계획·의사결정, 상황 인식, 평가·도구의 네 분류표로 나눠 같은 알고리즘 이름 뒤에 숨은 과제와 입력 조건을 드러냈습니다."
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - dynamic-scenes
   - social-cost
 description: "SocNav2의 두 평정 질문, 마지막 1초를 읽는 시간 그래프와 전후진 증강 가정을 구분하고, 동적 점수를 계획기에 연결할 때 생기는 선택을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

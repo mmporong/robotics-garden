@@ -1,7 +1,7 @@
 ---
 title: "Karwowski 서베이가 불편 요인을 주행 요구사항으로 바꾼 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 사용자연구
@@ -9,6 +9,7 @@ tags:
   - 인간인지계획
   - 로봇평가
 description: "Karwowski 등의 서베이는 사용자 연구에서 관찰된 불편을 물리적 안전, 지각된 안전, 자연스러운 움직임, 사회 규범 준수의 요구사항으로 정리하고 인지·계획·평가를 연결했습니다."
+draft: true
 referenceKind: paper
 ---
 

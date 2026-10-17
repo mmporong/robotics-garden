@@ -8,7 +8,8 @@ tags:
   - partial-observation
   - simulation
 description: "SocNavGym이 사람·가구·상호작용을 로봇 좌표 관측으로 만들고 부분 관측, 감지 잡음, 사회적 보상과 평가 지표를 강화학습 환경에 넣은 방식을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

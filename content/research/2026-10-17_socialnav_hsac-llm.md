@@ -8,7 +8,8 @@ tags:
   - reinforcement-learning
   - human-robot-interaction
 description: "HSAC-LLM이 속도 명령과 대화 뒤 양보 행동을 하이브리드 강화학습으로 결합하고 GPT-4 대화를 연결한 구조, 시뮬레이션 수치와 제한된 실물 시연의 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

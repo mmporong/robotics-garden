@@ -8,7 +8,8 @@ tags:
   - motion-planning
   - dynamic-obstacles
 description: "Fiorini와 Shiller의 속도 장애물이 상대 운동을 충돌 속도 집합으로 바꾸는 기하, 시간 지평과 동역학 제약, 사람 주행 적용의 한계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

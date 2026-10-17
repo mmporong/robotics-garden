@@ -8,7 +8,8 @@ tags:
   - proximity-reasoning
   - simulation
 description: "Proximity-Aware Tasks가 거리와 방향의 미래 위험을 보조 손실로 학습시키는 방식, 네 종류 사람-로봇 만남 평가, 시뮬레이션에서 실물로 옮길 때 깨지는 가정을 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

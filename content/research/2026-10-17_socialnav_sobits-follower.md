@@ -8,7 +8,8 @@ tags:
   - sensor-fusion
   - obstacle-avoidance
 description: "SOBITS Follower의 Jazzy 분기가 RGB-D와 2차원 라이다 관측을 결합해 목표 사람을 추적하고, 가상 스프링과 동적 창 방식으로 따라가는 구조와 일반 사회적 길찾기와의 차이를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

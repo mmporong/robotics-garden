@@ -8,7 +8,8 @@ tags:
   - learning-from-demonstration
   - robot-navigation
 description: "사람 시연의 행동을 복제하는 대신 보상 특징의 가중치 분포를 추론한 Bayesian IRL 소셜 내비게이션 연구와, 시연·특징·장소에 묶이는 한계를 공식 코드까지 대조해 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

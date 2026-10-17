@@ -8,7 +8,8 @@ tags:
   - reinforcement-learning
   - embodied-navigation
 description: "SocialNav의 의미 판단·행동 생성 계층과 700만 학습 샘플, 3B 실행 모델·72B 주석 모델의 구분, 실물 클라우드 계산 범위를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "HumanFlow가 가려진 사람 동작과 비행 제어를 함께 다루는 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 동작예측
@@ -9,6 +9,7 @@ tags:
   - 비행로봇
   - 확산모델
 description: "HumanFlow의 사람 전신 동작 복원·예측과 비행 정책 연결을 읽고, 실제 사람 궤적을 재생한 시뮬레이션 성과를 지상 로봇의 실물 검증과 구분합니다."
+draft: true
 referenceKind: paper
 ---
 

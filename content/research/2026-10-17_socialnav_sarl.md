@@ -8,7 +8,8 @@ tags:
   - deep-reinforcement-learning
   - crowd-navigation
 description: "SARL이 가장 가까운 사람만 위험하다는 가정을 버리고 주의집중으로 사람별 영향을 합친 구조, 사람-사람 관계를 넣은 LM-SARL과 평가 조건·센서 오류 한계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

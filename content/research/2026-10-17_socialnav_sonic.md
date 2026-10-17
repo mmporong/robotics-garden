@@ -8,7 +8,8 @@ tags:
   - uncertainty
   - robot-navigation
 description: "SoNIC이 순차 예측 오차로 사람 주변 불확실성 영역을 조정하고, 침범 비용을 제약 강화학습에 넣은 방법과 조건부 보장·실물 계산 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - trajectory-prediction
   - human-robot-interaction
 description: "THÖR-MAGNI Act의 시간별 행동 주석과 궤적 예측 실험을 원자료 수치로 읽고, 긴 꼬리 분포와 행동 경계의 적용 한계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

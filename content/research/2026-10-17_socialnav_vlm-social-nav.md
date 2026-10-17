@@ -8,7 +8,8 @@ tags:
   - human-robot-interaction
   - real-world-robotics
 description: "VLM-Social-Nav가 시각언어모델의 방향·속도 제안을 DWA 비용으로 바꾸는 구조와 TurtleBot 실물 네 장면·사용자 평가, 지연과 안전 경계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

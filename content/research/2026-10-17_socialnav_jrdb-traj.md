@@ -8,7 +8,8 @@ tags:
   - tracking-metrics
   - evaluation
 description: "JRDB-Traj가 원시 로봇 센서에서 검출·추적·미래 예측을 잇고, 정답 ID가 없는 출력의 위치·개수 오류를 EFE로 재는 방식을 계산 예와 실패 조건으로 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

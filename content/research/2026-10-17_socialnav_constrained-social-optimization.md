@@ -8,7 +8,8 @@ tags:
   - constrained-optimization
   - sim-to-real
 description: "사회적 로봇 주행의 유클리드·마할라노비스·타원체 비용과 적응형 제약을 비교하고, 시뮬레이션과 Beluga 실물에서 드러난 장점과 인식 실패를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -1,0 +1,731 @@
+{
+  "schema_version": 1,
+  "active": true,
+  "timezone": "Asia/Seoul",
+  "daily_limit": 2,
+  "start_date": "2026-10-18",
+  "selection_date": "2026-10-17",
+  "selection_policy": "핵심 개념·평가·실물 근거·현재 구성과의 관련성을 기준으로 14편만 선별한다. 보류 글을 수량 맞추기로 발행하지 않는다.",
+  "items": [
+    {
+      "id": "survey-kruse",
+      "filename": "2026-10-17_socialnav_survey-kruse.md",
+      "title": "Kruse 서베이가 사람을 고려한 로봇 내비게이션을 모듈로 나눈 방식",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0921889013001048",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "survey-core-challenges",
+      "filename": "2026-10-17_socialnav_survey-core-challenges.md",
+      "title": "Mavrogiannis 서베이가 소셜 내비게이션의 세 난제를 드러낸 방식",
+      "source_url": "https://arxiv.org/abs/2103.05668",
+      "state": "published",
+      "priority": null,
+      "published_on": "2026-10-17",
+      "reason": "계획·행동 설계·평가를 구분해 후속 방법을 읽을 기준을 세운다."
+    },
+    {
+      "id": "survey-taxonomy",
+      "filename": "2026-10-17_socialnav_survey-taxonomy.md",
+      "title": "Singamaneni 서베이가 사회적 주행을 네 관점으로 분류한 방식",
+      "source_url": "https://arxiv.org/abs/2311.06922",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "survey-requirements",
+      "filename": "2026-10-17_socialnav_survey-requirements.md",
+      "title": "Karwowski 서베이가 불편 요인을 주행 요구사항으로 바꾼 방식",
+      "source_url": "https://www.mdpi.com/1424-8220/24/9/2794",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "survey-evaluation",
+      "filename": "2026-10-17_socialnav_survey-evaluation.md",
+      "title": "Francis 평가 지침이 사회적 주행을 여덟 원칙으로 측정한 방식",
+      "source_url": "https://doi.org/10.1145/3700599",
+      "state": "approved",
+      "priority": 5,
+      "published_on": null,
+      "reason": "안전·편안함·읽기 쉬움을 장면과 측정 지표로 연결한다."
+    },
+    {
+      "id": "survey-learning-benchmark",
+      "filename": "2026-10-17_socialnav_survey-learning-benchmark.md",
+      "title": "Alyassi 벤치마크가 학습 사회적 주행의 입력 차이를 드러낸 방식",
+      "source_url": "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2025.1658643/full",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "hall-proxemics",
+      "filename": "2026-10-17_socialnav_hall-proxemics.md",
+      "title": "근접학은 개인공간을 고정 반경으로 만들지 않는다",
+      "source_url": "https://archive.org/details/hiddendimension0000hall",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "social-force",
+      "filename": "2026-10-17_socialnav_social-force.md",
+      "title": "사회력 모델은 국소 반응에서 군중 질서를 만든다",
+      "source_url": "https://doi.org/10.1103/PhysRevE.51.4282",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "velocity-obstacles",
+      "filename": "2026-10-17_socialnav_velocity-obstacles.md",
+      "title": "속도 장애물은 미래 충돌을 속도 공간에서 지운다",
+      "source_url": "https://www.ariel.ac.il/sites/shiller/papers/fiorini98motion.pdf",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "human-aware-planner",
+      "filename": "2026-10-17_socialnav_human-aware-planner.md",
+      "title": "사람을 고려한 이동 계획기가 거리·시야·가림을 비용으로 푸는 방식",
+      "source_url": "https://citeseerx.ist.psu.edu/document?doi=94afec1acb0db7967bad55398c2bb8be8aafbc24&repid=rep1&type=pdf",
+      "state": "approved",
+      "priority": 2,
+      "published_on": null,
+      "reason": "사람의 위치·방향·시야를 경로 비용으로 옮기는 대표 방법을 살핀다."
+    },
+    {
+      "id": "rvo",
+      "filename": "2026-10-17_socialnav_rvo.md",
+      "title": "서로 피한다는 가정은 속도 장애물의 흔들림을 어떻게 줄였나",
+      "source_url": "https://gamma-web.iacs.umd.edu/RVO/index.html",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "unfreezing",
+      "filename": "2026-10-17_socialnav_unfreezing.md",
+      "title": "완벽한 개인 예측만으로도 군중 앞 로봇은 왜 얼어붙는가",
+      "source_url": "https://las.inf.ethz.ch/files/trautman10unfreezing.pdf",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "orca",
+      "filename": "2026-10-17_socialnav_orca.md",
+      "title": "여러 이동체의 상호 충돌 회피를 선형계획으로 푸는 법",
+      "source_url": "https://ics-websites.science.uu.nl/docs/vakken/mcrws/papers_new/van%20den%20Berg%20et%20al%20-%202011%20-%20Reciprocal%20n-body%20collision%20avoidance.pdf",
+      "state": "approved",
+      "priority": 3,
+      "published_on": null,
+      "reason": "VO/RVO 계보는 이 대표 충돌 회피 방법으로 묶고 상호 회피 가정의 한계를 다룬다."
+    },
+    {
+      "id": "trajectory-feature-prediction",
+      "filename": "2026-10-17_socialnav_trajectory-feature-prediction.md",
+      "title": "사람 사이 상호작용으로 다음 궤적을 예측한 방법",
+      "source_url": "https://www.cs.cmu.edu/~jeanoh/16-785/papers/kuderer-rss2012-socially.pdf",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "legible-navigation",
+      "filename": "2026-10-17_socialnav_legible-navigation.md",
+      "title": "사람이 로봇의 양보 의도를 미리 읽게 만드는 주행 경로",
+      "source_url": "https://www.researchgate.net/publication/254037213_Legible_robot_navigation_in_the_proximity_of_moving_humans",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "dense-human-crowds",
+      "filename": "2026-10-17_socialnav_dense-human-crowds.md",
+      "title": "밀집 군중 속에서 사람과 함께 길을 만드는 로봇",
+      "source_url": "https://journals.sagepub.com/doi/10.1177/0278364914557874",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "bayesian-irl",
+      "filename": "2026-10-17_socialnav_bayesian-irl.md",
+      "title": "베이지안 IRL이 사람 시연에서 주행 비용을 배운 법",
+      "source_url": "https://doi.org/10.1109/ICRA.2016.7487452",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "cadrl",
+      "filename": "2026-10-17_socialnav_cadrl.md",
+      "title": "CADRL이 충돌 회피를 가치함수로 바꾼 출발점",
+      "source_url": "https://ieeexplore.ieee.org/document/7989037",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "sa-cadrl",
+      "filename": "2026-10-17_socialnav_sa-cadrl.md",
+      "title": "SA-CADRL이 우측 통행을 보상으로 만든 방법",
+      "source_url": "https://arxiv.org/abs/1703.08862",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "ga3c-cadrl",
+      "filename": "2026-10-17_socialnav_ga3c-cadrl.md",
+      "title": "GA3C-CADRL이 여러 사람을 기억해 피한 방법",
+      "source_url": "https://arxiv.org/abs/1805.01956",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "sarl",
+      "filename": "2026-10-17_socialnav_sarl.md",
+      "title": "SARL이 군중 속 중요한 사람을 골라 본 방법",
+      "source_url": "https://arxiv.org/abs/1809.08835",
+      "state": "approved",
+      "priority": 9,
+      "published_on": null,
+      "reason": "군중의 중요한 상호작용을 고르는 학습 정책의 대표 사례를 읽는다."
+    },
+    {
+      "id": "rgl",
+      "filename": "2026-10-17_socialnav_rgl.md",
+      "title": "RGL이 사람 사이 관계를 그래프로 읽은 주행 정책",
+      "source_url": "https://arxiv.org/abs/1909.13165",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "reform",
+      "filename": "2026-10-17_socialnav_reform.md",
+      "title": "대화 중인 사람들의 원형 공간을 찾아내는 방법",
+      "source_url": "https://www.microsoft.com/en-us/research/publication/reform-recognizing-f-formations-for-social-robots/",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "ds-rnn",
+      "filename": "2026-10-17_socialnav_ds-rnn.md",
+      "title": "DS-RNN이 부분 관측 군중의 시공간 관계를 나눈 방법",
+      "source_url": "https://arxiv.org/abs/2011.04820",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "social-momentum",
+      "filename": "2026-10-17_socialnav_social-momentum.md",
+      "title": "사람 흐름을 방해하지 않는 행동을 측정하는 사회적 모멘텀",
+      "source_url": "https://doi.org/10.1145/3495244",
+      "state": "approved",
+      "priority": 7,
+      "published_on": null,
+      "reason": "통과 의도를 드러내는 움직임과 사람 참여 실험 근거를 살핀다."
+    },
+    {
+      "id": "watch-out-human",
+      "filename": "2026-10-17_socialnav_watch-out-human.md",
+      "title": "보이지 않는 사람을 코너와 문턱에서 대비하는 주행법",
+      "source_url": "https://arxiv.org/abs/2211.12216",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "human-mpc",
+      "filename": "2026-10-17_socialnav_human-mpc.md",
+      "title": "HuMAN-MPC가 사람 예측과 실행 가능성을 함께 본 방법",
+      "source_url": "https://arxiv.org/abs/2405.12616",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "scand",
+      "filename": "2026-10-17_socialnav_scand.md",
+      "title": "실물 원격조종 시연으로 사회적 주행을 배우는 데이터셋",
+      "source_url": "https://arxiv.org/abs/2203.15041",
+      "state": "approved",
+      "priority": 8,
+      "published_on": null,
+      "reason": "실물 원격조종 데이터의 학습 가능 범위와 라벨 한계를 다룬다."
+    },
+    {
+      "id": "sacson",
+      "filename": "2026-10-17_socialnav_sacson.md",
+      "title": "로봇이 사람 행동을 덜 바꾸도록 배우는 사회적 주행",
+      "source_url": "https://arxiv.org/abs/2306.01874",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "constrained-social-optimization",
+      "filename": "2026-10-17_socialnav_constrained-social-optimization.md",
+      "title": "적응형 제약이 사람 예측 불확실성을 다루는 방식",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0921889024002148",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "sonic",
+      "filename": "2026-10-17_socialnav_sonic.md",
+      "title": "SoNIC이 예측 오차를 주행 제약으로 바꾼 방법",
+      "source_url": "https://arxiv.org/abs/2407.17460",
+      "state": "approved",
+      "priority": 11,
+      "published_on": null,
+      "reason": "사람 경로 예측의 오차를 조건부 불확실성 제약으로 연결한다."
+    },
+    {
+      "id": "ratatouille",
+      "filename": "2026-10-17_socialnav_ratatouille.md",
+      "title": "실제 사회적 주행에서 오프라인 모방학습 선택을 비교한 연구",
+      "source_url": "https://arxiv.org/abs/2509.17204",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "proximity-aware",
+      "filename": "2026-10-17_socialnav_proximity-aware.md",
+      "title": "가까워질 위험을 보조 과제로 삼는 시각 사회 주행",
+      "source_url": "https://openaccess.thecvf.com/content/ICCV2023/html/Cancelli_Exploiting_Proximity-Aware_Tasks_for_Embodied_Social_Navigation_ICCV_2023_paper.html",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "vlm-social-nav",
+      "filename": "2026-10-17_socialnav_vlm-social-nav.md",
+      "title": "언어모델을 저속 행동 점수기로 둔 사회적 로봇 주행",
+      "source_url": "https://arxiv.org/abs/2404.00210",
+      "state": "approved",
+      "priority": 12,
+      "published_on": null,
+      "reason": "느린 영상 의미 판단과 빠른 LiDAR 안전 계층을 분리하는 확장을 살핀다."
+    },
+    {
+      "id": "social-llava",
+      "filename": "2026-10-17_socialnav_social-llava.md",
+      "title": "사회 장면을 묻고 설명하도록 학습한 시각언어 모델",
+      "source_url": "https://arxiv.org/abs/2501.09024",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "socialnav-foundation",
+      "filename": "2026-10-17_socialnav_socialnav-foundation.md",
+      "title": "SocialNav가 사회 규범 추론과 저수준 주행을 나눈 방식",
+      "source_url": "https://arxiv.org/abs/2511.21135",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "lisn",
+      "filename": "2026-10-17_socialnav_lisn.md",
+      "title": "LISN이 느린 언어 판단과 빠른 반응 제어를 나눈 방식",
+      "source_url": "https://arxiv.org/abs/2512.09920",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "revind",
+      "filename": "2026-10-17_socialnav_revind.md",
+      "title": "ReViND가 오프라인 보상과 위상 그래프로 장거리 주행한 방법",
+      "source_url": "https://proceedings.mlr.press/v205/shah23a.html",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "hsac-llm",
+      "filename": "2026-10-17_socialnav_hsac-llm.md",
+      "title": "HSAC-LLM이 대화와 연속·이산 행동을 결합한 방식",
+      "source_url": "https://arxiv.org/abs/2409.04965",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "colson",
+      "filename": "2026-10-17_socialnav_colson.md",
+      "title": "COLSON이 확산 행동 분포를 제약 없이 유도한 방법",
+      "source_url": "https://arxiv.org/abs/2503.13934",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "socialnav-sub",
+      "filename": "2026-10-17_socialnav_socialnav-sub.md",
+      "title": "SocialNav-SUB가 사회 장면 이해를 사람 응답으로 잰 방법",
+      "source_url": "https://arxiv.org/abs/2509.08757",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "diffusion-steering",
+      "filename": "2026-10-17_socialnav_diffusion-steering.md",
+      "title": "확산 조향이 기본 주행 정책을 고정하고 통행 규칙을 바꾸는 방식",
+      "source_url": "https://arxiv.org/abs/2609.24317",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "humanflow",
+      "filename": "2026-10-17_socialnav_humanflow.md",
+      "title": "HumanFlow가 가려진 사람 동작과 비행 제어를 함께 다루는 방식",
+      "source_url": "https://arxiv.org/abs/2605.25685",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "eth-dataset",
+      "filename": "2026-10-17_socialnav_eth-dataset.md",
+      "title": "ETH 보행자 궤적 데이터가 예측 평가의 기본이 된 이유",
+      "source_url": "https://vision.ee.ethz.ch/datsets.html",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "ucy-dataset",
+      "filename": "2026-10-17_socialnav_ucy-dataset.md",
+      "title": "UCY 군중 궤적 데이터가 상호작용 예측에 남긴 기준",
+      "source_url": "https://graphics.cs.ucy.ac.cy/research/downloads/crowd-data/",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "sdd",
+      "filename": "2026-10-17_socialnav_sdd.md",
+      "title": "SDD 항공 궤적이 보행자 밖의 상호작용을 보여 준 방식",
+      "source_url": "https://cvgl.stanford.edu/projects/uav_data/",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "jrdb",
+      "filename": "2026-10-17_socialnav_jrdb.md",
+      "title": "JRDB가 이동로봇 시점의 사람 지각을 벤치마크로 만든 방식",
+      "source_url": "https://jrdb.erc.monash.edu/dataset/",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "jrdb-traj",
+      "filename": "2026-10-17_socialnav_jrdb-traj.md",
+      "title": "JRDB-Traj가 불완전한 추적 뒤의 미래 예측을 평가하는 법",
+      "source_url": "https://github.com/vita-epfl/JRDB-Traj",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "jrdb-social",
+      "filename": "2026-10-17_socialnav_jrdb-social.md",
+      "title": "JRDB-Social이 사람 집단의 문맥을 세 층으로 기록한 방식",
+      "source_url": "https://github.com/JRDB-dataset/JRDB-Social",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "thor-magni",
+      "filename": "2026-10-17_socialnav_thor-magni.md",
+      "title": "정밀 모션캡처로 상호작용을 기록한 THÖR-MAGNI",
+      "source_url": "https://arxiv.org/abs/2403.09285",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "thor-magni-act",
+      "filename": "2026-10-17_socialnav_thor-magni-act.md",
+      "title": "THÖR-MAGNI 행동 주석을 다루는 공개 도구 Act",
+      "source_url": "https://github.com/tmralmeida/thor-magni-actions",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "musohu",
+      "filename": "2026-10-17_socialnav_musohu.md",
+      "title": "사람 시점 멀티모달 시연으로 주행을 옮기는 MuSoHu",
+      "source_url": "https://people.cs.gmu.edu/~xxiao2/Research/MuSoHu/",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "socnav1",
+      "filename": "2026-10-17_socialnav_socnav1.md",
+      "title": "사회 규범 비용을 그래프로 학습하는 SocNav1 데이터셋",
+      "source_url": "https://arxiv.org/abs/1909.02993",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "drow",
+      "filename": "2026-10-17_socialnav_drow.md",
+      "title": "DROW가 휠체어·보행 보조기를 거리 신호에서 찾은 방식",
+      "source_url": "https://arxiv.org/abs/1603.02636",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "dr-spaam",
+      "filename": "2026-10-17_socialnav_dr-spaam.md",
+      "title": "DR-SPAAM이 과거 라이다 특징을 누적해 사람을 찾은 방식",
+      "source_url": "https://arxiv.org/abs/2004.14079",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "frog",
+      "filename": "2026-10-17_socialnav_frog.md",
+      "title": "무릎 높이 라이다 사람 검출을 위한 FROG 벤치마크",
+      "source_url": "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2025.1671673/full",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "hunavsim",
+      "filename": "2026-10-17_socialnav_hunavsim.md",
+      "title": "HuNavSim이 로봇에 반응하는 여섯 사람 행동을 만든 방식",
+      "source_url": "https://github.com/robotics-upo/hunav_sim",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "socnavbench",
+      "filename": "2026-10-17_socialnav_socnavbench.md",
+      "title": "SocNavBench가 실제 보행 궤적으로 플래너를 재는 방식",
+      "source_url": "https://github.com/CMU-TBD/SocNavBench",
+      "state": "approved",
+      "priority": 6,
+      "published_on": null,
+      "reason": "고정된 사람 궤적으로 전체 계획기를 반복 비교할 때의 범위를 설명한다."
+    },
+    {
+      "id": "socnavgym",
+      "filename": "2026-10-17_socialnav_socnavgym.md",
+      "title": "SocNavGym이 부분 관측과 사회 관계를 상태로 만든 방식",
+      "source_url": "https://github.com/gnns4hri/SocNavGym",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "socialgym2",
+      "filename": "2026-10-17_socialnav_socialgym2.md",
+      "title": "SocialGym 2가 여러 로봇의 사회적 협상을 시험하는 방식",
+      "source_url": "https://github.com/ut-amrl/SocialGym2",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "arena-rosnav",
+      "filename": "2026-10-17_socialnav_arena-rosnav.md",
+      "title": "Arena-Rosnav 4.0이 사회적 세계를 만드는 방법",
+      "source_url": "https://arxiv.org/abs/2409.12471",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "humansim",
+      "filename": "2026-10-17_socialnav_humansim.md",
+      "title": "HumanSim이 결정론적 사람 군중을 만드는 구조",
+      "source_url": "https://arena-dev.readthedocs.io/en/latest/humansim/",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "arena5",
+      "filename": "2026-10-17_socialnav_arena5.md",
+      "title": "Arena 5.0이 광사실 사회적 주행을 시험하는 방식",
+      "source_url": "https://roboticsproceedings.org/rss21/p092.html",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "brne-crowdnav",
+      "filename": "2026-10-17_socialnav_brne-crowdnav.md",
+      "title": "BRNE가 사람과 로봇의 경로 분포를 함께 고르는 방식",
+      "source_url": "https://github.com/katie-hughes/brne_social_nav",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "bench-mr",
+      "filename": "2026-10-17_socialnav_bench-mr.md",
+      "title": "Bench-MR이 바퀴 로봇 경로 계획을 비교하는 법",
+      "source_url": "https://robot-motion.github.io/bench-mr/",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "nav2-collision-monitor",
+      "filename": "2026-10-17_socialnav_nav2-collision-monitor.md",
+      "title": "Nav2 충돌 감시가 계획기 뒤에서 속도를 제한하는 구조",
+      "source_url": "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/collision_monitor/configuring_collision_monitor_node/",
+      "state": "published",
+      "priority": null,
+      "published_on": "2026-10-17",
+      "reason": "낮은 LiDAR의 주행·충돌 감시 역할과 사회 정책의 안전 경계를 설명한다."
+    },
+    {
+      "id": "nav2-mppi",
+      "filename": "2026-10-17_socialnav_nav2-mppi.md",
+      "title": "Nav2 MPPI 제어기가 후보 궤적의 비용으로 명령을 고르는 방식",
+      "source_url": "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/",
+      "state": "approved",
+      "priority": 4,
+      "published_on": null,
+      "reason": "실행 가능한 후보 궤적의 비용과 제어 주기 계산을 구분한다."
+    },
+    {
+      "id": "stvl",
+      "filename": "2026-10-17_socialnav_stvl.md",
+      "title": "시공간 복셀 계층 STVL이 오래된 장애물을 지우는 방식",
+      "source_url": "https://github.com/SteveMacenski/spatio_temporal_voxel_layer/tree/ros2",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "people-msgs",
+      "filename": "2026-10-17_socialnav_people-msgs.md",
+      "title": "ROS 사람 메시지 people_msgs의 좌표와 신뢰도 계약",
+      "source_url": "https://github.com/wg-perception/people",
+      "state": "approved",
+      "priority": 1,
+      "published_on": null,
+      "reason": "RGB-D 사람 관측을 계획기에 연결할 좌표·시각·식별자·신뢰도 계약을 다룬다."
+    },
+    {
+      "id": "sobits-follower",
+      "filename": "2026-10-17_socialnav_sobits-follower.md",
+      "title": "SOBITS Follower가 여러 센서로 한 사람을 따라가는 방식",
+      "source_url": "https://github.com/TeamSOBITS/sobits_follower/blob/jazzy-devel/README.en.md",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "defensive-nash-game",
+      "filename": "2026-10-17_socialnav_defensive-nash-game.md",
+      "title": "동적 내시 게임이 상대의 잠깐 방심을 대비한 방식",
+      "source_url": "https://arxiv.org/abs/2011.04815",
+      "state": "held",
+      "priority": null,
+      "published_on": null,
+      "reason": "유사 방법·자료 소개의 중복과 현재 실험 과제와의 거리를 고려해 보류한다. 새 학습 질문이 생기면 다시 선별한다."
+    },
+    {
+      "id": "socnav2",
+      "filename": "2026-10-17_socialnav_socnav2.md",
+      "title": "SocNav2가 움직임과 관계를 불편 점수로 묶은 데이터",
+      "source_url": "https://danidevai.com/navigation/datasets/socnav2/",
+      "state": "approved",
+      "priority": 10,
+      "published_on": null,
+      "reason": "움직임·관계에 대한 사람 평정이 무엇을 학습시키는지 살핀다."
+    }
+  ]
+}

@@ -8,7 +8,8 @@ tags:
   - human-robot-interaction
   - machine-learning
 description: "REFORM이 사람 쌍의 거리와 몸 회전 부담을 분류한 뒤 투표로 대화 집단을 재구성하는 과정, 로봇 포함 검증 범위와 현장 실패 조건을 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

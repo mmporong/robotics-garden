@@ -1,7 +1,7 @@
 ---
 title: "확산 조향이 기본 주행 정책을 고정하고 통행 규칙을 바꾸는 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - 확산정책
@@ -9,6 +9,7 @@ tags:
   - 강화학습
   - 통행규칙
 description: "Nagahisa 등의 확산 조향 연구에서 고정하는 정책과 학습하는 선택을 구분하고, 가상 보행자를 쓰는 실물 연동 실험과 성능 보존 주장의 범위를 살펴봅니다."
+draft: true
 referenceKind: paper
 ---
 

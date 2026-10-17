@@ -8,7 +8,8 @@ tags:
   - gaussian-process
   - field-robotics
 description: "붐비는 구내식당 488회 실물 주행에서 독립 예측보다 사람과 로봇의 공동 반응을 모델링한 계획기가 안전과 진행을 개선한 근거와 배포 한계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - people-detection
   - benchmark
 description: "2025 FROG의 무릎 높이 2D 라이다 완전 주석과 검출 벤치마크를 읽고, 연속 스캔 평가를 추적·사회 내비게이션으로 연결할 때의 한계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

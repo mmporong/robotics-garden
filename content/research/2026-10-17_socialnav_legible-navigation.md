@@ -8,7 +8,8 @@ tags:
   - context-cost
   - human-robot-interaction
 description: "고정된 사람 주변 비용이 교차 장면에서 로봇의 의도를 흐리는 이유와, 이동 방향에 따라 비용을 바꾼 ContextCost의 작동 원리·실험 범위·배포 한계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

@@ -8,7 +8,8 @@ tags:
   - crowd-navigation
   - pedestrian-tracking
 description: "BRNE ROS 2 구현이 로봇과 사람의 후보 궤적 분포를 함께 갱신해 군중을 지나는 방법, ZED2i 추적과 Unitree Go1 배치 구조, 공개 실물 시험의 범위와 실패 기록을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

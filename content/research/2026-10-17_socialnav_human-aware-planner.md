@@ -8,7 +8,8 @@ tags:
   - visibility
   - human-robot-interaction
 description: "Sisbot 등의 사람을 고려한 이동 계획기가 안전 거리, 시야, 가림 뒤 출현을 경로 비용으로 합친 구조와 실물 Rackham 검증, 오늘날 재현할 때의 함정을 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

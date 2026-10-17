@@ -8,7 +8,8 @@ tags:
   - gaussian-process
   - motion-planning
 description: "Unfreezing the Robot이 개인별 독립 예측의 과도한 보수성을 공동 궤적 추론으로 바꾼 원리와, 오프라인 보행자 데이터 검증을 실물 상호작용으로 오해하면 안 되는 이유를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

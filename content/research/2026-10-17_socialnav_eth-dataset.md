@@ -8,7 +8,8 @@ tags:
   - motion-prediction
   - evaluation
 description: "ETH BIWI 보행자 데이터가 무엇을 관측하고 무엇을 놓치는지, 고정 조감도 궤적을 로봇 주행 판단에 옮길 때 필요한 좌표·분할·센서 검증을 살핀다."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

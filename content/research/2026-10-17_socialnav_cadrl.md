@@ -8,7 +8,8 @@ tags:
   - collision-avoidance
   - value-function
 description: "CADRL이 사람의 비공개 목적지를 보지 않고도 관측 가능한 위치·속도·반경과 로봇 상태에서 협력적 회피를 학습한 방법, 그리고 센서 기반 시스템으로 옮길 때 깨지는 가정을 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

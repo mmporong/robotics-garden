@@ -8,7 +8,8 @@ tags:
   - linear-programming
   - multi-agent
 description: "ORCA가 이웃마다 허용 속도 반평면을 만들고 그 교집합에서 선호 속도에 가까운 해를 고르는 과정과, 보행자 주행에서 보장이 깨지는 조건을 살핀다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

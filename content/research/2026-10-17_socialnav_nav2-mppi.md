@@ -1,7 +1,7 @@
 ---
 title: "Nav2 MPPI 제어기가 후보 궤적의 비용으로 명령을 고르는 방식"
 date: 2026-10-17T10:27:02+09:00
-publish: true
+publish: false
 tags:
   - social-navigation
   - Nav2
@@ -9,6 +9,7 @@ tags:
   - 궤적최적화
   - 계산예산
 description: "Nav2 MPPI의 후보 궤적과 비용 평가를 읽고, 운동 모델·예측 시간·연산량·사람 상태 입력을 구분해 사회적 주행에 연결하는 조건을 설명합니다."
+draft: true
 referenceKind: resource
 ---
 

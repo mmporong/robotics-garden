@@ -8,7 +8,8 @@ tags:
   - world-generation
   - benchmarking
 description: "Arena-Rosnav 4.0의 ROS 2 이행, 장면 그래프 기반 세계 생성, HuNavSim 사람 행동 통합과 사용자 연구·계산 자원·실물 전이의 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

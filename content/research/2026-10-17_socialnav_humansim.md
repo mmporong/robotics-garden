@@ -8,7 +8,8 @@ tags:
   - behavior-tree
   - reproducibility
 description: "HumanSim의 고정 실행 순서, 교체 가능한 경로 계획기, 행동 트리와 상호작용, 사람 유입·퇴장, 시드 기반 재현과 ROS 2 연결의 검증 경계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

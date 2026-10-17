@@ -8,7 +8,8 @@ tags:
   - navigation-metrics
   - simulation
 description: "SocNavBench가 UCY·ETH 보행자 궤적, 33개 장면, 동기·비동기 실행과 다층 지표로 소셜 내비게이션 플래너를 비교하는 방법과 비반응 보행자라는 한계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 

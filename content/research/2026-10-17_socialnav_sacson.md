@@ -8,7 +8,8 @@ tags:
   - visual-navigation
   - real-world-robotics
 description: "SACSoN이 로봇이 멈췄을 때의 사람 미래를 반사실 기준으로 삼아 방해를 줄이는 원리와 HuRoN 실물 수집·평가·연산 조건의 한계를 분석한다."
-publish: true
+publish: false
+draft: true
 referenceKind: paper
 ---
 

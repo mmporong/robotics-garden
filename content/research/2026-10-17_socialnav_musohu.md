@@ -8,7 +8,8 @@ tags:
   - multimodal-sensing
   - egocentric-data
 description: "MuSoHu의 착용형 센서 기록과 공개 버전별 규모를 구분하고, 사람 경로를 로봇 구성공간으로 옮길 때 생기는 동기화·기구학 한계를 살펴봐요."
-publish: true
+publish: false
+draft: true
 referenceKind: resource
 ---
 
