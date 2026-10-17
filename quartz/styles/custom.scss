@@ -55,6 +55,8 @@ article code {
 // 스크립트가 title을 data-tooltip로 옮기므로 기본 말풍선과 겹치지 않고,
 // 키보드 포커스와 터치 포커스에서도 같은 설명을 볼 수 있다.
 article abbr[data-tooltip] {
+  display: inline-block;
+  max-width: 100%;
   position: relative;
   color: inherit;
   text-decoration-line: underline;
@@ -66,13 +68,14 @@ article abbr[data-tooltip] {
 
   &::after {
     content: attr(data-tooltip);
+    display: none;
     position: absolute;
     z-index: 100;
     top: calc(100% + 0.5rem);
     left: 50%;
     box-sizing: border-box;
     width: max-content;
-    max-width: min(22rem, calc(100vw - 2rem));
+    max-width: min(22rem, var(--tooltip-max-width, calc(100vw - 2rem)));
     padding: 0.55rem 0.7rem;
     border: 1px solid var(--gray);
     border-radius: 0.45rem;
@@ -110,6 +113,7 @@ article abbr[data-tooltip] {
   }
 
   &:is(:hover, :focus)::after {
+    display: block;
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, 0);

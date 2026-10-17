@@ -157,14 +157,21 @@ function alignTooltip(term: HTMLElement) {
   const rect = term.getBoundingClientRect()
   const tooltipHalfWidth = 176
   const viewportPadding = 16
+  let availableWidth: number
 
   if (rect.left < tooltipHalfWidth + viewportPadding) {
     term.dataset.tooltipAlign = "start"
+    availableWidth = window.innerWidth - viewportPadding - rect.left
   } else if (window.innerWidth - rect.right < tooltipHalfWidth + viewportPadding) {
     term.dataset.tooltipAlign = "end"
+    availableWidth = rect.right - viewportPadding
   } else {
     term.dataset.tooltipAlign = "center"
+    const center = (rect.left + rect.right) / 2
+    availableWidth =
+      2 * Math.min(center - viewportPadding, window.innerWidth - viewportPadding - center)
   }
+  term.style.setProperty("--tooltip-max-width", `${Math.max(0, availableWidth)}px`)
 }
 
 document.addEventListener("pointerover", (event) => {
@@ -175,6 +182,14 @@ document.addEventListener("pointerover", (event) => {
 document.addEventListener("focusin", (event) => {
   const term = tooltipTermFrom(event.target)
   if (term) alignTooltip(term)
+})
+
+window.addEventListener("resize", () => {
+  for (const term of document.querySelectorAll<HTMLElement>(
+    "article abbr[data-tooltip]:is(:hover, :focus)",
+  )) {
+    alignTooltip(term)
+  }
 })
 
 document.addEventListener("nav", prepareTermTooltips)
