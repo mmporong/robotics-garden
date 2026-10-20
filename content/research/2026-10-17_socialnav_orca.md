@@ -1,6 +1,6 @@
 ---
 title: "여러 이동체의 상호 충돌 회피를 선형계획으로 푸는 법"
-date: 2026-10-17T10:27:02+09:00
+date: 2026-10-21T08:00:15+09:00
 tags:
   - social-navigation
   - orca
@@ -8,14 +8,14 @@ tags:
   - linear-programming
   - multi-agent
 description: "ORCA가 이웃마다 허용 속도 반평면을 만들고 그 교집합에서 선호 속도에 가까운 해를 고르는 과정과, 보행자 주행에서 보장이 깨지는 조건을 살핀다."
-publish: false
-draft: true
+publish: true
+draft: false
 referenceKind: paper
 ---
 
 여러 이동체가 동시에 서로를 피해야 할 때 가능한 속도를 전부 샘플링하면 후보 수가 빠르게 늘어납니다. 이웃 한 명을 피한 속도가 다른 이웃과 충돌할 수 있고, 가장 안전한 후보를 찾는 동안 다음 센서 프레임이 도착할 수도 있어요. 충돌 회피 규칙이 좋아도 계산 시간이 제어 주기를 넘으면 로봇은 오래된 장면에 반응합니다.
 
-Jur van den Berg, Stephen J. Guy, Ming Lin, Dinesh Manocha의 「Reciprocal n-Body Collision Avoidance」는 이 문제를 허용 속도의 반평면과 저차원 최적화로 바꿉니다. <abbr title="각 이동체가 회피 책임을 나눈다는 가정 아래 이웃별 허용 속도 반평면을 만들고 교집합에서 새 속도를 고르는 충돌 회피 방식">최적 상호 충돌 회피</abbr>, 곧 ORCA는 [[2026-10-17_socialnav_rvo|서로 피한다는 가정은 속도 장애물의 흔들림을 어떻게 줄였나]]에서 제시된 상호성을 계산하기 쉬운 볼록 제약으로 정리합니다.
+Jur van den Berg, Stephen J. Guy, Ming Lin, Dinesh Manocha의 「Reciprocal n-Body Collision Avoidance」는 이 문제를 허용 속도의 반평면과 저차원 최적화로 바꿉니다. <abbr title="각 이동체가 회피 책임을 나눈다는 가정 아래 이웃별 허용 속도 반평면을 만들고 교집합에서 새 속도를 고르는 충돌 회피 방식">최적 상호 충돌 회피</abbr>, 곧 ORCA는 [서로 피한다는 가정은 속도 장애물의 흔들림을 어떻게 줄였나](https://gamma-web.iacs.umd.edu/RVO/index.html)에서 제시된 상호성을 계산하기 쉬운 볼록 제약으로 정리합니다.
 
 ## 금지 원뿔 대신 허용 반평면을 교차해요
 

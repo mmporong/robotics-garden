@@ -132,9 +132,9 @@
       "filename": "2026-10-17_socialnav_orca.md",
       "title": "여러 이동체의 상호 충돌 회피를 선형계획으로 푸는 법",
       "source_url": "https://ics-websites.science.uu.nl/docs/vakken/mcrws/papers_new/van%20den%20Berg%20et%20al%20-%202011%20-%20Reciprocal%20n-body%20collision%20avoidance.pdf",
-      "state": "approved",
+      "state": "published",
       "priority": 3,
-      "published_on": null,
+      "published_on": "2026-10-21",
       "reason": "VO/RVO 계보는 이 대표 충돌 회피 방법으로 묶고 상호 회피 가정의 한계를 다룬다."
     },
     {
@@ -672,9 +672,9 @@
       "filename": "2026-10-17_socialnav_nav2-mppi.md",
       "title": "Nav2 MPPI 제어기가 후보 궤적의 비용으로 명령을 고르는 방식",
       "source_url": "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/",
-      "state": "approved",
+      "state": "published",
       "priority": 4,
-      "published_on": null,
+      "published_on": "2026-10-21",
       "reason": "실행 가능한 후보 궤적의 비용과 제어 주기 계산을 구분한다."
     },
     {
