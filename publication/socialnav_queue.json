@@ -102,9 +102,9 @@
       "filename": "2026-10-17_socialnav_human-aware-planner.md",
       "title": "사람을 고려한 이동 계획기가 거리·시야·가림을 비용으로 푸는 방식",
       "source_url": "https://citeseerx.ist.psu.edu/document?doi=94afec1acb0db7967bad55398c2bb8be8aafbc24&repid=rep1&type=pdf",
-      "state": "approved",
+      "state": "published",
       "priority": 2,
-      "published_on": null,
+      "published_on": "2026-10-20",
       "reason": "사람의 위치·방향·시야를 경로 비용으로 옮기는 대표 방법을 살핀다."
     },
     {
@@ -692,9 +692,9 @@
       "filename": "2026-10-17_socialnav_people-msgs.md",
       "title": "ROS 사람 메시지 people_msgs의 좌표와 신뢰도 계약",
       "source_url": "https://github.com/wg-perception/people",
-      "state": "approved",
+      "state": "published",
       "priority": 1,
-      "published_on": null,
+      "published_on": "2026-10-20",
       "reason": "RGB-D 사람 관측을 계획기에 연결할 좌표·시각·식별자·신뢰도 계약을 다룬다."
     },
     {

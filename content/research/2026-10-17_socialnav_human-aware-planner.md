@@ -1,6 +1,6 @@
 ---
 title: "사람을 고려한 이동 계획기가 거리·시야·가림을 비용으로 푸는 방식"
-date: 2026-10-17T10:27:02+09:00
+date: 2026-10-20T10:51:10+09:00
 tags:
   - social-navigation
   - human-aware-planning
@@ -8,8 +8,8 @@ tags:
   - visibility
   - human-robot-interaction
 description: "Sisbot 등의 사람을 고려한 이동 계획기가 안전 거리, 시야, 가림 뒤 출현을 경로 비용으로 합친 구조와 실물 Rackham 검증, 오늘날 재현할 때의 함정을 분석한다."
-publish: false
-draft: true
+publish: true
+draft: false
 referenceKind: paper
 ---
 
@@ -19,7 +19,7 @@ referenceKind: paper
 
 ## 안전 비용은 사람의 상태에 따라 모양이 달라져요
 
-안전 격자는 사람에게 가까울수록 비용이 커지는 분포입니다. 논문은 사람이 앉아 있는지 서 있는지에 따라 비용의 높이와 범위를 다르게 둘 수 있다고 설명해요. 앉은 사람은 이동 가능성이 낮고 로봇을 피하기 어려우므로 더 넓거나 높은 비용을 줄 수 있습니다. 서 있는 사람에게는 상대적으로 작은 범위를 허용합니다. 이 설계는 [[2026-10-17_socialnav_hall-proxemics|근접학은 개인공간을 고정 반경으로 만들지 않는다]]와도 이어집니다.
+안전 격자는 사람에게 가까울수록 비용이 커지는 분포입니다. 논문은 사람이 앉아 있는지 서 있는지에 따라 비용의 높이와 범위를 다르게 둘 수 있다고 설명해요. 앉은 사람은 이동 가능성이 낮고 로봇을 피하기 어려우므로 더 넓거나 높은 비용을 줄 수 있습니다. 서 있는 사람에게는 상대적으로 작은 범위를 허용합니다. 이 설계는 [근접학은 개인공간을 고정 반경으로 만들지 않는다](https://archive.org/details/hiddendimension0000hall)와도 이어집니다.
 
 <figure class="fig"><img src="../assets/socialnav_human-aware-planner_safety-grid.png" alt="앉은 사람과 선 사람 주변에 서로 다른 높이와 범위의 비용 분포를 그린 안전 격자"><figcaption>논문 그림 2의 안전 격자입니다. 사람 자세가 바뀌면 같은 거리라도 경로 비용이 달라지도록 설계했습니다. <span class="cap-src">(출처: Sisbot et al., <a href="https://homepages.laas.fr/nic/Papers/07ITRO_hri.pdf">A Human Aware Mobile Robot Motion Planner</a>, Fig. 2; 원 논문 그림 인용, 별도 CC 라이선스 미확인)</span></figcaption></figure>
 
