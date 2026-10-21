@@ -1,6 +1,6 @@
 ---
 title: "SocNavBench가 실제 보행 궤적으로 플래너를 재는 방식"
-date: 2026-10-17T10:27:02+09:00
+date: 2026-10-22T08:00:13+09:00
 tags:
   - social-navigation
   - benchmarking
@@ -8,8 +8,8 @@ tags:
   - navigation-metrics
   - simulation
 description: "SocNavBench가 UCY·ETH 보행자 궤적, 33개 장면, 동기·비동기 실행과 다층 지표로 소셜 내비게이션 플래너를 비교하는 방법과 비반응 보행자라는 한계를 살펴봐요."
-publish: false
-draft: true
+publish: true
+draft: false
 referenceKind: resource
 ---
 
@@ -89,7 +89,7 @@ ORCA는 다른 행위자도 서로 피한다는 가정이 있어요. SocNavBench
 
 환경 부하를 확인하려면 화면 없는 방식과 사실적 방식을 같은 계획기로 각각 실행해요. 궤적이 달라지면 시각 관측 때문인지 실행 시간 지연 때문인지 분리해야 해요. 동일 기록 상태를 계획기에 재생해 명령을 비교하면 렌더링 시간을 제거할 수 있어요.
 
-반응형 사람에 대한 외삽을 막는 시험도 필요해요. 기록 재생 결과가 좋은 후보를 [[2026-10-17_socialnav_hunavsim|HuNavSim이 로봇에 반응하는 여섯 사람 행동을 만든 방식]]의 `regular`·`impassive`·`surprised` 조건에 옮겨 보되, 두 시뮬레이터의 좌표·동역학·지표 차이를 맞춰요. 결과가 달라지면 어느 쪽이 틀렸다기보다 사람 모형 가정에 민감하다는 뜻이에요.
+반응형 사람에 대한 외삽을 막는 시험도 필요해요. 기록 재생 결과가 좋은 후보를 [HuNavSim이 로봇에 반응하는 여섯 사람 행동을 만든 방식](https://github.com/robotics-upo/hunav_sim)의 `regular`·`impassive`·`surprised` 조건에 옮겨 보되, 두 시뮬레이터의 좌표·동역학·지표 차이를 맞춰요. 결과가 달라지면 어느 쪽이 틀렸다기보다 사람 모형 가정에 민감하다는 뜻이에요.
 
 ## 제외된 값과 실패 장면을 다시 분모에 넣어요
 

@@ -52,9 +52,9 @@
       "filename": "2026-10-17_socialnav_survey-evaluation.md",
       "title": "Francis 평가 지침이 사회적 주행을 여덟 원칙으로 측정한 방식",
       "source_url": "https://doi.org/10.1145/3700599",
-      "state": "approved",
+      "state": "published",
       "priority": 5,
-      "published_on": null,
+      "published_on": "2026-10-22",
       "reason": "안전·편안함·읽기 쉬움을 장면과 측정 지표로 연결한다."
     },
     {
@@ -582,9 +582,9 @@
       "filename": "2026-10-17_socialnav_socnavbench.md",
       "title": "SocNavBench가 실제 보행 궤적으로 플래너를 재는 방식",
       "source_url": "https://github.com/CMU-TBD/SocNavBench",
-      "state": "approved",
+      "state": "published",
       "priority": 6,
-      "published_on": null,
+      "published_on": "2026-10-22",
       "reason": "고정된 사람 궤적으로 전체 계획기를 반복 비교할 때의 범위를 설명한다."
     },
     {
