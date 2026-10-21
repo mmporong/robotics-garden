@@ -2,6 +2,13 @@ import { getAllSegmentPrefixes } from "../../util/path"
 
 export type PaginationItem = number | "gap"
 
+export function publicationDate(slug: string, indexedDate?: unknown): string {
+  if (typeof indexedDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(indexedDate)) {
+    return indexedDate
+  }
+  return slug.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? ""
+}
+
 export function paginationItems(page: number, pages: number): PaginationItem[] {
   if (pages <= 0) return []
   if (pages <= 7) return Array.from({ length: pages }, (_, index) => index + 1)

@@ -99,6 +99,9 @@ yargs(hideBin(process.argv))
     await handleSync(argv)
   })
   .command("build", "Build Quartz into a bundle of static HTML files", BuildArgv, async (argv) => {
+    // 발행일과 자료 목록은 한국 시간을 쓴다. UTC인 CI에서도 외부 플러그인의
+    // 날짜 표시와 날짜만 있는 frontmatter를 같은 시간대로 처리한다.
+    process.env.TZ = "Asia/Seoul"
     await handleBuild(argv)
   })
   .command("tui", "Launch interactive plugin manager", CommonArgv, async () => {

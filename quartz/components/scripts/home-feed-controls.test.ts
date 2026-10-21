@@ -1,6 +1,23 @@
 import assert from "node:assert/strict"
 import { describe, test } from "node:test"
-import { countTopicPosts, paginationItems, topicUrl } from "./home-feed-controls"
+import { countTopicPosts, paginationItems, publicationDate, topicUrl } from "./home-feed-controls"
+
+describe("home feed publication dates", () => {
+  test("원고 파일명보다 실제 발행일을 우선한다", () => {
+    assert.equal(publicationDate("research/2026-10-17_socialnav_orca", "2026-10-21"), "2026-10-21")
+    assert.equal(
+      publicationDate("research/2026-10-17_socialnav_people-msgs", "2026-10-20"),
+      "2026-10-20",
+    )
+  })
+
+  test("발행 색인이 없거나 손상되면 기존 파일명 날짜로 표시한다", () => {
+    for (const value of [undefined, null, "invalid", {}, 0]) {
+      assert.equal(publicationDate("tech/2026-10-19_example", value), "2026-10-19")
+    }
+    assert.equal(publicationDate("research/index"), "")
+  })
+})
 
 describe("home feed pagination", () => {
   test("앞·가운데·마지막에서 현재 페이지와 양끝을 유지한다", () => {

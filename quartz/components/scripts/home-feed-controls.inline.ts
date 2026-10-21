@@ -1,4 +1,4 @@
-import { countTopicPosts, paginationItems, topicUrl } from "./home-feed-controls"
+import { countTopicPosts, paginationItems, publicationDate, topicUrl } from "./home-feed-controls"
 
 type PaginationState = {
   page: number
@@ -92,8 +92,9 @@ declare global {
       renderPager: typeof renderPager
       countTopicPosts: typeof countTopicPosts
       topicUrl: typeof topicUrl
+      publicationDate: typeof publicationDate
     }
   }
 }
 
-window.gardenHomeControls = { renderPager, countTopicPosts, topicUrl }
+window.gardenHomeControls = { renderPager, countTopicPosts, publicationDate, topicUrl }
