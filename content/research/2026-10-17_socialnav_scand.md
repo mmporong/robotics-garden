@@ -1,6 +1,6 @@
 ---
 title: "실물 원격조종 시연으로 사회적 주행을 배우는 데이터셋"
-date: 2026-10-17T10:27:02+09:00
+date: 2026-10-23T08:00:35+09:00
 tags:
   - social-navigation
   - dataset
@@ -8,8 +8,8 @@ tags:
   - multimodal-sensing
   - real-world-robotics
 description: "SCAND가 Jackal과 Spot의 원격조종·센서·상황 태그를 어떻게 묶었는지, 사람 추적 라벨이 없는 실물 시연 자료를 학습과 평가에 쓸 때의 범위를 분석한다."
-publish: false
-draft: true
+publish: true
+draft: false
 referenceKind: resource
 ---
 
@@ -31,7 +31,7 @@ Jackal은 바퀴로 움직이고 Spot은 다리로 움직입니다. 낮은 바�
 
 반대로 시연자가 뒤에 있다는 사실도 군중 반응을 바꿀 수 있습니다. 사람들은 로봇을 자율 이동체가 아니라 누군가 조종하는 장치로 알아차릴 수 있고, 뒤따르는 사람까지 한 단위로 피해 갈 수 있어요. 시연 정책을 자율 로봇에 옮겼을 때 같은 양보를 받는다고 가정하면 안 됩니다.
 
-[[2026-10-17_socialnav_trajectory-feature-prediction|사람 사이 상호작용으로 다음 궤적을 예측한 방법]]이 정밀한 모션 캡처에서 공동 보행 특징을 학습했다면, SCAND는 자연스러운 공공장소의 로봇 시점과 조작 명령을 보존합니다. 하나는 사람 궤적의 구조가 강하고, 다른 하나는 배포 센서와 행동의 연결이 강합니다.
+[사람 사이 상호작용으로 다음 궤적을 예측한 방법](https://www.cs.cmu.edu/~jeanoh/16-785/papers/kuderer-rss2012-socially.pdf)이 정밀한 모션 캡처에서 공동 보행 특징을 학습했다면, SCAND는 자연스러운 공공장소의 로봇 시점과 조작 명령을 보존합니다. 하나는 사람 궤적의 구조가 강하고, 다른 하나는 배포 센서와 행동의 연결이 강합니다.
 
 ## 한 궤적에는 여러 센서 주기가 함께 들어 있어요
 

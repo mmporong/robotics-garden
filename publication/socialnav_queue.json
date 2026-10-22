@@ -252,9 +252,9 @@
       "filename": "2026-10-17_socialnav_social-momentum.md",
       "title": "사람 흐름을 방해하지 않는 행동을 측정하는 사회적 모멘텀",
       "source_url": "https://doi.org/10.1145/3495244",
-      "state": "approved",
+      "state": "published",
       "priority": 7,
-      "published_on": null,
+      "published_on": "2026-10-23",
       "reason": "통과 의도를 드러내는 움직임과 사람 참여 실험 근거를 살핀다."
     },
     {
@@ -282,9 +282,9 @@
       "filename": "2026-10-17_socialnav_scand.md",
       "title": "실물 원격조종 시연으로 사회적 주행을 배우는 데이터셋",
       "source_url": "https://arxiv.org/abs/2203.15041",
-      "state": "approved",
+      "state": "published",
       "priority": 8,
-      "published_on": null,
+      "published_on": "2026-10-23",
       "reason": "실물 원격조종 데이터의 학습 가능 범위와 라벨 한계를 다룬다."
     },
     {

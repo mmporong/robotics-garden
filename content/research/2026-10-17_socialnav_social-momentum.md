@@ -1,6 +1,6 @@
 ---
 title: "사람 흐름을 방해하지 않는 행동을 측정하는 사회적 모멘텀"
-date: 2026-10-17T10:27:02+09:00
+date: 2026-10-23T08:00:35+09:00
 tags:
   - social-navigation
   - legibility
@@ -8,8 +8,8 @@ tags:
   - human-robot-interaction
   - motion-planning
 description: "Social Momentum이 사람과 로봇의 좌우 통과 의도를 각운동량 부호로 표현하는 원리와 180명 영상 연구·105명 실물 연구의 결과와 한계를 분석한다."
-publish: false
-draft: true
+publish: true
+draft: false
 referenceKind: paper
 ---
 
