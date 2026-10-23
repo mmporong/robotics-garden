@@ -212,9 +212,9 @@
       "filename": "2026-10-17_socialnav_sarl.md",
       "title": "SARL이 군중 속 중요한 사람을 골라 본 방법",
       "source_url": "https://arxiv.org/abs/1809.08835",
-      "state": "approved",
+      "state": "published",
       "priority": 9,
-      "published_on": null,
+      "published_on": "2026-10-24",
       "reason": "군중의 중요한 상호작용을 고르는 학습 정책의 대표 사례를 읽는다."
     },
     {
@@ -722,9 +722,9 @@
       "filename": "2026-10-17_socialnav_socnav2.md",
       "title": "SocNav2가 움직임과 관계를 불편 점수로 묶은 데이터",
       "source_url": "https://danidevai.com/navigation/datasets/socnav2/",
-      "state": "approved",
+      "state": "published",
       "priority": 10,
-      "published_on": null,
+      "published_on": "2026-10-24",
       "reason": "움직임·관계에 대한 사람 평정이 무엇을 학습시키는지 살핀다."
     }
   ]
