@@ -1,6 +1,6 @@
 ---
 title: "언어모델을 저속 행동 점수기로 둔 사회적 로봇 주행"
-date: 2026-10-17T10:27:02+09:00
+date: 2026-10-25T08:00:11+09:00
 tags:
   - social-navigation
   - vision-language-model
@@ -8,8 +8,8 @@ tags:
   - human-robot-interaction
   - real-world-robotics
 description: "VLM-Social-Nav가 시각언어모델의 방향·속도 제안을 DWA 비용으로 바꾸는 구조와 TurtleBot 실물 네 장면·사용자 평가, 지연과 안전 경계를 분석한다."
-publish: false
-draft: true
+publish: true
+draft: false
 referenceKind: paper
 ---
 

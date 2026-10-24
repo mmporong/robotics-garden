@@ -312,9 +312,9 @@
       "filename": "2026-10-17_socialnav_sonic.md",
       "title": "SoNIC이 예측 오차를 주행 제약으로 바꾼 방법",
       "source_url": "https://arxiv.org/abs/2407.17460",
-      "state": "approved",
+      "state": "published",
       "priority": 11,
-      "published_on": null,
+      "published_on": "2026-10-25",
       "reason": "사람 경로 예측의 오차를 조건부 불확실성 제약으로 연결한다."
     },
     {
@@ -342,9 +342,9 @@
       "filename": "2026-10-17_socialnav_vlm-social-nav.md",
       "title": "언어모델을 저속 행동 점수기로 둔 사회적 로봇 주행",
       "source_url": "https://arxiv.org/abs/2404.00210",
-      "state": "approved",
+      "state": "published",
       "priority": 12,
-      "published_on": null,
+      "published_on": "2026-10-25",
       "reason": "느린 영상 의미 판단과 빠른 LiDAR 안전 계층을 분리하는 확장을 살핀다."
     },
     {
