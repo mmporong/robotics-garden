@@ -39,7 +39,7 @@ FORBIDDEN_SVG_TAGS = {
     "iframe", "object", "script", "set", "style", "video",
 }
 FORBIDDEN_CONTENT = re.compile(
-    r"<(?:script|iframe|object|embed|video|audio|canvas|svg)\b|\bon[a-z]+\s*=|javascript:|data:text/html",
+    r"<(?:script|style|link|iframe|object|embed|video|audio|canvas|svg)\b|\bsrcset\s*=|\bon[a-z]+\s*=|javascript:|data:text/html",
     re.IGNORECASE,
 )
 
@@ -391,6 +391,16 @@ def changed_article(mode: str, tree: Path, base: str, commit: str) -> Path:
     return tree / matches[0]
 
 
+def postpush_content_gate(summary: str, tree: Path, base: str, mode: str) -> dict[str, object] | None:
+    browser_verified = "브라우저 상호작용 검증: PASS" in summary
+    content_only = "브라우저 상호작용 검증 미실행:" in summary and "콘텐츠 전용 게이트 PASS" in summary
+    if browser_verified == content_only:
+        raise RuntimeError("success summary의 브라우저 검증 모드 표기가 없거나 서로 충돌합니다")
+    if content_only:
+        return verify_content_only(tree, base, mode)
+    return None
+
+
 def page_evidence(article: Path) -> tuple[str, str]:
     source = article.read_text(encoding="utf-8")
     title_match = re.search(r'^title:\s*["\']?(.+?)["\']?\s*$', source, re.MULTILINE)
@@ -439,12 +449,7 @@ def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | 
         raise RuntimeError(f"결과 커밋이 origin/main 이력에 없습니다: result={resolved} origin/main={remote}")
     if resolved == base or run(["git", "merge-base", "--is-ancestor", base, resolved], cwd=tree, check=False).returncode != 0:
         raise RuntimeError(f"결과 커밋이 실행 시작점 뒤에 있지 않습니다: base={base} result={resolved}")
-    gate = verify_content_only(tree, base, mode)
-    summary = str(result["summary"])
-    browser_verified = "브라우저 상호작용 검증: PASS" in summary
-    content_only = "브라우저 상호작용 검증 미실행:" in summary and "콘텐츠 전용 게이트 PASS" in summary
-    if not browser_verified and not content_only:
-        raise RuntimeError("success summary에 브라우저 검증 또는 콘텐츠 전용 대체 검증 결과가 없습니다")
+    gate = postpush_content_gate(str(result["summary"]), tree, base, mode)
     article = changed_article(mode, tree, base, resolved)
     expected_slug = article.relative_to(tree / "content").with_suffix("").as_posix()
     if expected_slug not in urllib.parse.unquote(public_url):
@@ -462,6 +467,8 @@ def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | 
                     raw_html = response.read().decode("utf-8", errors="replace")
                     rendered = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", raw_html)).split())
                     if title in rendered and evidence in rendered:
+                        if gate is None:
+                            return
                         media_ready = True
                         for media in gate["media"]:
                             name = Path(str(media)).name

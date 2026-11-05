@@ -163,12 +163,42 @@ class GardenPublishTests(unittest.TestCase):
                     publisher.verify_content_only(tree, base, "daily")
 
     def test_content_only_rejects_dynamic_html(self):
-        with tempfile.TemporaryDirectory() as temp_name:
-            tree = Path(temp_name)
-            base = self.make_content_repo(tree)
-            self.write_daily_article(tree, '<iframe src="https://example.com"></iframe>')
-            with self.assertRaisesRegex(RuntimeError, "동적·상호작용"):
-                publisher.verify_content_only(tree, base, "daily")
+        cases = {
+            "iframe": '<iframe src="https://example.com"></iframe>',
+            "style": "<style>.fig{color:red}</style>",
+            "link": '<link rel="stylesheet" href="x.css">',
+            "srcset": '<img src="../assets/example.png" srcset="../assets/example.png 2x">',
+        }
+        for name, markup in cases.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as temp_name:
+                tree = Path(temp_name)
+                base = self.make_content_repo(tree)
+                self.write_daily_article(tree, markup)
+                with self.assertRaisesRegex(RuntimeError, "동적·상호작용"):
+                    publisher.verify_content_only(tree, base, "daily")
+
+    def test_browser_verified_result_skips_content_only_gate(self):
+        with mock.patch.object(publisher, "verify_content_only") as gate:
+            result = publisher.postpush_content_gate(
+                "브라우저 상호작용 검증: PASS", Path("C:/tree"), "a" * 40, "daily"
+            )
+        self.assertIsNone(result)
+        gate.assert_not_called()
+
+    def test_content_only_result_runs_static_gate(self):
+        expected = {"media": ["content/assets/example.png"]}
+        with mock.patch.object(publisher, "verify_content_only", return_value=expected) as gate:
+            result = publisher.postpush_content_gate(
+                "브라우저 상호작용 검증 미실행: CUA browser host unavailable; 콘텐츠 전용 게이트 PASS",
+                Path("C:/tree"), "a" * 40, "daily",
+            )
+        self.assertEqual(result, expected)
+        gate.assert_called_once()
+
+    def test_success_without_single_verification_mode_is_rejected(self):
+        for summary in ("발행 성공", "브라우저 상호작용 검증: PASS; 브라우저 상호작용 검증 미실행: unavailable; 콘텐츠 전용 게이트 PASS"):
+            with self.subTest(summary=summary), self.assertRaisesRegex(RuntimeError, "모드 표기"):
+                publisher.postpush_content_gate(summary, Path("C:/tree"), "a" * 40, "daily")
 
     def test_content_only_rejects_unreferenced_new_media(self):
         with tempfile.TemporaryDirectory() as temp_name:
