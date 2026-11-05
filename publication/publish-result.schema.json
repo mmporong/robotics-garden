@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "reason", "summary", "public_url", "commit"],
+  "properties": {
+    "status": { "enum": ["success", "hold", "failure"] },
+    "reason": {
+      "enum": [
+        "published",
+        "already_published",
+        "no_candidate",
+        "insufficient_material",
+        "runtime_failed",
+        "gate_failed",
+        "deployment_failed"
+      ]
+    },
+    "summary": { "type": "string", "minLength": 1 },
+    "public_url": { "type": "string" },
+    "commit": { "type": "string" }
+  }
+}

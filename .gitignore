@@ -14,3 +14,4 @@ quartz/cli/tui/dist/
 
 .omc/
 .gstack/
+tools/__pycache__/
