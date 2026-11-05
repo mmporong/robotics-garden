@@ -128,7 +128,7 @@ Windows 발행용 최신 origin/main 격리 worktree는 다음 경로다.
 
 {contract}
 
-성공하면 status=success, reason=published, 실제 공개 URL과 origin/main에 push한 커밋 SHA를 기록한다. 정상 보류면 URL과 commit을 비운다. 실패도 URL과 commit을 비우고 실제 failure 사유를 쓴다. 최종 응답은 지정된 JSON schema만 따른다.
+새 글을 발행한 성공이면 status=success, reason=published, 실제 공개 URL과 origin/main에 push한 커밋 SHA를 기록한다. push 직전 다른 호스트가 같은 주기의 글을 먼저 발행한 것을 확인했다면 status=success, reason=already_published로 끝내고 URL과 commit을 비운다. 정상 보류와 실패도 URL과 commit을 비우며, 실제 reason을 쓴다. 최종 응답은 지정된 JSON schema만 따른다.
 """
 
 
@@ -374,9 +374,11 @@ def execute(mode: str) -> int:
                 failed = False
                 return 0
             finally:
-                if failed:
-                    save_failure_artifacts(tree, logs / f"{mode}_{stamp}.failure-artifacts", base)
-                cleanup_worktree(tree)
+                try:
+                    if failed:
+                        save_failure_artifacts(tree, logs / f"{mode}_{stamp}.failure-artifacts", base)
+                finally:
+                    cleanup_worktree(tree)
 
 
 def dry_run(mode: str) -> int:
@@ -387,9 +389,13 @@ def dry_run(mode: str) -> int:
 
 
 def main() -> int:
-    if sys.stdout is not None and hasattr(sys.stdout, "reconfigure"):
+    if sys.stdout is None:
+        sys.stdout = open(os.devnull, "w", encoding="utf-8")
+    if sys.stderr is None:
+        sys.stderr = open(os.devnull, "w", encoding="utf-8")
+    if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    if sys.stderr is not None and hasattr(sys.stderr, "reconfigure"):
+    if hasattr(sys.stderr, "reconfigure"):
         sys.stderr.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=("daily", "weekly"), default="daily")
@@ -403,8 +409,7 @@ def main() -> int:
     except Exception as exc:  # 예약 작업에는 traceback 대신 한 줄 실패를 남긴다.
         failure = {"status": "failure", "reason": "runtime_failed", "summary": str(exc), "public_url": "", "commit": ""}
         save_status(args.mode, failure)
-        if sys.stderr is not None:
-            print(f"garden_publish 실패: {exc}", file=sys.stderr)
+        print(f"garden_publish 실패: {exc}", file=sys.stderr)
         return 1
 
 

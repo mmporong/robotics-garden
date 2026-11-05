@@ -4,7 +4,7 @@ param()
 $ErrorActionPreference = "Stop"
 $repo = Split-Path -Parent $PSScriptRoot
 $runner = Join-Path $PSScriptRoot "garden_publish.py"
-$pythonConsole = (Get-Command python.exe -CommandType Application -ErrorAction Stop).Source
+$pythonConsole = (Get-Command python.exe -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
 $pythonWindow = Join-Path (Split-Path -Parent $pythonConsole) "pythonw.exe"
 $python = if (Test-Path -LiteralPath $pythonWindow -PathType Leaf) { $pythonWindow } else { $pythonConsole }
 
