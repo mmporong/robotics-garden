@@ -18,7 +18,9 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
+from pathlib import PurePosixPath
 
 KST = dt.timezone(dt.timedelta(hours=9))
 ROOT = Path(__file__).resolve().parent.parent
@@ -30,6 +32,16 @@ LOCK_STALE_AFTER = 6 * 60 * 60
 SITE_ROOT = "https://mmporong.github.io/robotics-garden/"
 SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
+RASTER_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif"}
+STATIC_IMAGE_EXTENSIONS = RASTER_EXTENSIONS | {".svg"}
+FORBIDDEN_SVG_TAGS = {
+    "a", "animate", "animateMotion", "animateTransform", "audio", "foreignObject",
+    "iframe", "object", "script", "set", "style", "video",
+}
+FORBIDDEN_CONTENT = re.compile(
+    r"<(?:script|iframe|object|embed|video|audio|canvas|svg)\b|\bon[a-z]+\s*=|javascript:|data:text/html",
+    re.IGNORECASE,
+)
 
 
 def run(args: list[str], *, cwd: Path | None = None, input_text: str | None = None,
@@ -110,7 +122,7 @@ def already_published(mode: str, tree: Path, now: dt.datetime | None = None) -> 
     return any(d.isocalendar()[:2] == (year, week) for d in published_dates(tree / "content/insights"))
 
 
-def prompt_for(mode: str, tree: Path) -> str:
+def prompt_for(mode: str, tree: Path, base: str = "<BASE_SHA>") -> str:
     contract = (PUBLICATION / ("daily-simulation.md" if mode == "daily" else "weekly-insight.md")).read_text(encoding="utf-8")
     label = "일간 시뮬레이션 리서치" if mode == "daily" else "주간 종합 인사이트"
     return f"""$publish {label}
@@ -123,6 +135,11 @@ Windows 발행용 최신 origin/main 격리 worktree는 다음 경로다.
 
 이 경로 안에서만 작성·검증·커밋·push한다. physical-ai-lab과 메인 체크아웃을 수정하지 않는다. worktree·clone을 더 만들지 않고 npm ci와 플러그인 설치를 실행하지 않는다. 준비된 node_modules와 .quartz를 사용한다.
 전역 Codex 모델·reasoning effort·설정을 바꾸지 않는다.
+
+브라우저 호스트를 사용할 수 있으면 publish 스킬의 기존 브라우저 상호작용 게이트를 수행한다. CUA browser host unavailable이면 브라우저 PASS를 만들지 말고 콘텐츠 전용 모드로 전환한다. 이때 작성 패스와 검증 패스를 분리하고, push 전에 아래 명령이 PASS해야 한다.
+python "{ROOT / 'tools/garden_publish.py'}" --verify-content-only --tree "{tree}" --base "{base}" --mode {mode}
+
+콘텐츠 전용 모드에서는 새 Markdown 한 편과 그 글이 참조하는 비상호작용 정적 미디어만 추가할 수 있다. 래스터 이미지와 실행 요소·이벤트·외부 참조가 없는 원문 정적 SVG만 허용한다. 기존 콘텐츠·기존 자산·Quartz·설정·패키지·CSS·JavaScript는 수정하지 않고, script·iframe·object·embed·새 도식 HTML을 넣지 않는다. audit_terms 결과 같은 검증 사이드카는 worktree 밖 PUBLISH_TMP_ROOT 또는 현재 실행의 로그 경로에 둔다. 브라우저 상호작용을 실행하지 못한 이유와 콘텐츠 전용 게이트 PASS를 success summary에 명시한다.
 
 아래 모드 계약을 모두 적용한다.
 
@@ -244,6 +261,127 @@ def save_status(mode: str, payload: dict[str, object]) -> None:
     )
 
 
+def changed_files(tree: Path, base: str) -> dict[str, str]:
+    changes: dict[str, str] = {}
+    output = git("diff", "--name-status", "--no-renames", base, cwd=tree)
+    for line in output.splitlines():
+        if not line.strip():
+            continue
+        status, path = line.split("\t", 1)
+        changes[path.replace("\\", "/")] = status
+    for path in git("ls-files", "--others", "--exclude-standard", cwd=tree).splitlines():
+        changes.setdefault(path.replace("\\", "/"), "A")
+    return changes
+
+
+def markdown_media_paths(article: Path) -> set[str]:
+    text = article.read_text(encoding="utf-8")
+    references = set(re.findall(r'<img\b[^>]*\bsrc=["\']([^"\']+)["\']', text, re.IGNORECASE))
+    references.update(re.findall(r"!\[[^\]]*\]\(<?([^\s)>]+)", text))
+    paths: set[str] = set()
+    for reference in references:
+        clean = urllib.parse.unquote(reference.split("?", 1)[0].split("#", 1)[0]).replace("\\", "/")
+        if "://" in clean or clean.startswith(("data:", "/")):
+            raise RuntimeError(f"콘텐츠 전용 미디어는 content/assets의 로컬 파일이어야 합니다: {reference}")
+        pure = PurePosixPath(clean)
+        if pure.suffix.lower() not in STATIC_IMAGE_EXTENSIONS or pure.parent.as_posix() != "../assets":
+            raise RuntimeError(f"허용되지 않은 미디어 참조입니다: {reference}")
+        paths.add(f"content/assets/{pure.name}")
+    return paths
+
+
+def validate_raster(path: Path, tree: Path) -> None:
+    script = (
+        "import sharp from 'sharp';"
+        "const p=process.argv[1];const m=await sharp(p).metadata();"
+        "if(!m.width||!m.height)process.exit(2);await sharp(p).raw().toBuffer();"
+    )
+    completed = run(
+        ["node", "--input-type=module", "-e", script, str(path)],
+        cwd=tree,
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise RuntimeError(f"래스터 미디어 디코딩 실패: {path.name}: {completed.stderr[-500:]}")
+
+
+def validate_inert_svg(path: Path) -> None:
+    source = path.read_text(encoding="utf-8")
+    if re.search(r"<!DOCTYPE|<!ENTITY", source, re.IGNORECASE):
+        raise RuntimeError(f"SVG에 DTD 또는 entity 선언이 있습니다: {path.name}")
+    try:
+        root = ET.fromstring(source)
+    except ET.ParseError as exc:
+        raise RuntimeError(f"SVG XML 파싱 실패: {path.name}: {exc}") from exc
+    local = lambda name: name.rsplit("}", 1)[-1]
+    if local(root.tag) != "svg":
+        raise RuntimeError(f"SVG 루트 요소가 아닙니다: {path.name}")
+    for element in root.iter():
+        tag = local(element.tag)
+        if tag in FORBIDDEN_SVG_TAGS:
+            raise RuntimeError(f"SVG에 실행·상호작용 요소가 있습니다: {tag}")
+        for attribute, value in element.attrib.items():
+            attr = local(attribute).lower()
+            lowered = value.lower().strip()
+            if attr.startswith("on") or attr == "href" or "javascript:" in lowered:
+                raise RuntimeError(f"SVG에 이벤트·링크 속성이 있습니다: {attr}")
+            for target in re.findall(r"url\(([^)]+)\)", value, re.IGNORECASE):
+                if not target.strip(" \"'").startswith("#"):
+                    raise RuntimeError("SVG에 외부 URL 참조가 있습니다")
+    width = root.attrib.get("width", "")
+    height = root.attrib.get("height", "")
+    view_box = root.attrib.get("viewBox", "")
+    numeric = lambda value: float(re.match(r"^[0-9]+(?:\.[0-9]+)?", value).group()) if re.match(r"^[0-9]+(?:\.[0-9]+)?", value) else 0
+    if not ((numeric(width) > 0 and numeric(height) > 0) or len(view_box.split()) == 4):
+        raise RuntimeError(f"SVG 크기를 확인할 수 없습니다: {path.name}")
+
+
+def validate_static_image(path: Path, tree: Path) -> None:
+    if path.suffix.lower() == ".svg":
+        validate_inert_svg(path)
+    else:
+        validate_raster(path, tree)
+
+
+def verify_content_only(tree: Path, base: str, mode: str) -> dict[str, object]:
+    if not tree.is_dir():
+        raise RuntimeError(f"worktree가 없습니다: {tree}")
+    git("cat-file", "-e", f"{base}^{{commit}}", cwd=tree)
+    changes = changed_files(tree, base)
+    prefix = "content/research/" if mode == "daily" else "content/insights/"
+    articles = [path for path, status in changes.items() if path.startswith(prefix) and path.endswith(".md") and not path.endswith("/index.md") and status == "A"]
+    if len(articles) != 1:
+        raise RuntimeError(f"새 {mode} Markdown이 정확히 한 편이어야 합니다: {articles}")
+    article_path = articles[0]
+    article = tree / article_path
+    article_text = article.read_text(encoding="utf-8")
+    if FORBIDDEN_CONTENT.search(article_text):
+        raise RuntimeError("콘텐츠 전용 글에 동적·상호작용 HTML 또는 실행 가능한 속성이 있습니다")
+    media_refs = markdown_media_paths(article)
+    minimum_media = 1 if mode == "daily" else 2
+    if len(media_refs) < minimum_media:
+        raise RuntimeError(f"{mode} 글에는 래스터 정적 미디어가 최소 {minimum_media}개 필요합니다")
+    allowed = {article_path, *media_refs}
+    unexpected = sorted(set(changes) - allowed)
+    if unexpected:
+        raise RuntimeError(f"콘텐츠 전용 허용 범위 밖 변경입니다: {unexpected}")
+    for path, status in changes.items():
+        if status != "A":
+            raise RuntimeError(f"기존 파일 수정·삭제는 허용되지 않습니다: {status} {path}")
+        if run(["git", "cat-file", "-e", f"{base}:{path}"], cwd=tree, check=False).returncode == 0:
+            raise RuntimeError(f"기준 커밋에 이미 있던 파일입니다: {path}")
+    new_media = {path for path in changes if path.startswith("content/assets/")}
+    if new_media - media_refs:
+        raise RuntimeError(f"새 글이 참조하지 않는 신규 미디어가 있습니다: {sorted(new_media - media_refs)}")
+    for media in media_refs:
+        media_path = tree / media
+        if not media_path.is_file():
+            raise RuntimeError(f"참조 미디어 파일이 없습니다: {media}")
+        if media in new_media:
+            validate_static_image(media_path, tree)
+    return {"mode": mode, "article": article_path, "media": sorted(media_refs), "changes": sorted(changes)}
+
+
 def changed_article(mode: str, tree: Path, base: str, commit: str) -> Path:
     prefix = "content/research/" if mode == "daily" else "content/insights/"
     names = git("diff", "--name-only", f"{base}..{commit}", cwd=tree).splitlines()
@@ -301,6 +439,12 @@ def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | 
         raise RuntimeError(f"결과 커밋이 origin/main 이력에 없습니다: result={resolved} origin/main={remote}")
     if resolved == base or run(["git", "merge-base", "--is-ancestor", base, resolved], cwd=tree, check=False).returncode != 0:
         raise RuntimeError(f"결과 커밋이 실행 시작점 뒤에 있지 않습니다: base={base} result={resolved}")
+    gate = verify_content_only(tree, base, mode)
+    summary = str(result["summary"])
+    browser_verified = "브라우저 상호작용 검증: PASS" in summary
+    content_only = "브라우저 상호작용 검증 미실행:" in summary and "콘텐츠 전용 게이트 PASS" in summary
+    if not browser_verified and not content_only:
+        raise RuntimeError("success summary에 브라우저 검증 또는 콘텐츠 전용 대체 검증 결과가 없습니다")
     article = changed_article(mode, tree, base, resolved)
     expected_slug = article.relative_to(tree / "content").with_suffix("").as_posix()
     if expected_slug not in urllib.parse.unquote(public_url):
@@ -315,10 +459,33 @@ def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | 
             request = urllib.request.Request(encoded_url, headers={"User-Agent": "robotics-garden-publisher/1.0"})
             with urllib.request.urlopen(request, timeout=20) as response:
                 if response.status == 200:
-                    rendered = response.read().decode("utf-8", errors="replace")
-                    rendered = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", rendered)).split())
+                    raw_html = response.read().decode("utf-8", errors="replace")
+                    rendered = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", raw_html)).split())
                     if title in rendered and evidence in rendered:
-                        return
+                        media_ready = True
+                        for media in gate["media"]:
+                            name = Path(str(media)).name
+                            if name not in urllib.parse.unquote(raw_html):
+                                media_ready = False
+                                last_error = f"공개 HTML에 미디어가 없음: {name}"
+                                break
+                            media_url = urllib.parse.urljoin(SITE_ROOT, "assets/" + urllib.parse.quote(name))
+                            try:
+                                with urllib.request.urlopen(
+                                    urllib.request.Request(media_url, headers={"User-Agent": "robotics-garden-publisher/1.0"}),
+                                    timeout=20,
+                                ) as media_response:
+                                    if media_response.status != 200 or not media_response.read(32):
+                                        media_ready = False
+                                        last_error = f"공개 미디어 응답 실패: {name}"
+                                        break
+                            except (urllib.error.URLError, TimeoutError) as exc:
+                                media_ready = False
+                                last_error = f"공개 미디어 확인 실패: {name}: {exc}"
+                                break
+                        if media_ready:
+                            return
+                        continue
                     last_error = "제목 또는 본문 고유 문장이 아직 배포되지 않음"
                     continue
                 last_error = f"HTTP {response.status}"
@@ -363,7 +530,7 @@ def execute(mode: str) -> int:
                     return 0
                 base = git("rev-parse", "HEAD", cwd=tree)
                 command = codex_command(find_codex(), tree, result_path)
-                returncode = run_codex(command, tree, prompt_for(mode, tree), events, errors)
+                returncode = run_codex(command, tree, prompt_for(mode, tree, base), events, errors)
                 if returncode != 0:
                     tail = errors.read_text(encoding="utf-8", errors="replace")[-1200:]
                     raise RuntimeError(f"Codex 실행 실패(exit {returncode}): {tail}")
@@ -401,10 +568,18 @@ def main() -> int:
     parser.add_argument("--mode", choices=("daily", "weekly"), default="daily")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--verify-content-only", action="store_true")
+    parser.add_argument("--tree", type=Path)
+    parser.add_argument("--base")
     args = parser.parse_args()
     try:
         if args.smoke:
             return smoke()
+        if args.verify_content_only:
+            if args.tree is None or not args.base:
+                raise RuntimeError("--verify-content-only에는 --tree와 --base가 필요합니다")
+            print(json.dumps(verify_content_only(args.tree.resolve(), args.base, args.mode), ensure_ascii=False, indent=2))
+            return 0
         return dry_run(args.mode) if args.dry_run else execute(args.mode)
     except Exception as exc:  # 예약 작업에는 traceback 대신 한 줄 실패를 남긴다.
         failure = {"status": "failure", "reason": "runtime_failed", "summary": str(exc), "public_url": "", "commit": ""}

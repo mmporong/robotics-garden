@@ -16,4 +16,10 @@
    push 직전에 `git fetch origin main`을 실행한다. 원격에 오늘 날짜의 `publish: true` 리서치가 생겼다면 새 글을 push하지 않고 `success/already_published`로 끝낸다. 다른 원격 커밋 때문에 rebase가 필요하면 최신 `origin/main`에 재배치한 뒤 오늘 글을 다시 확인한다. 이 자동화가 시작될 때부터 있던 글을 수정하거나 삭제하지 않는다.
 9. GitHub Pages 공개 URL에서 제목과 고유 문장을 확인한다. 후보가 없을 때만 `hold/no_candidate`, 작성·검증·push·배포 문제가 생기면 해당 failure로 끝낸다.
 
+## 브라우저 호스트가 없을 때
+
+CUA browser host unavailable이면 브라우저 검증을 통과한 것처럼 기록하지 않는다. 작성 패스와 별도의 검증 패스를 유지하면서 새 리서치 Markdown 한 편과 그 글이 참조하는 PNG·JPG·JPEG·GIF·WebP·AVIF 정적 이미지 추가만 허용한다. 원문이 제공한 SVG는 XML 검사에서 스크립트·애니메이션·링크·이벤트·외부 URL이 하나도 없는 정적 원그림일 때만 허용한다. 기존 글·기존 자산·Quartz·설정·패키지·CSS·JavaScript를 바꾸지 않고 script·iframe·object·embed·동영상·새 도식 HTML을 넣지 않는다.
+
+본문 분량, 대표 원문 하나, 중복, denylist, 어려운 용어의 첫 등장 설명, 이미지 실제 디코딩, 라이선스와 캡션 출처, `npm test`, `npx quartz build`, 빌드 HTML, `references.json`, 공개 HTML과 공개 미디어 응답 검증은 그대로 수행한다. 검증 기록은 worktree 밖에 둔다. success summary에는 `브라우저 상호작용 검증 미실행: CUA browser host unavailable`과 `콘텐츠 전용 게이트 PASS`를 모두 적는다.
+
 `publication/socialnav_queue.json`의 이전 예약 큐는 이번 시뮬레이션 일간 흐름의 입력이 아니다.

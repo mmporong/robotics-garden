@@ -19,6 +19,27 @@ SPEC.loader.exec_module(publisher)
 
 
 class GardenPublishTests(unittest.TestCase):
+    def make_content_repo(self, root: Path) -> str:
+        publisher.run(["git", "init", "-q"], cwd=root)
+        publisher.run(["git", "config", "user.email", "test@example.com"], cwd=root)
+        publisher.run(["git", "config", "user.name", "Test"], cwd=root)
+        for folder in ("content/research", "content/insights", "content/assets"):
+            (root / folder).mkdir(parents=True, exist_ok=True)
+        (root / "README.md").write_text("base\n", encoding="utf-8")
+        publisher.run(["git", "add", "README.md"], cwd=root)
+        publisher.run(["git", "commit", "-qm", "base"], cwd=root)
+        return publisher.git("rev-parse", "HEAD", cwd=root)
+
+    def write_daily_article(self, root: Path, body: str = "") -> Path:
+        article = root / "content/research/2026-11-05_example.md"
+        article.write_text(
+            "---\ntitle: example\ndate: 2026-11-05T08:00:00+09:00\npublish: true\n---\n\n"
+            '<figure><img src="../assets/example.png" alt="example"></figure>\n' + body,
+            encoding="utf-8",
+        )
+        (root / "content/assets/example.png").write_bytes(b"fake-png-for-mocked-decoder")
+        return article
+
     def test_lock_rejects_second_publisher_and_cleans_up(self):
         with tempfile.TemporaryDirectory() as temp_name:
             lock = Path(temp_name) / "publish.lock"
@@ -112,11 +133,77 @@ class GardenPublishTests(unittest.TestCase):
                 publisher.load_result(path)
 
     def test_prompt_pins_simulation_scope_and_single_repository(self):
-        prompt = publisher.prompt_for("daily", Path("C:/isolated/garden"))
+        prompt = publisher.prompt_for("daily", Path("C:/isolated/garden"), "abc123")
         self.assertIn("Isaac Sim", prompt)
         self.assertIn("OpenUSD", prompt)
         self.assertIn("physical-ai-lab과 메인 체크아웃을 수정하지 않는다", prompt)
         self.assertIn("하루에 한 편만 발행", prompt)
+        self.assertIn("--verify-content-only", prompt)
+        self.assertIn('--base "abc123"', prompt)
+
+    def test_content_only_accepts_one_article_and_referenced_raster(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            tree = Path(temp_name)
+            base = self.make_content_repo(tree)
+            self.write_daily_article(tree)
+            with mock.patch.object(publisher, "validate_raster") as decode:
+                result = publisher.verify_content_only(tree, base, "daily")
+            self.assertEqual(result["article"], "content/research/2026-11-05_example.md")
+            self.assertEqual(result["media"], ["content/assets/example.png"])
+            decode.assert_called_once()
+
+    def test_content_only_rejects_existing_file_modification(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            tree = Path(temp_name)
+            base = self.make_content_repo(tree)
+            self.write_daily_article(tree)
+            (tree / "README.md").write_text("changed\n", encoding="utf-8")
+            with mock.patch.object(publisher, "validate_raster"):
+                with self.assertRaisesRegex(RuntimeError, "허용 범위 밖"):
+                    publisher.verify_content_only(tree, base, "daily")
+
+    def test_content_only_rejects_dynamic_html(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            tree = Path(temp_name)
+            base = self.make_content_repo(tree)
+            self.write_daily_article(tree, '<iframe src="https://example.com"></iframe>')
+            with self.assertRaisesRegex(RuntimeError, "동적·상호작용"):
+                publisher.verify_content_only(tree, base, "daily")
+
+    def test_content_only_rejects_unreferenced_new_media(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            tree = Path(temp_name)
+            base = self.make_content_repo(tree)
+            self.write_daily_article(tree)
+            (tree / "content/assets/orphan.jpg").write_bytes(b"orphan")
+            with mock.patch.object(publisher, "validate_raster"):
+                with self.assertRaisesRegex(RuntimeError, "허용 범위 밖"):
+                    publisher.verify_content_only(tree, base, "daily")
+
+    def test_inert_svg_validator_accepts_static_original_figure(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            svg = Path(temp_name) / "figure.svg"
+            svg.write_text(
+                '<svg xmlns="http://www.w3.org/2000/svg" width="878.1" height="586.9">'
+                '<defs><clipPath id="clip"><rect width="20" height="20"/></clipPath></defs>'
+                '<g clip-path="url(#clip)"><path d="M0 0L20 20"/><text>solver</text></g></svg>',
+                encoding="utf-8",
+            )
+            publisher.validate_inert_svg(svg)
+
+    def test_inert_svg_validator_rejects_execution_and_links(self):
+        cases = {
+            "script": '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><script>x()</script></svg>',
+            "event": '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" onload="x()"/>',
+            "href": '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><image href="https://example.com/x.png"/></svg>',
+        }
+        with tempfile.TemporaryDirectory() as temp_name:
+            for name, source in cases.items():
+                with self.subTest(name=name):
+                    svg = Path(temp_name) / f"{name}.svg"
+                    svg.write_text(source, encoding="utf-8")
+                    with self.assertRaises(RuntimeError):
+                        publisher.validate_inert_svg(svg)
 
     def test_page_evidence_uses_rendered_link_text(self):
         with tempfile.TemporaryDirectory() as temp_name:

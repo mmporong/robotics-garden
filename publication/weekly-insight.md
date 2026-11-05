@@ -11,3 +11,9 @@
 7. `npm test`와 `npx quartz build`를 통과시키고 변경 파일만 커밋해 `origin main`에 push한 뒤 공개 URL에서 제목과 고유 문장을 확인한다.
 
 자료 부족만 정상 보류다. 도구·네트워크·검증·push·배포 문제는 failure다.
+
+## 브라우저 호스트가 없을 때
+
+CUA browser host unavailable이면 브라우저 검증을 통과한 것처럼 기록하지 않는다. 작성 패스와 별도의 검증 패스를 유지하면서 새 인사이트 Markdown 한 편과 그 글이 참조하는 PNG·JPG·JPEG·GIF·WebP·AVIF 정적 이미지 추가만 허용한다. 원문이 제공한 SVG는 XML 검사에서 스크립트·애니메이션·링크·이벤트·외부 URL이 하나도 없는 정적 원그림일 때만 허용한다. 기존 글·기존 자산·Quartz·설정·패키지·CSS·JavaScript를 바꾸지 않고 script·iframe·object·embed·동영상·새 도식 HTML을 넣지 않는다.
+
+두 편 이상의 시뮬레이션 리서치 종합, denylist, 어려운 용어의 첫 등장 설명, 이미지 실제 디코딩, 라이선스와 캡션 출처, `npm test`, `npx quartz build`, 빌드 HTML, 공개 HTML과 공개 미디어 응답 검증은 그대로 수행한다. 검증 기록은 worktree 밖에 둔다. success summary에는 `브라우저 상호작용 검증 미실행: CUA browser host unavailable`과 `콘텐츠 전용 게이트 PASS`를 모두 적는다.
