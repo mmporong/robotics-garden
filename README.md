@@ -51,10 +51,13 @@ Windows 작업 스케줄러에서 `tools/garden_publish.py`를 실행해요. `pu
 
 Windows 자동 발행 예약은 PowerShell에서 아래처럼 등록해요. 매일·매주 예약 시각에 로그인된 PC에서 실행하며, 놓친 예약은 실행 가능한 상태가 되면 이어서 처리해요. 다른 기기의 기존 예약은 별도로 중지해야 해요. 발행은 최신 원격에서 만든 작업 트리에서 수행하고, 같은 주기의 중복 발행을 확인해요. 로그와 최종 상태는 `%LOCALAPPDATA%\robotics-garden-publish\`에 남겨요.
 
+발행 작업은 Claude Code CLI(`claude.exe`)를 무인 모드로 실행하므로 예약 PC에 CLI를 설치하고 로그인해 둬야 해요. `--smoke`는 실제 발행과 같은 명령·기본 모델로 구조화 결과가 돌아오는지 확인해요.
+
 ```powershell
 cd "$HOME/robotics-garden"
 python tools/garden_publish.py --mode daily --dry-run
 python tools/garden_publish.py --mode weekly --dry-run
+python tools/garden_publish.py --smoke
 ./tools/register_garden_publish.ps1
 ```
 

@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import contextlib
 import datetime as dt
 import importlib.util
 import json
 import os
+import shutil
 import tempfile
 import time
 import unittest
@@ -141,6 +143,170 @@ class GardenPublishTests(unittest.TestCase):
         self.assertIn("--verify-content-only", prompt)
         self.assertIn('--base "abc123"', prompt)
 
+    def test_prompt_targets_claude_publish_skill_without_browser(self):
+        prompt = publisher.prompt_for("weekly", Path("C:/isolated/garden"), "abc123")
+        self.assertIn(".claude", prompt)
+        self.assertNotIn(".codex", prompt)
+        self.assertNotIn("Codex", prompt)
+        self.assertIn("브라우저를 열거나 앞으로 가져오지 않는다", prompt)
+        self.assertIn("브라우저 상호작용 검증 미실행:", prompt)
+        self.assertIn("콘텐츠 전용 게이트 PASS", prompt)
+
+    def test_claude_command_passes_schema_without_meta_declaration(self):
+        command = publisher.claude_command(Path("C:/bin/claude.exe"))
+        self.assertEqual(command[:2], [str(Path("C:/bin/claude.exe")), "-p"])
+        for flag in ("--no-session-persistence", "--dangerously-skip-permissions", "--verbose",
+                     "--strict-mcp-config", "--no-chrome"):
+            self.assertIn(flag, command)
+        self.assertEqual(command[command.index("--output-format") + 1], "stream-json")
+        schema = json.loads(command[command.index("--json-schema") + 1])
+        self.assertNotIn("$schema", schema)
+        self.assertEqual(set(schema["required"]), {"status", "reason", "summary", "public_url", "commit"})
+
+    def test_agent_environment_disables_auto_memory_and_drops_session_bindings(self):
+        inherited = {"CLAUDECODE": "1", "CLAUDE_CODE_SESSION_ID": "parent", "CLAUDE_CODE_MESSAGING_SOCKET": "sock",
+                     "CLAUDE_CODE_CHILD_NOTES_DIR": "C:/tmp/started",
+                     "CLAUDE_CODE_GIT_BASH_PATH": "C:/git/bash.exe", "PATH": "C:/bin"}
+        with mock.patch.dict(os.environ, inherited, clear=True):
+            env = publisher.agent_environment()
+        self.assertEqual(env["CLAUDE_CODE_DISABLE_AUTO_MEMORY"], "1")
+        for key in ("CLAUDECODE", "CLAUDE_CODE_SESSION_ID", "CLAUDE_CODE_MESSAGING_SOCKET", "CLAUDE_CODE_CHILD_NOTES_DIR"):
+            self.assertNotIn(key, env)
+        self.assertEqual(env["CLAUDE_CODE_GIT_BASH_PATH"], "C:/git/bash.exe")
+        self.assertEqual(env["PATH"], "C:/bin")
+
+    def test_prompt_summary_marks_satisfy_unattended_gate(self):
+        prompt = publisher.prompt_for("daily", Path("C:/isolated/garden"), "abc123")
+        summary = f"발행 완료. {publisher.CONTENT_ONLY_MARK} {publisher.UNATTENDED_REASON}; {publisher.CONTENT_GATE_PASS}"
+        self.assertIn(f"{publisher.CONTENT_ONLY_MARK} {publisher.UNATTENDED_REASON}", prompt)
+        self.assertIn(publisher.CONTENT_GATE_PASS, prompt)
+        # 금지 표기를 그대로 인용하면 에이전트가 summary에 옮겨 적어 게이트가 오판할 수 있다.
+        self.assertNotIn(publisher.BROWSER_PASS_MARK, prompt)
+        with mock.patch.object(publisher, "verify_content_only", return_value={"media": []}) as gate:
+            publisher.postpush_content_gate(summary, Path("C:/tree"), "a" * 40, "daily", require_content_only=True)
+        gate.assert_called_once()
+
+    def test_unattended_gate_rejects_browser_pass_claims(self):
+        summaries = (
+            f"{publisher.BROWSER_PASS_MARK}",
+            f"{publisher.BROWSER_PASS_MARK}; {publisher.CONTENT_ONLY_MARK} x; {publisher.CONTENT_GATE_PASS}",
+            "발행 성공",
+        )
+        for summary in summaries:
+            with self.subTest(summary=summary), mock.patch.object(publisher, "verify_content_only") as gate:
+                with self.assertRaisesRegex(RuntimeError, "콘텐츠 전용"):
+                    publisher.postpush_content_gate(summary, Path("C:/tree"), "a" * 40, "daily", require_content_only=True)
+                gate.assert_not_called()
+
+    def test_structured_result_comes_from_last_result_event(self):
+        expected = {"status": "hold", "reason": "no_candidate", "summary": "점검", "public_url": "", "commit": ""}
+        with tempfile.TemporaryDirectory() as temp_name:
+            events = Path(temp_name) / "events.jsonl"
+            events.write_text(
+                "\n".join([
+                    json.dumps({"type": "system", "subtype": "init"}),
+                    "not-json",
+                    json.dumps({"type": "result", "subtype": "success", "is_error": False,
+                                "structured_output": {"status": "failure"}}),
+                    json.dumps({"type": "result", "subtype": "success", "is_error": False,
+                                "structured_output": expected}, ensure_ascii=False),
+                ]),
+                encoding="utf-8",
+            )
+            result_path = Path(temp_name) / "result.json"
+            self.assertEqual(publisher.extract_structured_result(events, result_path), expected)
+            self.assertEqual(publisher.load_result(result_path), expected)
+
+    def test_structured_result_rejects_error_or_missing_output(self):
+        valid = {"status": "hold", "reason": "no_candidate", "summary": "점검", "public_url": "", "commit": ""}
+        cases = {
+            "missing-result": [json.dumps({"type": "assistant"})],
+            "error": [json.dumps({"type": "result", "subtype": "error_max_turns", "is_error": True})],
+            "no-structured": [json.dumps({"type": "result", "subtype": "success", "is_error": False, "result": "끝"})],
+            "error-with-structured": [json.dumps({"type": "result", "subtype": "success", "is_error": True,
+                                                  "structured_output": valid})],
+        }
+        for name, lines in cases.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as temp_name:
+                events = Path(temp_name) / "events.jsonl"
+                events.write_text("\n".join(lines), encoding="utf-8")
+                result_path = Path(temp_name) / "result.json"
+                with self.assertRaisesRegex(RuntimeError, "Claude"):
+                    publisher.extract_structured_result(events, result_path)
+                self.assertFalse(result_path.exists())
+
+    def test_nonzero_exit_keeps_result_event_and_stderr_diagnostics(self):
+        valid = {"status": "hold", "reason": "no_candidate", "summary": "점검", "public_url": "", "commit": ""}
+        with tempfile.TemporaryDirectory() as temp_name:
+            events = Path(temp_name) / "events.jsonl"
+            errors = Path(temp_name) / "stderr.log"
+            events.write_text(json.dumps({"type": "result", "subtype": "success", "is_error": True,
+                                          "result": "사용 한도에 도달했습니다"}, ensure_ascii=False), encoding="utf-8")
+            errors.write_text("[claude-code:rate_limit]\n", encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, r"exit 1.*사용 한도에 도달했습니다.*rate_limit"):
+                publisher.extract_structured_result(events, Path(temp_name) / "result.json", 1, errors)
+            events.write_text(json.dumps({"type": "result", "subtype": "success", "is_error": False,
+                                          "structured_output": valid}), encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "exit 2"):
+                publisher.extract_structured_result(events, Path(temp_name) / "result.json", 2, errors)
+
+    def run_execute_with_agent(self, agent_events: list[dict[str, object]], returncode: int):
+        """worktree·git·Claude 실행을 대신하고 execute()의 성공·실패 기록 흐름만 확인한다."""
+        state = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, state, ignore_errors=True)
+        tree = state / "tree"
+        tree.mkdir()
+
+        def fake_agent(command, worktree, prompt, events, errors):
+            events.write_text("\n".join(json.dumps(event, ensure_ascii=False) for event in agent_events), encoding="utf-8")
+            errors.write_text("", encoding="utf-8")
+            return returncode
+
+        with mock.patch.object(publisher, "STATE_ROOT", state), \
+                mock.patch.object(publisher, "exclusive_lock", side_effect=lambda: contextlib.nullcontext()), \
+                mock.patch.object(publisher, "prepare_worktree", return_value=tree), \
+                mock.patch.object(publisher, "already_published", return_value=False), \
+                mock.patch.object(publisher, "git", return_value="a" * 40), \
+                mock.patch.object(publisher, "find_claude", return_value=Path("C:/bin/claude.exe")), \
+                mock.patch.object(publisher, "run_agent", side_effect=fake_agent), \
+                mock.patch.object(publisher, "verify_result") as verify, \
+                mock.patch.object(publisher, "save_status") as save_status, \
+                mock.patch.object(publisher, "save_failure_artifacts") as save_failure, \
+                mock.patch.object(publisher, "cleanup_worktree") as cleanup:
+            outcome: object
+            try:
+                outcome = publisher.execute("daily")
+            except RuntimeError as exc:
+                outcome = exc
+        return outcome, verify, save_status, save_failure, cleanup
+
+    def test_execute_records_failure_artifacts_for_agent_failures(self):
+        cases = {
+            "exit-1-is-error": ([{"type": "result", "subtype": "success", "is_error": True, "result": "모델 오류"}], 1),
+            "no-result": ([{"type": "system", "subtype": "init"}], 0),
+            "no-structured": ([{"type": "result", "subtype": "success", "is_error": False, "result": "끝"}], 0),
+        }
+        for name, (events, code) in cases.items():
+            with self.subTest(name=name):
+                outcome, verify, save_status, save_failure, cleanup = self.run_execute_with_agent(events, code)
+                self.assertIsInstance(outcome, RuntimeError)
+                self.assertIn("Claude 실행 실패", str(outcome))
+                verify.assert_not_called()
+                save_status.assert_not_called()
+                save_failure.assert_called_once()
+                cleanup.assert_called_once()
+
+    def test_execute_success_requires_content_only_gate(self):
+        hold = {"status": "hold", "reason": "no_candidate", "summary": "후보 없음", "public_url": "", "commit": ""}
+        outcome, verify, save_status, save_failure, cleanup = self.run_execute_with_agent(
+            [{"type": "result", "subtype": "success", "is_error": False, "structured_output": hold}], 0
+        )
+        self.assertEqual(outcome, 0)
+        self.assertTrue(verify.call_args.kwargs["require_content_only"])
+        save_status.assert_called_once_with("daily", hold)
+        save_failure.assert_not_called()
+        cleanup.assert_called_once()
+
     def test_content_only_accepts_one_article_and_referenced_raster(self):
         with tempfile.TemporaryDirectory() as temp_name:
             tree = Path(temp_name)
@@ -189,7 +355,7 @@ class GardenPublishTests(unittest.TestCase):
         expected = {"media": ["content/assets/example.png"]}
         with mock.patch.object(publisher, "verify_content_only", return_value=expected) as gate:
             result = publisher.postpush_content_gate(
-                "브라우저 상호작용 검증 미실행: CUA browser host unavailable; 콘텐츠 전용 게이트 PASS",
+                "브라우저 상호작용 검증 미실행: 무인 Claude 실행; 콘텐츠 전용 게이트 PASS",
                 Path("C:/tree"), "a" * 40, "daily",
             )
         self.assertEqual(result, expected)

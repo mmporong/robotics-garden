@@ -31,6 +31,16 @@ LOCK = STATE_ROOT / "publish.lock"
 LOCK_STALE_AFTER = 6 * 60 * 60
 SITE_ROOT = "https://mmporong.github.io/robotics-garden/"
 SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
+# 프롬프트와 push 후 게이트가 같은 표기를 쓰도록 summary 계약 문구를 한곳에 둔다.
+BROWSER_PASS_MARK = "브라우저 상호작용 검증: PASS"
+CONTENT_ONLY_MARK = "브라우저 상호작용 검증 미실행:"
+CONTENT_GATE_PASS = "콘텐츠 전용 게이트 PASS"
+UNATTENDED_REASON = "무인 Claude 실행"
+# 호출한 Claude 세션에 묶인 변수다. 수동 실행 때 자식 CLI가 부모 세션의 메시징·감독 상태를 물려받지 않게 뺀다.
+SESSION_BOUND_ENV = (
+    "CLAUDECODE", "CLAUDE_CODE_SESSION_ID", "CLAUDE_CODE_MESSAGING_SOCKET", "CLAUDE_CODE_MESSAGING_TOKEN",
+    "CLAUDE_CODE_CHILD_SESSION", "CLAUDE_CODE_SESSION_ATTENDED", "CLAUDE_PID", "CLAUDE_CODE_ENTRYPOINT",
+)
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
 RASTER_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif"}
 STATIC_IMAGE_EXTENSIONS = RASTER_EXTENSIONS | {".svg"}
@@ -64,18 +74,16 @@ def git(*args: str, cwd: Path = ROOT, check: bool = True) -> str:
     return run(["git", *args], cwd=cwd, check=check).stdout.strip()
 
 
-def find_codex() -> Path:
-    local = os.environ.get("LOCALAPPDATA")
-    candidates = []
-    if local:
-        candidates.append(Path(local) / "Programs/OpenAI/Codex/bin/codex.exe")
-    found = shutil.which("codex.exe") or shutil.which("codex.cmd") or shutil.which("codex")
+def find_claude() -> Path:
+    candidates = [Path.home() / ".local/bin/claude.exe"]
+    # .cmd 래퍼는 cmd.exe를 거쳐 --json-schema 인자의 %·^ 같은 문자를 해석할 수 있어 마지막 대안으로만 둔다.
+    found = shutil.which("claude.exe") or shutil.which("claude.cmd") or shutil.which("claude")
     if found:
         candidates.append(Path(found))
     for candidate in candidates:
         if candidate.is_file():
             return candidate.resolve()
-    raise RuntimeError("Codex CLI를 찾지 못했습니다")
+    raise RuntimeError("Claude Code CLI를 찾지 못했습니다")
 
 
 @contextlib.contextmanager
@@ -125,37 +133,96 @@ def already_published(mode: str, tree: Path, now: dt.datetime | None = None) -> 
 def prompt_for(mode: str, tree: Path, base: str = "<BASE_SHA>") -> str:
     contract = (PUBLICATION / ("daily-simulation.md" if mode == "daily" else "weekly-insight.md")).read_text(encoding="utf-8")
     label = "일간 시뮬레이션 리서치" if mode == "daily" else "주간 종합 인사이트"
-    return f"""$publish {label}
+    return f"""publish 스킬로 {label} 한 편을 발행한다.
 
 무인 자동 발행이다. 사용자 확인을 기다리거나 외부 메시지·알림을 보내지 말고 성공·보류·실패 중 하나가 확정될 때까지 진행한다.
-현재 Codex publish 스킬과 {Path.home() / '.codex/skills/publish/SKILL.md'} 전체, {ROOT / 'AGENTS.md'}와 {tree / 'STYLE_GUIDE.md'}를 읽고 따른다.
+Skill 도구로 publish 스킬을 불러오고, {Path.home() / '.claude/skills/publish/SKILL.md'} 전체, {ROOT / 'AGENTS.md'}와 {tree / 'STYLE_GUIDE.md'}를 읽고 따른다.
 
 Windows 발행용 최신 origin/main 격리 worktree는 다음 경로다.
 {tree}
 
 이 경로 안에서만 작성·검증·커밋·push한다. physical-ai-lab과 메인 체크아웃을 수정하지 않는다. worktree·clone을 더 만들지 않고 npm ci와 플러그인 설치를 실행하지 않는다. 준비된 node_modules와 .quartz를 사용한다.
-전역 Codex 모델·reasoning effort·설정을 바꾸지 않는다.
+전역 Claude 설정·모델·플러그인·예약 작업을 바꾸지 않는다.
 
-브라우저 호스트를 사용할 수 있으면 publish 스킬의 기존 브라우저 상호작용 게이트를 수행한다. CUA browser host unavailable이면 브라우저 PASS를 만들지 말고 콘텐츠 전용 모드로 전환한다. 이때 작성 패스와 검증 패스를 분리하고, push 전에 아래 명령이 PASS해야 한다.
+무인 실행에서는 브라우저를 열거나 앞으로 가져오지 않는다. 브라우저 PASS를 만들지 말고 콘텐츠 전용 모드로 진행한다. 작성 패스와 검증 패스를 분리하고(검증은 작성하지 않은 서브에이전트나 별도 단계로), push 전에 아래 명령이 PASS해야 한다.
 python "{ROOT / 'tools/garden_publish.py'}" --verify-content-only --tree "{tree}" --base "{base}" --mode {mode}
 
-콘텐츠 전용 모드에서는 새 Markdown 한 편과 그 글이 참조하는 비상호작용 정적 미디어만 추가할 수 있다. 래스터 이미지와 실행 요소·이벤트·외부 참조가 없는 원문 정적 SVG만 허용한다. 기존 콘텐츠·기존 자산·Quartz·설정·패키지·CSS·JavaScript는 수정하지 않고, script·iframe·object·embed·새 도식 HTML을 넣지 않는다. audit_terms 결과 같은 검증 사이드카는 worktree 밖 PUBLISH_TMP_ROOT 또는 현재 실행의 로그 경로에 둔다. 브라우저 상호작용을 실행하지 못한 이유와 콘텐츠 전용 게이트 PASS를 success summary에 명시한다.
+콘텐츠 전용 모드에서는 새 Markdown 한 편과 그 글이 참조하는 비상호작용 정적 미디어만 추가할 수 있다. 래스터 이미지와 실행 요소·이벤트·외부 참조가 없는 원문 정적 SVG만 허용한다. 기존 콘텐츠·기존 자산·Quartz·설정·패키지·CSS·JavaScript는 수정하지 않고, script·iframe·object·embed·새 도식 HTML을 넣지 않는다. audit_terms 결과 같은 검증 사이드카는 worktree 밖 {STATE_ROOT / 'logs'} 아래에 둔다. 성공 summary에는 `{CONTENT_ONLY_MARK} {UNATTENDED_REASON}`과 `{CONTENT_GATE_PASS}`를 모두 적고, 브라우저 검증을 통과했다는 표기는 쓰지 않는다.
 
 아래 모드 계약을 모두 적용한다.
 
 {contract}
 
-새 글을 발행한 성공이면 status=success, reason=published, 실제 공개 URL과 origin/main에 push한 커밋 SHA를 기록한다. push 직전 다른 호스트가 같은 주기의 글을 먼저 발행한 것을 확인했다면 status=success, reason=already_published로 끝내고 URL과 commit을 비운다. 정상 보류와 실패도 URL과 commit을 비우며, 실제 reason을 쓴다. 최종 응답은 지정된 JSON schema만 따른다.
+새 글을 발행한 성공이면 status=success, reason=published, 실제 공개 URL과 origin/main에 push한 커밋 SHA를 기록한다. push 직전 다른 호스트가 같은 주기의 글을 먼저 발행한 것을 확인했다면 status=success, reason=already_published로 끝내고 URL과 commit을 비운다. 정상 보류와 실패도 URL과 commit을 비우며, 실제 reason을 쓴다. 최종 결과는 지정된 JSON schema의 구조화 출력으로만 반환한다.
 """
 
 
-def codex_command(codex: Path, tree: Path, result: Path) -> list[str]:
+def result_schema() -> str:
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    # Claude CLI의 --json-schema 검증기는 2020-12 메타스키마 선언($schema)을 거부한다.
+    schema.pop("$schema", None)
+    return json.dumps(schema, ensure_ascii=False, separators=(",", ":"))
+
+
+def claude_command(claude: Path) -> list[str]:
     return [
-        str(codex), "exec", "--ephemeral",
-        "-c", 'approval_policy="never"', "--sandbox", "danger-full-access",
-        "--cd", str(tree), "--output-schema", str(SCHEMA),
-        "--output-last-message", str(result), "--json", "-",
+        str(claude), "-p",
+        "--output-format", "stream-json", "--verbose",
+        "--no-session-persistence", "--dangerously-skip-permissions",
+        # MCP 서버와 Chrome 연동을 싣지 않아 무인 실행이 사용자 브라우저를 쓰지 못하게 한다.
+        "--strict-mcp-config", "--no-chrome",
+        "--json-schema", result_schema(),
     ]
+
+
+def agent_environment() -> dict[str, str]:
+    env = {
+        key: value for key, value in os.environ.items()
+        if key not in SESSION_BOUND_ENV and not key.startswith("CLAUDE_CODE_CHILD_")
+    }
+    # 실행마다 임시 worktree 경로가 달라, 자동 메모리를 기록하면 경로별 메모리 폴더가 따로 생긴다.
+    env["CLAUDE_CODE_DISABLE_AUTO_MEMORY"] = "1"
+    return env
+
+
+def extract_structured_result(events: Path, result: Path, returncode: int = 0,
+                              errors: Path | None = None) -> dict[str, object]:
+    """마지막 result 이벤트에서 구조화 결과를 꺼낸다.
+
+    CLI는 is_error 결과를 낸 뒤 비정상 종료하므로, 종료 코드와 관계없이 result 이벤트의 진단을 먼저 읽어
+    실패 메시지에 남긴다.
+    """
+    final: dict[str, object] | None = None
+    for line in events.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(event, dict) and event.get("type") == "result":
+            final = event
+    structured = final.get("structured_output") if final is not None else None
+    if returncode == 0 and final is not None and not final.get("is_error") and isinstance(structured, dict):
+        result.write_text(json.dumps(structured, ensure_ascii=False, indent=2), encoding="utf-8")
+        return structured
+    details = [f"exit {returncode}"]
+    if final is None:
+        details.append("최종 result 이벤트 없음")
+    else:
+        details.append(
+            f"subtype={final.get('subtype')} is_error={final.get('is_error')} stop_reason={final.get('stop_reason')}"
+        )
+        if not isinstance(structured, dict):
+            details.append("구조화 결과 없음")
+        if final.get("result"):
+            details.append(f"result={str(final.get('result'))[-400:]}")
+    if errors is not None and errors.exists():
+        stderr_tail = errors.read_text(encoding="utf-8", errors="replace").strip()[-600:]
+        if stderr_tail:
+            details.append(f"stderr={stderr_tail}")
+    raise RuntimeError("Claude 실행 실패: " + " | ".join(details))
 
 
 def link_directory(link: Path, target: Path) -> None:
@@ -195,14 +262,14 @@ def load_result(path: Path) -> dict[str, object]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
-        raise RuntimeError(f"Codex 결과 JSON을 읽지 못했습니다: {exc}") from exc
+        raise RuntimeError(f"발행 결과 JSON을 읽지 못했습니다: {exc}") from exc
     required = {"status", "reason", "summary", "public_url", "commit"}
     if not isinstance(value, dict) or set(value) != required or not isinstance(value["summary"], str) or not value["summary"].strip():
-        raise RuntimeError("Codex 결과 계약이 맞지 않습니다")
+        raise RuntimeError("발행 결과 계약이 맞지 않습니다")
     return value
 
 
-def run_codex(command: list[str], tree: Path, prompt: str, events: Path, errors: Path,
+def run_agent(command: list[str], tree: Path, prompt: str, events: Path, errors: Path,
               timeout: int = 5 * 60 * 60) -> int:
     with events.open("w", encoding="utf-8") as stdout, errors.open("w", encoding="utf-8") as stderr:
         process = subprocess.Popen(
@@ -216,6 +283,7 @@ def run_codex(command: list[str], tree: Path, prompt: str, events: Path, errors:
             errors="replace",
             shell=False,
             creationflags=NO_WINDOW,
+            env=agent_environment(),
         )
         try:
             process.communicate(input=prompt, timeout=timeout)
@@ -230,7 +298,7 @@ def run_codex(command: list[str], tree: Path, prompt: str, events: Path, errors:
                 except subprocess.TimeoutExpired:
                     process.kill()
                     process.wait()
-            raise RuntimeError("Codex 실행이 5시간 제한을 넘었습니다")
+            raise RuntimeError("Claude 실행이 5시간 제한을 넘었습니다")
         return process.returncode
 
 
@@ -391,9 +459,15 @@ def changed_article(mode: str, tree: Path, base: str, commit: str) -> Path:
     return tree / matches[0]
 
 
-def postpush_content_gate(summary: str, tree: Path, base: str, mode: str) -> dict[str, object] | None:
-    browser_verified = "브라우저 상호작용 검증: PASS" in summary
-    content_only = "브라우저 상호작용 검증 미실행:" in summary and "콘텐츠 전용 게이트 PASS" in summary
+def postpush_content_gate(summary: str, tree: Path, base: str, mode: str,
+                          require_content_only: bool = False) -> dict[str, object] | None:
+    browser_verified = BROWSER_PASS_MARK in summary
+    content_only = CONTENT_ONLY_MARK in summary and CONTENT_GATE_PASS in summary
+    if require_content_only:
+        # 무인 실행에는 브라우저 도구가 없으므로 브라우저 PASS 주장은 콘텐츠 게이트 우회 시도로 본다.
+        if browser_verified or not content_only:
+            raise RuntimeError("무인 실행 결과는 콘텐츠 전용 게이트 표기만 허용합니다")
+        return verify_content_only(tree, base, mode)
     if browser_verified == content_only:
         raise RuntimeError("success summary의 브라우저 검증 모드 표기가 없거나 서로 충돌합니다")
     if content_only:
@@ -418,7 +492,8 @@ def page_evidence(article: Path) -> tuple[str, str]:
     return title_match.group(1), evidence
 
 
-def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | None = None) -> None:
+def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | None = None,
+                  require_content_only: bool = False) -> None:
     status = result["status"]
     reason = result["reason"]
     public_url = result["public_url"]
@@ -449,7 +524,7 @@ def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | 
         raise RuntimeError(f"결과 커밋이 origin/main 이력에 없습니다: result={resolved} origin/main={remote}")
     if resolved == base or run(["git", "merge-base", "--is-ancestor", base, resolved], cwd=tree, check=False).returncode != 0:
         raise RuntimeError(f"결과 커밋이 실행 시작점 뒤에 있지 않습니다: base={base} result={resolved}")
-    gate = postpush_content_gate(str(result["summary"]), tree, base, mode)
+    gate = postpush_content_gate(str(result["summary"]), tree, base, mode, require_content_only)
     article = changed_article(mode, tree, base, resolved)
     expected_slug = article.relative_to(tree / "content").with_suffix("").as_posix()
     if expected_slug not in urllib.parse.unquote(public_url):
@@ -501,14 +576,29 @@ def verify_result(result: dict[str, object], mode: str, tree: Path, base: str | 
     raise RuntimeError(f"공개 URL 확인 실패: {last_error}")
 
 
+SMOKE_PROMPT = (
+    "읽기 전용 연결 점검이다. 도구를 쓰지 말고 파일·Git·외부 서비스를 변경하지 않는다. "
+    "구조화 결과로 status=hold, reason=no_candidate, summary=AUTOMATION_SMOKE_OK, public_url=\"\", commit=\"\"을 반환한다."
+)
+
+
 def smoke() -> int:
-    codex = find_codex()
-    completed = run(
-        [str(codex), "exec", "--ephemeral", "--sandbox", "read-only", "--cd", str(ROOT), "-"],
-        input_text="읽기 전용 연결 점검이다. 파일·Git·외부 서비스를 변경하지 말고 AUTOMATION_SMOKE_OK만 출력한다.",
-    )
-    if "AUTOMATION_SMOKE_OK" not in completed.stdout:
-        raise RuntimeError("Codex 스모크 응답이 맞지 않습니다")
+    """실제 발행과 같은 명령·환경·기본 모델로 구조화 결과 경로를 점검한다. 도구는 끈다."""
+    command = claude_command(find_claude()) + ["--tools", ""]
+    # 시간 초과 때 남은 훅 프로세스가 로그를 잡고 있어도 정리 오류가 원래 예외를 가리지 않게 한다.
+    with tempfile.TemporaryDirectory(prefix="smoke-", ignore_cleanup_errors=True) as temp_name:
+        temp = Path(temp_name)
+        events, errors, result_path = temp / "events.jsonl", temp / "stderr.log", temp / "result.json"
+        with events.open("w", encoding="utf-8") as stdout, errors.open("w", encoding="utf-8") as stderr:
+            completed = subprocess.run(
+                command, input=SMOKE_PROMPT, text=True, encoding="utf-8", errors="replace",
+                stdout=stdout, stderr=stderr, cwd=ROOT, env=agent_environment(),
+                timeout=300, shell=False, creationflags=NO_WINDOW,
+            )
+        result = extract_structured_result(events, result_path, completed.returncode, errors)
+        load_result(result_path)
+        if result.get("status") != "hold" or result.get("summary") != "AUTOMATION_SMOKE_OK":
+            raise RuntimeError(f"Claude 스모크 구조화 결과가 맞지 않습니다: {result}")
     print("AUTOMATION_SMOKE_OK")
     return 0
 
@@ -536,13 +626,11 @@ def execute(mode: str) -> int:
                     failed = False
                     return 0
                 base = git("rev-parse", "HEAD", cwd=tree)
-                command = codex_command(find_codex(), tree, result_path)
-                returncode = run_codex(command, tree, prompt_for(mode, tree, base), events, errors)
-                if returncode != 0:
-                    tail = errors.read_text(encoding="utf-8", errors="replace")[-1200:]
-                    raise RuntimeError(f"Codex 실행 실패(exit {returncode}): {tail}")
+                command = claude_command(find_claude())
+                returncode = run_agent(command, tree, prompt_for(mode, tree, base), events, errors)
+                extract_structured_result(events, result_path, returncode, errors)
                 result = load_result(result_path)
-                verify_result(result, mode, tree, base)
+                verify_result(result, mode, tree, base, require_content_only=True)
                 save_status(mode, result)
                 print(json.dumps(result, ensure_ascii=False))
                 failed = False
@@ -557,8 +645,7 @@ def execute(mode: str) -> int:
 
 def dry_run(mode: str) -> int:
     planned = Path("<LOCALAPPDATA>") / "robotics-garden-publish" / f"{mode}-<timestamp>" / "garden"
-    codex = find_codex()
-    print(json.dumps({"mode": mode, "command": codex_command(codex, planned, Path("<result.json>")), "prompt": prompt_for(mode, planned)}, ensure_ascii=False, indent=2))
+    print(json.dumps({"mode": mode, "command": claude_command(find_claude()), "prompt": prompt_for(mode, planned)}, ensure_ascii=False, indent=2))
     return 0
 
 
