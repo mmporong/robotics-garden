@@ -163,13 +163,15 @@ class GardenPublishTests(unittest.TestCase):
         self.assertNotIn("$schema", schema)
         self.assertEqual(set(schema["required"]), {"status", "reason", "summary", "public_url", "commit"})
 
-    def test_agent_environment_disables_auto_memory_and_drops_session_bindings(self):
+    def test_agent_environment_disables_memory_and_background_and_drops_session_bindings(self):
         inherited = {"CLAUDECODE": "1", "CLAUDE_CODE_SESSION_ID": "parent", "CLAUDE_CODE_MESSAGING_SOCKET": "sock",
-                     "CLAUDE_CODE_CHILD_NOTES_DIR": "C:/tmp/started",
+                     "CLAUDE_CODE_CHILD_NOTES_DIR": "C:/tmp/started", "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "0",
                      "CLAUDE_CODE_GIT_BASH_PATH": "C:/git/bash.exe", "PATH": "C:/bin"}
         with mock.patch.dict(os.environ, inherited, clear=True):
             env = publisher.agent_environment()
         self.assertEqual(env["CLAUDE_CODE_DISABLE_AUTO_MEMORY"], "1")
+        # 검토 서브에이전트가 백그라운드로 넘어가면 결과 강제 반환이 검토보다 먼저 온다.
+        self.assertEqual(env["CLAUDE_CODE_DISABLE_BACKGROUND_TASKS"], "1")
         for key in ("CLAUDECODE", "CLAUDE_CODE_SESSION_ID", "CLAUDE_CODE_MESSAGING_SOCKET", "CLAUDE_CODE_CHILD_NOTES_DIR"):
             self.assertNotIn(key, env)
         self.assertEqual(env["CLAUDE_CODE_GIT_BASH_PATH"], "C:/git/bash.exe")

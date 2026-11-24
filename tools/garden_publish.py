@@ -147,6 +147,8 @@ Windows 발행용 최신 origin/main 격리 worktree는 다음 경로다.
 무인 실행에서는 브라우저를 열거나 앞으로 가져오지 않는다. 브라우저 PASS를 만들지 말고 콘텐츠 전용 모드로 진행한다. 작성 패스와 검증 패스를 분리하고(검증은 작성하지 않은 서브에이전트나 별도 단계로), push 전에 아래 명령이 PASS해야 한다.
 python "{ROOT / 'tools/garden_publish.py'}" --verify-content-only --tree "{tree}" --base "{base}" --mode {mode}
 
+검증 서브에이전트와 오래 걸리는 명령은 포그라운드로 실행하고 결과를 받기 전에 응답을 끝내지 않는다. 이 실행에서는 응답을 끝내는 즉시 최종 결과 반환이 강제된다. 그래도 독립 검증이 끝나기 전에 결과 반환을 요구받으면 status=failure, reason=runtime_failed로 반환하고, 검증 완료 알림이 오면 남은 수정·재검증·발행을 마친 뒤 최종 결과를 다시 반환한다. 마지막으로 반환한 결과만 기록된다.
+
 콘텐츠 전용 모드에서는 새 Markdown 한 편과 그 글이 참조하는 비상호작용 정적 미디어만 추가할 수 있다. 래스터 이미지와 실행 요소·이벤트·외부 참조가 없는 원문 정적 SVG만 허용한다. 기존 콘텐츠·기존 자산·Quartz·설정·패키지·CSS·JavaScript는 수정하지 않고, script·iframe·object·embed·새 도식 HTML을 넣지 않는다. audit_terms 결과 같은 검증 사이드카는 worktree 밖 {STATE_ROOT / 'logs'} 아래에 둔다. 성공 summary에는 `{CONTENT_ONLY_MARK} {UNATTENDED_REASON}`과 `{CONTENT_GATE_PASS}`를 모두 적고, 브라우저 검증을 통과했다는 표기는 쓰지 않는다.
 
 아래 모드 계약을 모두 적용한다.
@@ -182,6 +184,9 @@ def agent_environment() -> dict[str, str]:
     }
     # 실행마다 임시 worktree 경로가 달라, 자동 메모리를 기록하면 경로별 메모리 폴더가 따로 생긴다.
     env["CLAUDE_CODE_DISABLE_AUTO_MEMORY"] = "1"
+    # -p --json-schema 실행은 응답이 끝나는 즉시 구조화 결과를 강제한다. 검토 서브에이전트가 백그라운드로
+    # 넘어가면 결과를 받기 전에 failure를 반환하게 되므로(2026-11-24 일간 실행) 백그라운드 실행을 끈다.
+    env["CLAUDE_CODE_DISABLE_BACKGROUND_TASKS"] = "1"
     return env
 
 
